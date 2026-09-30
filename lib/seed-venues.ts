@@ -1,5 +1,6 @@
 import { Venue } from "@/models/venue";
 import { ServicePoint } from "@/models/service-point";
+import type { VenueItem } from "@/lib/venue-types";
 
 const INITIAL_VENUES = [
   {
@@ -74,32 +75,91 @@ const INITIAL_VENUES = [
   },
 ];
 
-export async function ensureSeededVenues() {
-  const count = await Venue.countDocuments();
-  if (count > 0) return;
+let seededCached = false;
 
-  for (const item of INITIAL_VENUES) {
-    const { counters, ...venueData } = item;
-    const venue = await Venue.create({
-      ...venueData,
-      servicePoints: [],
-    });
+export function getFallbackVenues(
+  category?: string | null,
+  query?: string | null,
+): VenueItem[] {
+  let list: VenueItem[] = INITIAL_VENUES.map((v) => ({
+    id: `venue-${v.slug}`,
+    _id: `venue-${v.slug}`,
+    name: v.name,
+    slug: v.slug,
+    category: v.category,
+    address: v.address,
+    city: v.city,
+    businessPhone: v.businessPhone,
+    gstNumber: v.gstNumber,
+    isVerified: v.isVerified,
+    isPublished: v.isPublished,
+    statusText: v.statusText,
+    totalWaitingCount: v.totalWaitingCount,
+    averageWaitMinutes: v.averageWaitMinutes,
+    servicePoints: v.counters.map((c, i) => ({
+      id: `sp-${v.slug}-${i}`,
+      _id: `sp-${v.slug}-${i}`,
+      name: c.name,
+      type: c.type as any,
+      currentQueueCount: c.count,
+      estimatedWaitMinutes: c.wait,
+      status: c.status as any,
+      delayMinutes: c.delay,
+    })),
+  }));
 
-    const spDocs = await Promise.all(
-      counters.map((c) =>
-        ServicePoint.create({
-          venueId: venue._id,
-          name: c.name,
-          type: c.type,
-          currentQueueCount: c.count,
-          estimatedWaitMinutes: c.wait,
-          status: c.status,
-          delayMinutes: c.delay,
-        })
-      )
-    );
-
-    venue.servicePoints = spDocs.map((sp) => sp._id);
-    await venue.save();
+  if (category && category !== "all") {
+    list = list.filter((v) => v.category === category);
   }
+
+  if (query) {
+    const q = query.toLowerCase();
+    list = list.filter(
+      (v) =>
+        v.name.toLowerCase().includes(q) ||
+        v.address.toLowerCase().includes(q) ||
+        v.city.toLowerCase().includes(q),
+    );
+  }
+
+  return list;
+}
+
+export async function ensureSeededVenues() {
+  if (seededCached) return;
+
+  try {
+    const count = await Venue.countDocuments();
+    if (count > 0) {
+      seededCached = true;
+      return;
+    }
+
+    for (const item of INITIAL_VENUES) {
+      const { counters, ...venueData } = item;
+      const venue = await Venue.create({
+        ...venueData,
+        servicePoints: [],
+      });
+
+      const spDocs = await Promise.all(
+        counters.map((c) =>
+          ServicePoint.create({
+            venueId: venue._id,
+            name: c.name,
+            type: c.type,
+            currentQueueCount: c.count,
+            estimatedWaitMinutes: c.wait,
+            status: c.status,
+            delayMinutes: c.delay,
+          }),
+        ),
+      );
+
+      venue.servicePoints = spDocs.map((sp) => sp._id);
+      await venue.save();
+    }
+
+    seededCached = true;
+  } catch {}
 }

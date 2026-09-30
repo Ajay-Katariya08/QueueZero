@@ -5,6 +5,7 @@ import { connectMongo } from "@/lib/mongodb";
 import { Venue } from "@/models/venue";
 import { ServicePoint } from "@/models/service-point";
 import { QueueReport } from "@/models/queue-report";
+import { getFallbackVenues } from "@/lib/seed-venues";
 
 export async function GET(
   _request: Request,
@@ -47,13 +48,36 @@ export async function GET(
         };
       });
 
+      const sanitized = JSON.parse(
+        JSON.stringify({
+          ...venue,
+          id: String(venue._id),
+          servicePoints: Array.isArray(venue.servicePoints)
+            ? venue.servicePoints.filter(Boolean).map((sp: any) => ({
+                ...sp,
+                id: String(sp._id || sp.id),
+              }))
+            : [],
+          recentReports,
+        })
+      );
+
       return NextResponse.json({
         success: true,
-        data: { ...venue, recentReports },
+        data: sanitized,
         source: "database",
       });
     }
   } catch {}
+
+  const fallback = getFallbackVenues().find((v) => v.slug === slug);
+  if (fallback) {
+    return NextResponse.json({
+      success: true,
+      data: fallback,
+      source: "fallback",
+    });
+  }
 
   return NextResponse.json({ error: "Venue not found" }, { status: 404 });
 }

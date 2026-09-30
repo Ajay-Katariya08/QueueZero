@@ -1,4 +1,5 @@
 import mongoose, { Schema, type Model } from "mongoose";
+import "@/models/service-point";
 
 export type VenueCategory =
   | "hospital"

@@ -58,10 +58,38 @@ export async function GET(
         averageWaitMinutes: venue.averageWaitMinutes,
       },
     });
-  } catch (error) {
+  } catch {
+    const { getFallbackVenues } = await import("@/lib/seed-venues");
+    const fallbackVenue = getFallbackVenues().find((v) => v.slug === slug);
+    if (fallbackVenue) {
+      const baseWait = fallbackVenue.averageWaitMinutes || 20;
+      const computedHourly = [
+        { hour: 8, label: "8:00 AM", waitMinutes: Math.round(baseWait * 0.4), busyness: "low" as const },
+        { hour: 9, label: "9:00 AM", waitMinutes: Math.round(baseWait * 0.9), busyness: "medium" as const },
+        { hour: 10, label: "10:00 AM", waitMinutes: Math.round(baseWait * 1.4), busyness: "peak" as const },
+        { hour: 11, label: "11:00 AM", waitMinutes: Math.round(baseWait * 1.6), busyness: "peak" as const },
+        { hour: 12, label: "12:00 PM", waitMinutes: Math.round(baseWait * 1.1), busyness: "high" as const },
+        { hour: 13, label: "1:00 PM", waitMinutes: Math.round(baseWait * 0.6), busyness: "low" as const },
+        { hour: 14, label: "2:00 PM", waitMinutes: Math.round(baseWait * 0.8), busyness: "medium" as const },
+        { hour: 15, label: "3:00 PM", waitMinutes: Math.round(baseWait * 1.2), busyness: "high" as const },
+        { hour: 16, label: "4:00 PM", waitMinutes: Math.round(baseWait * 1.3), busyness: "high" as const },
+        { hour: 17, label: "5:00 PM", waitMinutes: Math.round(baseWait * 0.5), busyness: "low" as const },
+      ];
+      return NextResponse.json({
+        success: true,
+        data: {
+          venueName: fallbackVenue.name,
+          hourlyStats: computedHourly,
+          bestVisitingTime: "8:00 AM – 9:00 AM (Avg wait: " + Math.round(baseWait * 0.4) + " min)",
+          totalWaitingNow: fallbackVenue.totalWaitingCount,
+          averageWaitMinutes: fallbackVenue.averageWaitMinutes,
+        },
+      });
+    }
+
     return NextResponse.json(
-      { error: (error as Error).message || "Failed to load stats" },
-      { status: 500 }
+      { error: "Failed to load stats" },
+      { status: 500 },
     );
   }
 }

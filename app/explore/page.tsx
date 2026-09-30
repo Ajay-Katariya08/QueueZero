@@ -39,6 +39,8 @@ export default function ExplorePage() {
   ];
 
   useEffect(() => {
+    const controller = new AbortController();
+
     async function loadVenues() {
       try {
         setLoading(true);
@@ -46,7 +48,9 @@ export default function ExplorePage() {
         if (selectedCat !== "all") params.set("category", selectedCat);
         if (search.trim()) params.set("q", search.trim());
 
-        const res = await fetch(`/api/venues?${params.toString()}`);
+        const res = await fetch(`/api/venues?${params.toString()}`, {
+          signal: controller.signal,
+        });
         if (res.ok) {
           const json = await res.json();
           setVenues(json.data || []);
@@ -61,7 +65,10 @@ export default function ExplorePage() {
       loadVenues();
     }, 200);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      controller.abort();
+    };
   }, [selectedCat, search]);
 
   const sorted = [...venues].sort((a, b) => {

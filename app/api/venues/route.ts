@@ -3,15 +3,21 @@ import { auth } from "@clerk/nextjs/server";
 import { connectMongo } from "@/lib/mongodb";
 import { Venue } from "@/models/venue";
 import { ServicePoint } from "@/models/service-point";
-import { ensureSeededVenues } from "@/lib/seed-venues";
+import { ensureSeededVenues, getFallbackVenues } from "@/lib/seed-venues";
 
 const GST_REGEX = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const query = searchParams.get("q")?.toLowerCase();
-  const category = searchParams.get("category");
-  const ownerId = searchParams.get("ownerId");
+  let category: string | null = null;
+  let query: string | null = null;
+  let ownerId: string | null = null;
+
+  try {
+    const url = new URL(request.url, "http://localhost:3000");
+    query = url.searchParams.get("q")?.toLowerCase() || null;
+    category = url.searchParams.get("category");
+    ownerId = url.searchParams.get("ownerId");
+  } catch {}
 
   try {
     await connectMongo();
@@ -40,12 +46,42 @@ export async function GET(request: Request) {
       .sort({ createdAt: -1 })
       .lean();
 
-    return NextResponse.json({ success: true, data: venues, source: "database" });
-  } catch (error) {
-    return NextResponse.json(
-      { error: (error as Error).message || "Failed to fetch venues", data: [] },
-      { status: 500 }
-    );
+    if (venues && (venues.length > 0 || ownerId)) {
+      const sanitized = JSON.parse(
+        JSON.stringify(
+          venues.map((v: any) => ({
+            ...v,
+            id: String(v._id),
+            servicePoints: Array.isArray(v.servicePoints)
+              ? v.servicePoints.filter(Boolean).map((sp: any) => ({
+                  ...sp,
+                  id: String(sp._id || sp.id),
+                }))
+              : [],
+          }))
+        )
+      );
+      return NextResponse.json({
+        success: true,
+        data: sanitized,
+        source: "database",
+      });
+    }
+  } catch {}
+
+  try {
+    const fallback = getFallbackVenues(category, query);
+    return NextResponse.json({
+      success: true,
+      data: fallback,
+      source: "fallback",
+    });
+  } catch {
+    return NextResponse.json({
+      success: true,
+      data: [],
+      source: "fallback",
+    });
   }
 }
 
