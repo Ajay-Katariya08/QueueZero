@@ -85,7 +85,7 @@ export function Navbar() {
           <SignedOut>
             <div className="hidden sm:flex items-center gap-2">
               <SignInButton mode="modal">
-                <Button variant="ghost" size="sm">
+                <Button variant="outline" size="sm">
                   Sign In
                 </Button>
               </SignInButton>

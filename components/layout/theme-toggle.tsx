@@ -13,16 +13,14 @@ export function ThemeToggle() {
   }, []);
 
   if (!mounted) {
-    return (
-      <div className="size-9 rounded-md border border-border" />
-    );
+    return <div className="size-9 rounded-md border border-border" />;
   }
 
   return (
     <button
       type="button"
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-      className="inline-flex size-9 items-center justify-center rounded-md border border-border bg-background text-foreground transition-colors hover:bg-muted"
+      className="inline-flex size-8 items-center justify-center rounded-md border border-border bg-background text-foreground transition-colors hover:bg-muted"
       aria-label="Toggle theme"
     >
       {resolvedTheme === "dark" ? (
