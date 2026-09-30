@@ -1,5 +1,5 @@
 {
-  "name": "temp-app",
+  "name": "queuezero",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,9 +9,20 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "next": "16.3.7",
+    "@base-ui-components/react": "^1.0.0-alpha.5",
+    "@clerk/nextjs": "^6.12.0",
+    "@wrksz/themes": "^2.0.2",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.4.3",
+    "lucide-react": "^0.475.0",
+    "mongoose": "^8.10.0",
+    "next": "16.3.6",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
+    "tailwind-merge": "^3.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -19,17 +30,9 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.3.7",
+    "eslint-config-next": "16.3.6",
     "tailwindcss": "^4",
     "typescript": "^5"
   },
-  "packageManager": "bun@1.4.2",
-  "ignoreScripts": [
-    "sharp",
-    "unrs-resolver"
-  ],
-  "trustedDependencies": [
-    "sharp",
-    "unrs-resolver"
-  ]
+  "packageManager": "bun@1.4.2"
 }
