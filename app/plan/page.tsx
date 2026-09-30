@@ -3,7 +3,13 @@
 import { useState, useEffect } from "react";
 import { type VenueItem, type ServicePointItem } from "@/lib/venue-types";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
   Route,
@@ -48,7 +54,8 @@ export default function PlannerPage() {
     loadVenues();
   }, []);
 
-  const activeVenue = venues.find((v) => v.slug === selectedSlug) || venues[0] || null;
+  const activeVenue =
+    venues.find((v) => v.slug === selectedSlug) || venues[0] || null;
 
   useEffect(() => {
     if (activeVenue) {
@@ -67,7 +74,9 @@ export default function PlannerPage() {
 
   const steps = (activeVenue?.servicePoints || [])
     .filter((sp, idx) =>
-      selectedServices.includes(String(sp._id || sp.id || sp.name || `sp-${idx}`)),
+      selectedServices.includes(
+        String(sp._id || sp.id || sp.name || `sp-${idx}`),
+      ),
     )
     .map((sp) => ({
       name: sp.name,
@@ -83,14 +92,16 @@ export default function PlannerPage() {
     totalExpected > targetBudget
       ? "High"
       : totalExpected > targetBudget * 0.75
-      ? "Medium"
-      : "Low";
+        ? "Medium"
+        : "Low";
 
   if (loading) {
     return (
       <div className="mx-auto max-w-5xl px-4 py-16 text-center">
         <div className="size-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-        <p className="text-xs text-muted-foreground font-medium">Loading AI Trip Planner...</p>
+        <p className="text-xs text-muted-foreground font-medium">
+          Loading AI Trip Planner...
+        </p>
       </div>
     );
   }
@@ -99,7 +110,9 @@ export default function PlannerPage() {
     return (
       <div className="mx-auto max-w-md px-4 py-16 text-center">
         <h2 className="text-base font-bold">No Venues Found</h2>
-        <p className="text-xs text-muted-foreground mt-1">Please register a facility first.</p>
+        <p className="text-xs text-muted-foreground mt-1">
+          Please register a facility first.
+        </p>
       </div>
     );
   }
@@ -111,11 +124,12 @@ export default function PlannerPage() {
           <Route className="size-3.5" />
           QueueZero AI Trip Engine
         </div>
-        <h1 className="text-2xl sm:text-4xl font-black tracking-tight">
+        <h1 className="text-2xl sm:text-4xl font-medium tracking-tight">
           Will You Finish on Time?
         </h1>
         <p className="text-xs sm:text-sm text-muted-foreground">
-          Simulate multi-service bottlenecks and compute your safe departure window before traveling.
+          Simulate multi-service bottlenecks and compute your safe departure
+          window before traveling.
         </p>
       </div>
 
@@ -123,7 +137,9 @@ export default function PlannerPage() {
         <div className="lg:col-span-5 flex flex-col gap-4">
           <Card>
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-bold">1. Select Destination</CardTitle>
+              <CardTitle className="text-sm font-bold">
+                1. Select Destination
+              </CardTitle>
             </CardHeader>
             <CardContent className="p-4 pt-0 flex flex-col gap-2">
               <select
@@ -138,14 +154,17 @@ export default function PlannerPage() {
                 ))}
               </select>
               <p className="text-[11px] text-muted-foreground flex items-center gap-1">
-                <MapPin className="size-3" /> {activeVenue.address}, {activeVenue.city}
+                <MapPin className="size-3" /> {activeVenue.address},{" "}
+                {activeVenue.city}
               </p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-bold">2. Services You Need to Complete</CardTitle>
+              <CardTitle className="text-sm font-bold">
+                2. Services You Need to Complete
+              </CardTitle>
               <CardDescription className="text-xs">
                 Pick all counters you plan to visit during this trip.
               </CardDescription>
@@ -189,8 +208,10 @@ export default function PlannerPage() {
           <Card>
             <CardHeader className="pb-3">
               <div className="flex justify-between items-center">
-                <CardTitle className="text-sm font-bold">3. Your Max Time Budget</CardTitle>
-                <span className="text-base font-black text-primary font-mono">
+                <CardTitle className="text-sm font-bold">
+                  3. Your Max Time Budget
+                </CardTitle>
+                <span className="text-base font-medium text-primary font-mono">
                   {targetBudget} min
                 </span>
               </div>
@@ -232,8 +253,8 @@ export default function PlannerPage() {
                   risk === "Low"
                     ? "success"
                     : risk === "Medium"
-                    ? "warning"
-                    : "destructive"
+                      ? "warning"
+                      : "destructive"
                 }
                 className="font-bold text-xs"
               >
@@ -249,7 +270,8 @@ export default function PlannerPage() {
                 <div className="flex flex-col gap-2 font-mono text-xs">
                   {steps.length === 0 ? (
                     <div className="p-4 text-center border border-dashed rounded-lg text-xs text-muted-foreground font-sans">
-                      No services selected. Pick at least one counter from the left to calculate your trip.
+                      No services selected. Pick at least one counter from the
+                      left to calculate your trip.
                     </div>
                   ) : (
                     steps.map((s, idx) => (
@@ -262,7 +284,9 @@ export default function PlannerPage() {
                             {idx + 1}
                           </span>
                           <div>
-                            <p className="font-semibold text-xs leading-none">{s.name}</p>
+                            <p className="font-semibold text-xs leading-none">
+                              {s.name}
+                            </p>
                             {s.delay > 0 && (
                               <span className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold">
                                 Delayed +{s.delay}m
@@ -284,8 +308,11 @@ export default function PlannerPage() {
                   <span className="text-[11px] text-muted-foreground block font-medium">
                     Calculated Expected Total
                   </span>
-                  <p className="text-2xl font-black text-primary font-mono">
-                    {totalExpected} <span className="text-xs font-normal text-muted-foreground">min</span>
+                  <p className="text-2xl font-medium text-primary font-mono">
+                    {totalExpected}{" "}
+                    <span className="text-xs font-normal text-muted-foreground">
+                      min
+                    </span>
                   </p>
                 </div>
                 <div className="text-right">
@@ -302,7 +329,9 @@ export default function PlannerPage() {
                         : "text-red-500"
                     }`}
                   >
-                    {margin >= 0 ? `+${margin} min safe buffer` : `${Math.abs(margin)} min over budget`}
+                    {margin >= 0
+                      ? `+${margin} min safe buffer`
+                      : `${Math.abs(margin)} min over budget`}
                   </span>
                 </div>
               </div>
@@ -313,9 +342,11 @@ export default function PlannerPage() {
                   Recommended Arrival Strategy:
                 </div>
                 <p className="text-muted-foreground text-[11px] leading-relaxed">
-                  Based on live telemetry, optimal arrival is during morning hours.
-                  Departing now has an expected completion time within your {targetBudget}m window with{" "}
-                  {risk === "Low" ? "94%" : risk === "Medium" ? "78%" : "35%"} confidence.
+                  Based on live telemetry, optimal arrival is during morning
+                  hours. Departing now has an expected completion time within
+                  your {targetBudget}m window with{" "}
+                  {risk === "Low" ? "94%" : risk === "Medium" ? "78%" : "35%"}{" "}
+                  confidence.
                 </p>
               </div>
 
@@ -326,8 +357,14 @@ export default function PlannerPage() {
                 }}
                 className="w-full gap-2 text-xs font-semibold"
               >
-                {savedReminder ? <CheckCircle className="size-4" /> : <Bell className="size-4" />}
-                {savedReminder ? "Departure Reminder Scheduled!" : "Set Departure Alert & Watch Queue"}
+                {savedReminder ? (
+                  <CheckCircle className="size-4" />
+                ) : (
+                  <Bell className="size-4" />
+                )}
+                {savedReminder
+                  ? "Departure Reminder Scheduled!"
+                  : "Set Departure Alert & Watch Queue"}
               </Button>
             </CardContent>
           </Card>

@@ -75,12 +75,13 @@ export default function ExplorePage() {
     <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8 flex flex-col gap-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight flex items-center gap-2">
+          <h1 className="text-2xl sm:text-3xl font-medium tracking-tight flex items-center gap-2">
             <Compass className="size-6 text-primary" />
             Live Operational Radar
           </h1>
           <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">
-            Real-time waiting times and crowd telemetry from verified facilities.
+            Real-time waiting times and crowd telemetry from verified
+            facilities.
           </p>
         </div>
 
@@ -157,13 +158,17 @@ export default function ExplorePage() {
       {loading ? (
         <div className="py-16 text-center">
           <div className="size-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-          <p className="text-xs text-muted-foreground font-medium">Scanning live radars...</p>
+          <p className="text-xs text-muted-foreground font-medium">
+            Scanning live radars...
+          </p>
         </div>
       ) : sorted.length === 0 ? (
         <div className="py-16 text-center rounded-xl border border-dashed border-border p-8">
           <Compass className="size-8 text-muted-foreground mx-auto mb-2 opacity-50" />
           <h3 className="text-sm font-bold">No Facilities Found</h3>
-          <p className="text-xs text-muted-foreground mt-1">Try adjusting your category filter or search keywords.</p>
+          <p className="text-xs text-muted-foreground mt-1">
+            Try adjusting your category filter or search keywords.
+          </p>
         </div>
       ) : viewMode === "map" ? (
         <div className="relative h-[480px] w-full rounded-xl border border-border bg-muted/40 overflow-hidden flex flex-col items-center justify-center p-6 text-center">
@@ -172,9 +177,12 @@ export default function ExplorePage() {
             <span className="flex size-12 items-center justify-center rounded-full bg-primary/20 text-primary animate-pulse">
               <MapPin className="size-6" />
             </span>
-            <h3 className="text-base font-bold">Interactive Geolocation Radar</h3>
+            <h3 className="text-base font-bold">
+              Interactive Geolocation Radar
+            </h3>
             <p className="text-xs text-muted-foreground">
-              Showing {sorted.length} verified facilities. Real-time telemetry broadcasting active.
+              Showing {sorted.length} verified facilities. Real-time telemetry
+              broadcasting active.
             </p>
             <div className="grid grid-cols-2 gap-2 w-full mt-2">
               {sorted.slice(0, 4).map((v) => (
@@ -184,7 +192,9 @@ export default function ExplorePage() {
                   className="p-2.5 rounded-lg border border-border bg-card/90 text-left hover:border-primary transition-colors text-xs"
                 >
                   <p className="font-bold truncate">{v.name}</p>
-                  <p className="text-[11px] text-muted-foreground">{v.averageWaitMinutes}m wait · {v.city}</p>
+                  <p className="text-[11px] text-muted-foreground">
+                    {v.averageWaitMinutes}m wait · {v.city}
+                  </p>
                 </Link>
               ))}
             </div>
@@ -205,7 +215,10 @@ export default function ExplorePage() {
                         {venue.name}
                       </h2>
                       {venue.isVerified && (
-                        <Badge variant="outline" className="text-[10px] py-0 px-1.5 font-semibold text-emerald-950 dark:text-emerald-200 border-emerald-300 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/60">
+                        <Badge
+                          variant="outline"
+                          className="text-[10px] py-0 px-1.5 font-semibold text-emerald-950 dark:text-emerald-200 border-emerald-300 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/60"
+                        >
                           <ShieldCheck className="size-3 mr-0.5 inline" />
                           GST Verified
                         </Badge>
@@ -251,12 +264,19 @@ export default function ExplorePage() {
 
                   <div className="flex items-center gap-2">
                     <Link href={`/plan?venue=${venue.slug}`}>
-                      <Button variant="ghost" size="sm" className="h-7 text-xs px-2 text-primary">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-7 text-xs px-2 text-primary"
+                      >
                         Plan Visit
                       </Button>
                     </Link>
                     <Link href={`/venue/${venue.slug}`}>
-                      <Button size="sm" className="h-7 text-xs px-2.5 gap-1 font-semibold">
+                      <Button
+                        size="sm"
+                        className="h-7 text-xs px-2.5 gap-1 font-semibold"
+                      >
                         View Live <ArrowRight className="size-3" />
                       </Button>
                     </Link>

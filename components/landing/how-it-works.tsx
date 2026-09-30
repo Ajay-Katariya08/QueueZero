@@ -31,11 +31,12 @@ export function HowItWorks() {
           <span className="text-xs font-bold uppercase tracking-wider text-primary">
             How QueueZero Works
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-medium tracking-tight">
             Triangulated Reality, Not Stale Schedules
           </h2>
           <p className="text-xs sm:text-sm text-muted-foreground">
-            A traditional appointment tells you when you were supposed to be seen. QueueZero tells you what is actually happening right now.
+            A traditional appointment tells you when you were supposed to be
+            seen. QueueZero tells you what is actually happening right now.
           </p>
         </div>
 

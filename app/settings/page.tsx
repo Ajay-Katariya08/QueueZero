@@ -3,7 +3,13 @@
 import { useState } from "react";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Bell, Shield, Navigation, Moon, CheckCircle } from "lucide-react";
 
 export default function SettingsPage() {
@@ -20,9 +26,12 @@ export default function SettingsPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-6 sm:px-6 sm:py-8 flex flex-col gap-6">
       <div className="pb-4 border-b border-border">
-        <h1 className="text-2xl sm:text-3xl font-black tracking-tight">Preferences & Settings</h1>
+        <h1 className="text-2xl sm:text-3xl font-medium tracking-tight">
+          Preferences & Settings
+        </h1>
         <p className="text-xs text-muted-foreground mt-0.5">
-          Configure queue alerts, privacy options, and operational notifications.
+          Configure queue alerts, privacy options, and operational
+          notifications.
         </p>
       </div>
 
@@ -34,13 +43,16 @@ export default function SettingsPage() {
               Real-Time Push Notifications
             </CardTitle>
             <CardDescription className="text-xs">
-              Receive background alerts when queues drop below critical thresholds.
+              Receive background alerts when queues drop below critical
+              thresholds.
             </CardDescription>
           </CardHeader>
           <CardContent className="p-4 pt-0 flex flex-col gap-3 text-xs">
             <div className="flex items-center justify-between">
               <div>
-                <span className="font-semibold block text-foreground">Queue Drop Alerts</span>
+                <span className="font-semibold block text-foreground">
+                  Queue Drop Alerts
+                </span>
                 <span className="text-muted-foreground text-[11px]">
                   Notify when a watched clinic or counter wait time drops by 50%
                 </span>
@@ -68,9 +80,12 @@ export default function SettingsPage() {
           <CardContent className="p-4 pt-0 flex flex-col gap-3 text-xs">
             <div className="flex items-center justify-between">
               <div>
-                <span className="font-semibold block text-foreground">Default Anonymous Reporting</span>
+                <span className="font-semibold block text-foreground">
+                  Default Anonymous Reporting
+                </span>
                 <span className="text-muted-foreground text-[11px]">
-                  Strip username and IP metadata from all submitted queue observations
+                  Strip username and IP metadata from all submitted queue
+                  observations
                 </span>
               </div>
               <input
@@ -120,12 +135,18 @@ export default function SettingsPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="p-4 pt-0 flex items-center justify-between text-xs">
-            <span className="font-semibold text-foreground">Toggle Color Scheme</span>
+            <span className="font-semibold text-foreground">
+              Toggle Color Scheme
+            </span>
             <ThemeToggle />
           </CardContent>
         </Card>
 
-        <Button onClick={handleSave} size="lg" className="w-full gap-2 text-xs font-semibold">
+        <Button
+          onClick={handleSave}
+          size="lg"
+          className="w-full gap-2 text-xs font-semibold"
+        >
           {saved ? <CheckCircle className="size-4" /> : null}
           {saved ? "Preferences Saved!" : "Save All Settings"}
         </Button>

@@ -5,7 +5,13 @@ import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { type VenueItem } from "@/lib/venue-types";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
   User as UserIcon,
@@ -39,19 +45,27 @@ export default function ProfilePage() {
     <div className="mx-auto max-w-4xl px-4 py-6 sm:px-6 sm:py-8 flex flex-col gap-6">
       <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 pb-4 border-b border-border text-center sm:text-left">
         <div className="flex size-16 items-center justify-center rounded-full bg-primary/10 text-primary text-xl font-bold">
-          {user?.firstName ? user.firstName[0] : <UserIcon className="size-8" />}
+          {user?.firstName ? (
+            user.firstName[0]
+          ) : (
+            <UserIcon className="size-8" />
+          )}
         </div>
         <div className="flex-1">
           <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-            <h1 className="text-xl sm:text-2xl font-black">
+            <h1 className="text-xl sm:text-2xl font-medium">
               {user?.fullName || "Citizen Contributor"}
             </h1>
-            <Badge variant="outline" className="text-[10px] text-emerald-800 dark:text-emerald-300 border-emerald-500/30 bg-emerald-500/10">
+            <Badge
+              variant="outline"
+              className="text-[10px] text-emerald-800 dark:text-emerald-300 border-emerald-500/30 bg-emerald-500/10"
+            >
               <ShieldCheck className="size-3 mr-1" /> Level 2 Verified Reporter
             </Badge>
           </div>
           <p className="text-xs text-muted-foreground mt-0.5">
-            {user?.primaryEmailAddress?.emailAddress || "citizen@queuezero.local"}
+            {user?.primaryEmailAddress?.emailAddress ||
+              "citizen@queuezero.local"}
           </p>
         </div>
         <Link href="/dashboard">
@@ -68,8 +82,10 @@ export default function ProfilePage() {
               <Award className="size-5" />
             </div>
             <div>
-              <p className="text-xl font-black">94</p>
-              <p className="text-[11px] text-muted-foreground">Reputation Score</p>
+              <p className="text-xl font-medium">94</p>
+              <p className="text-[11px] text-muted-foreground">
+                Reputation Score
+              </p>
             </div>
           </CardContent>
         </Card>
@@ -80,8 +96,10 @@ export default function ProfilePage() {
               <Compass className="size-5" />
             </div>
             <div>
-              <p className="text-xl font-black">{watchedVenues.length}</p>
-              <p className="text-[11px] text-muted-foreground">Monitored Facilities</p>
+              <p className="text-xl font-medium">{watchedVenues.length}</p>
+              <p className="text-[11px] text-muted-foreground">
+                Monitored Facilities
+              </p>
             </div>
           </CardContent>
         </Card>
@@ -92,8 +110,10 @@ export default function ProfilePage() {
               <Clock className="size-5" />
             </div>
             <div>
-              <p className="text-xl font-black">28m</p>
-              <p className="text-[11px] text-muted-foreground">Time Saved by QueueZero</p>
+              <p className="text-xl font-medium">28m</p>
+              <p className="text-[11px] text-muted-foreground">
+                Time Saved by QueueZero
+              </p>
             </div>
           </CardContent>
         </Card>
@@ -107,7 +127,11 @@ export default function ProfilePage() {
               Frequently Watched Facilities
             </CardTitle>
             <Link href="/explore">
-              <Button variant="ghost" size="sm" className="h-7 text-xs px-2 text-primary">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-7 text-xs px-2 text-primary"
+              >
                 Browse All
               </Button>
             </Link>

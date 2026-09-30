@@ -4,10 +4,18 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Send, Check, ShieldAlert, SlidersHorizontal } from "lucide-react";
+import {
+  Clock,
+  Send,
+  Check,
+  ShieldAlert,
+  SlidersHorizontal,
+} from "lucide-react";
 
 export function LiveDemo() {
-  const [selectedVenue, setSelectedVenue] = useState<"clinic" | "passport" | "bank">("clinic");
+  const [selectedVenue, setSelectedVenue] = useState<
+    "clinic" | "passport" | "bank"
+  >("clinic");
   const [budgetMinutes, setBudgetMinutes] = useState(90);
   const [reported, setReported] = useState(false);
 
@@ -48,8 +56,8 @@ export function LiveDemo() {
     totalPredicted > budgetMinutes
       ? "High"
       : totalPredicted > budgetMinutes * 0.75
-      ? "Medium"
-      : "Low";
+        ? "Medium"
+        : "Low";
 
   return (
     <section className="py-10 sm:py-12 border-b border-border/60 bg-muted/20">
@@ -58,11 +66,12 @@ export function LiveDemo() {
           <span className="text-xs font-bold uppercase tracking-wider text-primary">
             Interactive Testbed
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-medium tracking-tight">
             See the AI Engine in Action
           </h2>
           <p className="text-xs sm:text-sm text-muted-foreground">
-            Adjust your target time budget and pick an operational hub. Watch QueueZero break down the timeline.
+            Adjust your target time budget and pick an operational hub. Watch
+            QueueZero break down the timeline.
           </p>
         </div>
 
@@ -103,7 +112,7 @@ export function LiveDemo() {
                     <label className="font-semibold text-muted-foreground">
                       “I must finish within:”
                     </label>
-                    <span className="font-black text-sm text-primary">
+                    <span className="font-medium text-sm text-primary">
                       {budgetMinutes} minutes
                     </span>
                   </div>
@@ -142,7 +151,11 @@ export function LiveDemo() {
                       }}
                       className="gap-1 text-xs"
                     >
-                      {reported ? <Check className="size-3.5" /> : <Send className="size-3.5" />}
+                      {reported ? (
+                        <Check className="size-3.5" />
+                      ) : (
+                        <Send className="size-3.5" />
+                      )}
                       {reported ? "Broadcasted" : "Submit"}
                     </Button>
                   </div>
@@ -161,17 +174,15 @@ export function LiveDemo() {
                   <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
                     AI Output Calculation
                   </span>
-                  <CardTitle className="text-base font-extrabold mt-0.5">
-                    {current.name}
-                  </CardTitle>
+                  <CardTitle className="mt-0.5">{current.name}</CardTitle>
                 </div>
                 <Badge
                   variant={
                     risk === "Low"
                       ? "success"
                       : risk === "Medium"
-                      ? "warning"
-                      : "destructive"
+                        ? "warning"
+                        : "destructive"
                   }
                   className="font-bold text-xs"
                 >
@@ -203,7 +214,7 @@ export function LiveDemo() {
                     <span className="text-xs text-muted-foreground block">
                       Total Expected Duration
                     </span>
-                    <span className="text-2xl font-black text-primary">
+                    <span className="text-2xl font-medium text-primary">
                       {totalPredicted} min
                     </span>
                   </div>
@@ -212,7 +223,11 @@ export function LiveDemo() {
                       Your Budget
                     </span>
                     <span className="text-sm font-bold text-foreground">
-                      {budgetMinutes} min ({budgetMinutes - totalPredicted >= 0 ? `+${budgetMinutes - totalPredicted}m safety` : `${totalPredicted - budgetMinutes}m overdue`})
+                      {budgetMinutes} min (
+                      {budgetMinutes - totalPredicted >= 0
+                        ? `+${budgetMinutes - totalPredicted}m safety`
+                        : `${totalPredicted - budgetMinutes}m overdue`}
+                      )
                     </span>
                   </div>
                 </div>
@@ -224,8 +239,8 @@ export function LiveDemo() {
                     {risk === "High"
                       ? "You are very likely to exceed your 90-minute limit right now. We suggest arriving after 1:30 PM when the consultation rush drops by 60%."
                       : risk === "Medium"
-                      ? "Expected wait is 58 min against your 90 min budget. Doctor is running 18 min late. Safe to proceed if you leave within 10 minutes."
-                      : "Clear operational runway. Your trip is well within limits."}
+                        ? "Expected wait is 58 min against your 90 min budget. Doctor is running 18 min late. Safe to proceed if you leave within 10 minutes."
+                        : "Clear operational runway. Your trip is well within limits."}
                   </p>
                 </div>
               </CardContent>

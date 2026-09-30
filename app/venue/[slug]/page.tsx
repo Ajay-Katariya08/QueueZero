@@ -2,7 +2,12 @@
 
 import { use, useState, useEffect } from "react";
 import Link from "next/link";
-import { type VenueItem, type ServicePointItem, type QueueReportItem, type HourlyStatItem } from "@/lib/venue-types";
+import {
+  type VenueItem,
+  type ServicePointItem,
+  type QueueReportItem,
+  type HourlyStatItem,
+} from "@/lib/venue-types";
 import { useLiveQueue } from "@/lib/hooks/use-socket";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -119,8 +124,12 @@ export default function VenueDetailPage({
           prev
             ? {
                 ...prev,
-                totalWaitingCount: Math.round(((prev.totalWaitingCount || 0) + Number(reportCount)) / 2),
-                averageWaitMinutes: Math.round(((prev.averageWaitMinutes || 0) + Number(reportWait)) / 2),
+                totalWaitingCount: Math.round(
+                  ((prev.totalWaitingCount || 0) + Number(reportCount)) / 2,
+                ),
+                averageWaitMinutes: Math.round(
+                  ((prev.averageWaitMinutes || 0) + Number(reportWait)) / 2,
+                ),
               }
             : null,
         );
@@ -141,7 +150,9 @@ export default function VenueDetailPage({
     return (
       <div className="mx-auto max-w-6xl px-4 py-16 text-center">
         <div className="size-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-        <p className="text-xs text-muted-foreground font-medium">Connecting to facility live radar...</p>
+        <p className="text-xs text-muted-foreground font-medium">
+          Connecting to facility live radar...
+        </p>
       </div>
     );
   }
@@ -181,7 +192,9 @@ export default function VenueDetailPage({
               </span>
             )}
           </div>
-          <h1 className="text-2xl sm:text-4xl font-black tracking-tight">{venue.name}</h1>
+          <h1 className="text-2xl sm:text-4xl font-medium tracking-tight">
+            {venue.name}
+          </h1>
           <p className="text-xs sm:text-sm text-muted-foreground flex items-center gap-1 mt-1">
             <MapPin className="size-3.5" />
             {venue.address}, {venue.city}
@@ -198,7 +211,8 @@ export default function VenueDetailPage({
               <DialogHeader>
                 <DialogTitle>Anonymous Live Queue Observation</DialogTitle>
                 <DialogDescription className="text-xs">
-                  Help others know before they go. Your report updates the live radar instantly.
+                  Help others know before they go. Your report updates the live
+                  radar instantly.
                 </DialogDescription>
               </DialogHeader>
 
@@ -247,15 +261,27 @@ export default function VenueDetailPage({
                   disabled={submitting || submitted}
                   className="w-full gap-2 text-xs font-semibold"
                 >
-                  {submitted ? <Check className="size-4" /> : <Send className="size-4" />}
-                  {submitting ? "Broadcasting..." : submitted ? "Broadcasted Live!" : "Submit Anonymous Observation"}
+                  {submitted ? (
+                    <Check className="size-4" />
+                  ) : (
+                    <Send className="size-4" />
+                  )}
+                  {submitting
+                    ? "Broadcasting..."
+                    : submitted
+                      ? "Broadcasted Live!"
+                      : "Submit Anonymous Observation"}
                 </Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
 
           <Link href={`/plan?venue=${venue.slug}`}>
-            <Button variant="outline" size="sm" className="gap-1.5 text-xs font-semibold">
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-1.5 text-xs font-semibold"
+            >
               <Route className="size-3.5 text-primary" />
               AI Trip Planner
             </Button>
@@ -270,9 +296,13 @@ export default function VenueDetailPage({
               <span className="text-xs text-muted-foreground font-medium flex items-center gap-1">
                 <Users className="size-3.5" /> Total Waiting Now
               </span>
-              <p className="text-2xl font-black mt-0.5">
-                {latestUpdate ? latestUpdate.newQueueCount : venue.totalWaitingCount}{" "}
-                <span className="text-xs font-normal text-muted-foreground">citizens</span>
+              <p className="text-2xl font-medium mt-0.5">
+                {latestUpdate
+                  ? latestUpdate.newQueueCount
+                  : venue.totalWaitingCount}{" "}
+                <span className="text-xs font-normal text-muted-foreground">
+                  citizens
+                </span>
               </p>
             </div>
             <span className="size-3 rounded-full bg-emerald-500 animate-ping" />
@@ -285,9 +315,13 @@ export default function VenueDetailPage({
               <span className="text-xs text-muted-foreground font-medium flex items-center gap-1">
                 <Clock className="size-3.5" /> Average Visit Wait
               </span>
-              <p className="text-2xl font-black mt-0.5 text-amber-600 dark:text-amber-400">
-                {latestUpdate ? latestUpdate.newEstimatedMinutes : venue.averageWaitMinutes}{" "}
-                <span className="text-xs font-normal text-muted-foreground">min</span>
+              <p className="text-2xl font-medium mt-0.5 text-amber-600 dark:text-amber-400">
+                {latestUpdate
+                  ? latestUpdate.newEstimatedMinutes
+                  : venue.averageWaitMinutes}{" "}
+                <span className="text-xs font-normal text-muted-foreground">
+                  min
+                </span>
               </p>
             </div>
             <QueueBadge waitMinutes={venue.averageWaitMinutes} />
@@ -318,51 +352,58 @@ export default function VenueDetailPage({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {(venue.servicePoints || []).map((sp: ServicePointItem, idx: number) => (
-            <Card key={sp._id || sp.id || sp.name || idx} className="border-border/80">
-              <CardContent className="p-4 flex flex-col gap-2">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h3 className="font-bold text-sm">{sp.name}</h3>
-                    <span className="text-[11px] text-muted-foreground capitalize">
-                      Type: {sp.type}
-                    </span>
+          {(venue.servicePoints || []).map(
+            (sp: ServicePointItem, idx: number) => (
+              <Card
+                key={sp._id || sp.id || sp.name || idx}
+                className="border-border/80"
+              >
+                <CardContent className="p-4 flex flex-col gap-2">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h3 className="font-bold text-sm">{sp.name}</h3>
+                      <span className="text-[11px] text-muted-foreground capitalize">
+                        Type: {sp.type}
+                      </span>
+                    </div>
+                    <Badge
+                      variant={
+                        sp.status === "open"
+                          ? "success"
+                          : sp.status === "delayed"
+                            ? "warning"
+                            : "destructive"
+                      }
+                      className="capitalize text-[10px]"
+                    >
+                      {sp.status === "delayed"
+                        ? `Delayed +${sp.delayMinutes}m`
+                        : sp.status}
+                    </Badge>
                   </div>
-                  <Badge
-                    variant={
-                      sp.status === "open"
-                        ? "success"
-                        : sp.status === "delayed"
-                        ? "warning"
-                        : "destructive"
-                    }
-                    className="capitalize text-[10px]"
-                  >
-                    {sp.status === "delayed"
-                      ? `Delayed +${sp.delayMinutes}m`
-                      : sp.status}
-                  </Badge>
-                </div>
 
-                <div className="grid grid-cols-2 gap-2 rounded-lg bg-muted/40 p-2 text-xs">
-                  <div>
-                    <span className="text-muted-foreground text-[10px] block">
-                      Queue Length
-                    </span>
-                    <strong className="text-sm font-black">{sp.currentQueueCount} people</strong>
+                  <div className="grid grid-cols-2 gap-2 rounded-lg bg-muted/40 p-2 text-xs">
+                    <div>
+                      <span className="text-muted-foreground text-[10px] block">
+                        Queue Length
+                      </span>
+                      <strong className="text-sm font-medium">
+                        {sp.currentQueueCount} people
+                      </strong>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground text-[10px] block">
+                        Expected Wait
+                      </span>
+                      <strong className="text-sm font-medium text-primary">
+                        {sp.estimatedWaitMinutes} min
+                      </strong>
+                    </div>
                   </div>
-                  <div>
-                    <span className="text-muted-foreground text-[10px] block">
-                      Expected Wait
-                    </span>
-                    <strong className="text-sm font-black text-primary">
-                      {sp.estimatedWaitMinutes} min
-                    </strong>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CardContent>
+              </Card>
+            ),
+          )}
         </div>
       </div>
 
@@ -383,7 +424,10 @@ export default function VenueDetailPage({
             <CardContent className="p-4 pt-0">
               <div className="flex items-end gap-1.5 h-36 pt-4 border-b border-border pb-2">
                 {stats.map((stat, i) => {
-                  const heightPercent = Math.min(100, Math.max(15, (stat.waitMinutes / 80) * 100));
+                  const heightPercent = Math.min(
+                    100,
+                    Math.max(15, (stat.waitMinutes / 80) * 100),
+                  );
                   const isLow = stat.busyness === "low";
                   const isPeak = stat.busyness === "peak";
 
@@ -401,8 +445,8 @@ export default function VenueDetailPage({
                           isPeak
                             ? "bg-red-500/80 group-hover:bg-red-500"
                             : isLow
-                            ? "bg-emerald-500/80 group-hover:bg-emerald-500"
-                            : "bg-primary/70 group-hover:bg-primary"
+                              ? "bg-emerald-500/80 group-hover:bg-emerald-500"
+                              : "bg-primary/70 group-hover:bg-primary"
                         }`}
                       />
                       <span className="text-[9px] text-muted-foreground truncate w-full text-center">
@@ -414,7 +458,8 @@ export default function VenueDetailPage({
               </div>
               <div className="flex items-center justify-between text-[11px] text-muted-foreground pt-2">
                 <span className="flex items-center gap-1">
-                  <span className="size-2 rounded-xs bg-emerald-500" /> Low Rush (Best time)
+                  <span className="size-2 rounded-xs bg-emerald-500" /> Low Rush
+                  (Best time)
                 </span>
                 <span className="flex items-center gap-1">
                   <span className="size-2 rounded-xs bg-primary" /> Moderate
@@ -441,7 +486,8 @@ export default function VenueDetailPage({
             <CardContent className="p-4 pt-0 flex flex-col gap-2 max-h-56 overflow-y-auto">
               {reportsList.length === 0 ? (
                 <div className="py-8 text-center text-xs text-muted-foreground">
-                  No citizen observations submitted recently. Be the first to report!
+                  No citizen observations submitted recently. Be the first to
+                  report!
                 </div>
               ) : (
                 reportsList.map((rep, idx) => (
@@ -463,7 +509,9 @@ export default function VenueDetailPage({
                     <div className="flex gap-2 text-[10px] font-semibold text-foreground/80 mt-0.5">
                       <span>Saw: {rep.reportedCount} waiting</span>
                       <span>·</span>
-                      <span className="text-primary">Est: {rep.reportedWaitMinutes}m</span>
+                      <span className="text-primary">
+                        Est: {rep.reportedWaitMinutes}m
+                      </span>
                     </div>
                   </div>
                 ))

@@ -49,7 +49,7 @@ export function Navbar() {
             <Activity className="size-4 animate-pulse" />
           </span>
           <span className="text-lg">
-            Queue<span className="text-primary font-black">Zero</span>
+            Queue<span className="text-primary font-medium">Zero</span>
           </span>
           <span className="hidden sm:inline-flex items-center rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-bold text-emerald-800 dark:border-emerald-500/30 dark:bg-emerald-500/15 dark:text-emerald-300">
             LIVE

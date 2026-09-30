@@ -3,7 +3,13 @@
 import { useState, useEffect } from "react";
 import { type VenueItem } from "@/lib/venue-types";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Send, Check, Users, Clock, ShieldCheck } from "lucide-react";
 
 export default function ReportPage() {
@@ -72,17 +78,20 @@ export default function ReportPage() {
           <ShieldCheck className="size-3.5 text-emerald-700 dark:text-emerald-400" />
           100% Anonymous Citizen Broadcast
         </div>
-        <h1 className="text-2xl sm:text-3xl font-black tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-medium tracking-tight">
           Report Ground Reality
         </h1>
         <p className="text-xs sm:text-sm text-muted-foreground max-w-md">
-          Are you at a clinic, DMV, bank, or visa center right now? Your report updates the live radar for everyone traveling behind you.
+          Are you at a clinic, DMV, bank, or visa center right now? Your report
+          updates the live radar for everyone traveling behind you.
         </p>
       </div>
 
       <Card className="border-border shadow-md">
         <CardHeader className="pb-4">
-          <CardTitle className="text-base font-bold">Observation Details</CardTitle>
+          <CardTitle className="text-base font-bold">
+            Observation Details
+          </CardTitle>
           <CardDescription className="text-xs">
             No login or identification required.
           </CardDescription>
@@ -159,8 +168,16 @@ export default function ReportPage() {
               size="lg"
               className="w-full gap-2 font-semibold text-xs mt-2"
             >
-              {submitted ? <Check className="size-4" /> : <Send className="size-4" />}
-              {submitting ? "Broadcasting..." : submitted ? "Live Broadcast Sent!" : "Broadcast Observation Live"}
+              {submitted ? (
+                <Check className="size-4" />
+              ) : (
+                <Send className="size-4" />
+              )}
+              {submitting
+                ? "Broadcasting..."
+                : submitted
+                  ? "Live Broadcast Sent!"
+                  : "Broadcast Observation Live"}
             </Button>
           </form>
         </CardContent>

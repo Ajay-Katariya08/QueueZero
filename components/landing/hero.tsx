@@ -113,7 +113,7 @@ export function Hero() {
                       <span className="text-[10px] font-semibold text-muted-foreground flex items-center gap-1">
                         <Users className="size-3" /> Waiting Now
                       </span>
-                      <p className="text-xl font-black mt-0.5">
+                      <p className="text-xl font-medium mt-0.5">
                         32{" "}
                         <span className="text-xs font-normal text-muted-foreground">
                           people
@@ -125,7 +125,7 @@ export function Hero() {
                       <span className="text-[10px] font-semibold text-muted-foreground flex items-center gap-1">
                         <Clock className="size-3" /> Est. Total Wait
                       </span>
-                      <p className="text-xl font-black mt-0.5 text-amber-600 dark:text-amber-400">
+                      <p className="text-xl font-medium mt-0.5 text-amber-600 dark:text-amber-400">
                         47{" "}
                         <span className="text-xs font-normal text-muted-foreground">
                           min

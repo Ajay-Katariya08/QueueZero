@@ -8,9 +8,12 @@ export default function NotFound() {
       <span className="flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary mb-3">
         <Compass className="size-7 animate-spin" />
       </span>
-      <h1 className="text-3xl font-black tracking-tight">Location Not Found</h1>
+      <h1 className="text-3xl font-medium tracking-tight">
+        Location Not Found
+      </h1>
       <p className="text-xs text-muted-foreground max-w-sm mt-1 mb-6">
-        The venue or operational counter you are looking for has been relocated or is offline.
+        The venue or operational counter you are looking for has been relocated
+        or is offline.
       </p>
       <div className="flex gap-2">
         <Link href="/">

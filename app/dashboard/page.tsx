@@ -51,7 +51,8 @@ export default function BusinessDashboard() {
   const [saving, setSaving] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  const activeVenue = userVenues.find((v) => v.slug === selectedSlug) || userVenues[0] || null;
+  const activeVenue =
+    userVenues.find((v) => v.slug === selectedSlug) || userVenues[0] || null;
   const [servicePoints, setServicePoints] = useState<ServicePointItem[]>([]);
   const [alertText, setAlertText] = useState("");
 
@@ -292,7 +293,15 @@ export default function BusinessDashboard() {
         businessPhone: registerForm.businessPhone,
         ownerId: user?.id,
         servicePoints: (data.data.servicePoints || []).map(
-          (sp: { _id?: string; id?: string; name: string; type?: ServicePointItem["type"] }, i: number) => ({
+          (
+            sp: {
+              _id?: string;
+              id?: string;
+              name: string;
+              type?: ServicePointItem["type"];
+            },
+            i: number,
+          ) => ({
             id: sp._id || sp.id || `sp-${i}`,
             _id: sp._id || sp.id || `sp-${i}`,
             name: sp.name,
@@ -369,7 +378,9 @@ export default function BusinessDashboard() {
     return (
       <div className="mx-auto max-w-6xl px-4 py-16 text-center">
         <div className="size-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-        <p className="text-xs text-muted-foreground font-medium">Loading operator console...</p>
+        <p className="text-xs text-muted-foreground font-medium">
+          Loading operator console...
+        </p>
       </div>
     );
   }
@@ -381,26 +392,38 @@ export default function BusinessDashboard() {
           <Lock className="size-8" />
         </div>
         <div>
-          <Badge variant="outline" className="mb-2 text-[10px] text-primary border-primary/30">
+          <Badge
+            variant="outline"
+            className="mb-2 text-[10px] text-primary border-primary/30"
+          >
             Authorized Personnel Only
           </Badge>
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-medium tracking-tight">
             Verified Facility Operator Portal
           </h1>
           <p className="text-xs sm:text-sm text-muted-foreground mt-2 max-w-lg mx-auto">
-            Public citizens can observe and report queues anonymously. Official counter telemetry and broadcast announcements require an authenticated business account verified with 15-digit GSTIN.
+            Public citizens can observe and report queues anonymously. Official
+            counter telemetry and broadcast announcements require an
+            authenticated business account verified with 15-digit GSTIN.
           </p>
         </div>
 
         <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
           <SignInButton mode="modal">
-            <Button size="lg" className="w-full sm:w-auto gap-2 text-xs font-semibold">
+            <Button
+              size="lg"
+              className="w-full sm:w-auto gap-2 text-xs font-semibold"
+            >
               <ShieldCheck className="size-4" />
               Sign In to Your Facility
             </Button>
           </SignInButton>
           <SignUpButton mode="modal">
-            <Button variant="outline" size="lg" className="w-full sm:w-auto gap-2 text-xs font-semibold">
+            <Button
+              variant="outline"
+              size="lg"
+              className="w-full sm:w-auto gap-2 text-xs font-semibold"
+            >
               <Building2 className="size-4" />
               Register New Business Account
             </Button>
@@ -425,11 +448,13 @@ export default function BusinessDashboard() {
             <div className="size-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mx-auto mb-2 shadow-xs">
               <Building2 className="size-7" />
             </div>
-            <CardTitle className="text-xl sm:text-2xl font-black">
+            <CardTitle className="text-xl sm:text-2xl font-medium">
               Welcome, {user?.firstName || "Facility Operator"}!
             </CardTitle>
             <CardDescription className="text-xs max-w-md mx-auto">
-              You haven&apos;t registered any facilities yet. Complete the 15-digit GSTIN verification to publish live queue counters to citizens.
+              You haven&apos;t registered any facilities yet. Complete the
+              15-digit GSTIN verification to publish live queue counters to
+              citizens.
             </CardDescription>
           </CardHeader>
 
@@ -457,11 +482,15 @@ export default function BusinessDashboard() {
                 Register & Publish Facility
               </DialogTitle>
               <DialogDescription className="text-xs">
-                Provide official business credentials including 15-character GSTIN to gain authorized telemetry control.
+                Provide official business credentials including 15-character
+                GSTIN to gain authorized telemetry control.
               </DialogDescription>
             </DialogHeader>
 
-            <form onSubmit={handleRegisterSubmit} className="flex flex-col gap-3 mt-2 text-xs">
+            <form
+              onSubmit={handleRegisterSubmit}
+              className="flex flex-col gap-3 mt-2 text-xs"
+            >
               {registerError && (
                 <div className="p-2 rounded-md bg-destructive/10 border border-destructive/20 text-destructive text-[11px]">
                   {registerError}
@@ -469,12 +498,16 @@ export default function BusinessDashboard() {
               )}
 
               <div>
-                <label className="font-semibold block mb-1">Facility Name *</label>
+                <label className="font-semibold block mb-1">
+                  Facility Name *
+                </label>
                 <input
                   type="text"
                   required
                   value={registerForm.name}
-                  onChange={(e) => setRegisterForm({ ...registerForm, name: e.target.value })}
+                  onChange={(e) =>
+                    setRegisterForm({ ...registerForm, name: e.target.value })
+                  }
                   placeholder="e.g. Apex Multispecialty Clinic"
                   className="w-full h-8 rounded-md border border-input bg-background px-3 text-xs"
                 />
@@ -485,7 +518,12 @@ export default function BusinessDashboard() {
                   <label className="font-semibold block mb-1">Category *</label>
                   <select
                     value={registerForm.category}
-                    onChange={(e) => setRegisterForm({ ...registerForm, category: e.target.value as VenueItem["category"] })}
+                    onChange={(e) =>
+                      setRegisterForm({
+                        ...registerForm,
+                        category: e.target.value as VenueItem["category"],
+                      })
+                    }
                     className="w-full h-8 rounded-md border border-input bg-background px-2 text-xs"
                   >
                     <option value="clinic">Clinic / Hospital</option>
@@ -504,7 +542,9 @@ export default function BusinessDashboard() {
                     type="text"
                     required
                     value={registerForm.city}
-                    onChange={(e) => setRegisterForm({ ...registerForm, city: e.target.value })}
+                    onChange={(e) =>
+                      setRegisterForm({ ...registerForm, city: e.target.value })
+                    }
                     placeholder="e.g. Mumbai"
                     className="w-full h-8 rounded-md border border-input bg-background px-3 text-xs"
                   />
@@ -521,48 +561,77 @@ export default function BusinessDashboard() {
                     required
                     maxLength={15}
                     value={registerForm.gstNumber}
-                    onChange={(e) => setRegisterForm({ ...registerForm, gstNumber: e.target.value.toUpperCase() })}
+                    onChange={(e) =>
+                      setRegisterForm({
+                        ...registerForm,
+                        gstNumber: e.target.value.toUpperCase(),
+                      })
+                    }
                     placeholder="e.g. 27AAPFU0939L1ZV"
                     className="w-full h-8 rounded-md border border-input bg-background px-3 font-mono uppercase text-xs"
                   />
-                  {GST_REGEX.test(registerForm.gstNumber.trim().toUpperCase()) && (
+                  {GST_REGEX.test(
+                    registerForm.gstNumber.trim().toUpperCase(),
+                  ) && (
                     <CheckCircle className="size-3.5 text-emerald-500 absolute right-2.5 top-2.5" />
                   )}
                 </div>
                 <span className="text-[10px] text-muted-foreground mt-0.5 block">
-                  Format: 2-digit State + 10-char PAN + 1 Entity + Z + 1 Check digit
+                  Format: 2-digit State + 10-char PAN + 1 Entity + Z + 1 Check
+                  digit
                 </span>
               </div>
 
               <div>
-                <label className="font-semibold block mb-1">Business Phone / Contact</label>
+                <label className="font-semibold block mb-1">
+                  Business Phone / Contact
+                </label>
                 <input
                   type="tel"
                   value={registerForm.businessPhone}
-                  onChange={(e) => setRegisterForm({ ...registerForm, businessPhone: e.target.value })}
+                  onChange={(e) =>
+                    setRegisterForm({
+                      ...registerForm,
+                      businessPhone: e.target.value,
+                    })
+                  }
                   placeholder="+91 98200 12345"
                   className="w-full h-8 rounded-md border border-input bg-background px-3 text-xs"
                 />
               </div>
 
               <div>
-                <label className="font-semibold block mb-1">Full Street Address *</label>
+                <label className="font-semibold block mb-1">
+                  Full Street Address *
+                </label>
                 <input
                   type="text"
                   required
                   value={registerForm.address}
-                  onChange={(e) => setRegisterForm({ ...registerForm, address: e.target.value })}
+                  onChange={(e) =>
+                    setRegisterForm({
+                      ...registerForm,
+                      address: e.target.value,
+                    })
+                  }
                   placeholder="e.g. 420 MG Road, Sector 5"
                   className="w-full h-8 rounded-md border border-input bg-background px-3 text-xs"
                 />
               </div>
 
               <div>
-                <label className="font-semibold block mb-1">Initial Service Counters (comma-separated)</label>
+                <label className="font-semibold block mb-1">
+                  Initial Service Counters (comma-separated)
+                </label>
                 <input
                   type="text"
                   value={registerForm.counters}
-                  onChange={(e) => setRegisterForm({ ...registerForm, counters: e.target.value })}
+                  onChange={(e) =>
+                    setRegisterForm({
+                      ...registerForm,
+                      counters: e.target.value,
+                    })
+                  }
                   placeholder="Registration, Doctor OPD, Pathology, Billing"
                   className="w-full h-8 rounded-md border border-input bg-background px-3 text-xs"
                 />
@@ -628,7 +697,7 @@ export default function BusinessDashboard() {
           </div>
 
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl sm:text-3xl font-black tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-medium tracking-tight">
               {activeVenue.name}
             </h1>
             <Link
@@ -641,7 +710,8 @@ export default function BusinessDashboard() {
             </Link>
           </div>
           <p className="text-xs text-muted-foreground mt-0.5">
-            {activeVenue.address}, {activeVenue.city} • Official facility control room
+            {activeVenue.address}, {activeVenue.city} • Official facility
+            control room
           </p>
         </div>
 
@@ -681,7 +751,11 @@ export default function BusinessDashboard() {
             ) : (
               <Save className="size-3.5" />
             )}
-            {saving ? "Publishing..." : saved ? "Published Live!" : "Publish Changes"}
+            {saving
+              ? "Publishing..."
+              : saved
+                ? "Published Live!"
+                : "Publish Changes"}
           </Button>
         </div>
       </div>
@@ -691,7 +765,8 @@ export default function BusinessDashboard() {
           <AlertTriangle className="size-5 text-amber-500 shrink-0" />
           <div className="flex-1 w-full">
             <label className="text-xs font-bold block mb-1">
-              Live Citizen Broadcast Banner (Displayed prominently on Radar & Predictions):
+              Live Citizen Broadcast Banner (Displayed prominently on Radar &
+              Predictions):
             </label>
             <div className="flex gap-2">
               <input
@@ -716,7 +791,9 @@ export default function BusinessDashboard() {
 
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-base font-bold tracking-tight">Active Service Counters</h2>
+          <h2 className="text-base font-bold tracking-tight">
+            Active Service Counters
+          </h2>
           <p className="text-xs text-muted-foreground">
             Manage queue counts, doctor delays, and counter operational status.
           </p>
@@ -791,7 +868,7 @@ export default function BusinessDashboard() {
                       >
                         <Minus className="size-3" />
                       </Button>
-                      <span className="text-base font-black font-mono">
+                      <span className="text-base font-medium font-mono">
                         {sp.currentQueueCount}
                       </span>
                       <Button
@@ -805,26 +882,27 @@ export default function BusinessDashboard() {
                     </div>
                   </div>
 
-                <div>
-                  <span className="text-[10px] text-muted-foreground font-semibold flex items-center gap-1">
-                    <Clock className="size-3" /> Duration Forecast
-                  </span>
-                  <p className="text-base font-black font-mono text-primary mt-2">
-                    {sp.estimatedWaitMinutes} min
-                  </p>
+                  <div>
+                    <span className="text-[10px] text-muted-foreground font-semibold flex items-center gap-1">
+                      <Clock className="size-3" /> Duration Forecast
+                    </span>
+                    <p className="text-base font-medium font-mono text-primary mt-2">
+                      {sp.estimatedWaitMinutes} min
+                    </p>
+                  </div>
                 </div>
-              </div>
 
-              {sp.status === "delayed" && (
-                <div className="flex items-center gap-2 text-xs bg-amber-500/10 text-amber-700 dark:text-amber-300 p-2 rounded-md">
-                  <AlertTriangle className="size-3.5 shrink-0" />
-                  <span>
-                    Counter delayed: +{sp.delayMinutes || 15}m added to visitor wait times
-                  </span>
-                </div>
-              )}
-            </CardContent>
-          </Card>
+                {sp.status === "delayed" && (
+                  <div className="flex items-center gap-2 text-xs bg-amber-500/10 text-amber-700 dark:text-amber-300 p-2 rounded-md">
+                    <AlertTriangle className="size-3.5 shrink-0" />
+                    <span>
+                      Counter delayed: +{sp.delayMinutes || 15}m added to
+                      visitor wait times
+                    </span>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
           );
         })}
       </div>
@@ -837,11 +915,15 @@ export default function BusinessDashboard() {
               Register & Publish Facility
             </DialogTitle>
             <DialogDescription className="text-xs">
-              Provide official business credentials including 15-character GSTIN to gain authorized telemetry control.
+              Provide official business credentials including 15-character GSTIN
+              to gain authorized telemetry control.
             </DialogDescription>
           </DialogHeader>
 
-          <form onSubmit={handleRegisterSubmit} className="flex flex-col gap-3 mt-2 text-xs">
+          <form
+            onSubmit={handleRegisterSubmit}
+            className="flex flex-col gap-3 mt-2 text-xs"
+          >
             {registerError && (
               <div className="p-2 rounded-md bg-destructive/10 border border-destructive/20 text-destructive text-[11px]">
                 {registerError}
@@ -849,12 +931,16 @@ export default function BusinessDashboard() {
             )}
 
             <div>
-              <label className="font-semibold block mb-1">Facility Name *</label>
+              <label className="font-semibold block mb-1">
+                Facility Name *
+              </label>
               <input
                 type="text"
                 required
                 value={registerForm.name}
-                onChange={(e) => setRegisterForm({ ...registerForm, name: e.target.value })}
+                onChange={(e) =>
+                  setRegisterForm({ ...registerForm, name: e.target.value })
+                }
                 placeholder="e.g. Apex Multispecialty Clinic"
                 className="w-full h-8 rounded-md border border-input bg-background px-3 text-xs"
               />
@@ -865,7 +951,12 @@ export default function BusinessDashboard() {
                 <label className="font-semibold block mb-1">Category *</label>
                 <select
                   value={registerForm.category}
-                  onChange={(e) => setRegisterForm({ ...registerForm, category: e.target.value as VenueItem["category"] })}
+                  onChange={(e) =>
+                    setRegisterForm({
+                      ...registerForm,
+                      category: e.target.value as VenueItem["category"],
+                    })
+                  }
                   className="w-full h-8 rounded-md border border-input bg-background px-2 text-xs"
                 >
                   <option value="clinic">Clinic / Hospital</option>
@@ -884,7 +975,9 @@ export default function BusinessDashboard() {
                   type="text"
                   required
                   value={registerForm.city}
-                  onChange={(e) => setRegisterForm({ ...registerForm, city: e.target.value })}
+                  onChange={(e) =>
+                    setRegisterForm({ ...registerForm, city: e.target.value })
+                  }
                   placeholder="e.g. Mumbai"
                   className="w-full h-8 rounded-md border border-input bg-background px-3 text-xs"
                 />
@@ -901,48 +994,71 @@ export default function BusinessDashboard() {
                   required
                   maxLength={15}
                   value={registerForm.gstNumber}
-                  onChange={(e) => setRegisterForm({ ...registerForm, gstNumber: e.target.value.toUpperCase() })}
+                  onChange={(e) =>
+                    setRegisterForm({
+                      ...registerForm,
+                      gstNumber: e.target.value.toUpperCase(),
+                    })
+                  }
                   placeholder="e.g. 27AAPFU0939L1ZV"
                   className="w-full h-8 rounded-md border border-input bg-background px-3 font-mono uppercase text-xs"
                 />
-                {GST_REGEX.test(registerForm.gstNumber.trim().toUpperCase()) && (
+                {GST_REGEX.test(
+                  registerForm.gstNumber.trim().toUpperCase(),
+                ) && (
                   <CheckCircle className="size-3.5 text-emerald-500 absolute right-2.5 top-2.5" />
                 )}
               </div>
               <span className="text-[10px] text-muted-foreground mt-0.5 block">
-                Format: 2-digit State + 10-char PAN + 1 Entity + Z + 1 Check digit
+                Format: 2-digit State + 10-char PAN + 1 Entity + Z + 1 Check
+                digit
               </span>
             </div>
 
             <div>
-              <label className="font-semibold block mb-1">Business Phone / Contact</label>
+              <label className="font-semibold block mb-1">
+                Business Phone / Contact
+              </label>
               <input
                 type="tel"
                 value={registerForm.businessPhone}
-                onChange={(e) => setRegisterForm({ ...registerForm, businessPhone: e.target.value })}
+                onChange={(e) =>
+                  setRegisterForm({
+                    ...registerForm,
+                    businessPhone: e.target.value,
+                  })
+                }
                 placeholder="+91 98200 12345"
                 className="w-full h-8 rounded-md border border-input bg-background px-3 text-xs"
               />
             </div>
 
             <div>
-              <label className="font-semibold block mb-1">Full Street Address *</label>
+              <label className="font-semibold block mb-1">
+                Full Street Address *
+              </label>
               <input
                 type="text"
                 required
                 value={registerForm.address}
-                onChange={(e) => setRegisterForm({ ...registerForm, address: e.target.value })}
+                onChange={(e) =>
+                  setRegisterForm({ ...registerForm, address: e.target.value })
+                }
                 placeholder="e.g. 420 MG Road, Sector 5"
                 className="w-full h-8 rounded-md border border-input bg-background px-3 text-xs"
               />
             </div>
 
             <div>
-              <label className="font-semibold block mb-1">Initial Service Counters (comma-separated)</label>
+              <label className="font-semibold block mb-1">
+                Initial Service Counters (comma-separated)
+              </label>
               <input
                 type="text"
                 value={registerForm.counters}
-                onChange={(e) => setRegisterForm({ ...registerForm, counters: e.target.value })}
+                onChange={(e) =>
+                  setRegisterForm({ ...registerForm, counters: e.target.value })
+                }
                 placeholder="Registration, Doctor OPD, Pathology, Billing"
                 className="w-full h-8 rounded-md border border-input bg-background px-3 text-xs"
               />

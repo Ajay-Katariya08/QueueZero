@@ -62,17 +62,25 @@ export default function AnalyticsDashboardPage() {
     loadStats();
   }, [selectedSlug]);
 
-  const activeVenue = venues.find((v) => v.slug === selectedSlug) || venues[0] || null;
+  const activeVenue =
+    venues.find((v) => v.slug === selectedSlug) || venues[0] || null;
 
-  const sortedStats = [...hourlyStats].sort((a, b) => b.waitMinutes - a.waitMinutes);
+  const sortedStats = [...hourlyStats].sort(
+    (a, b) => b.waitMinutes - a.waitMinutes,
+  );
   const highestHour = sortedStats[0] || { label: "11:00 AM", waitMinutes: 45 };
-  const lowestHour = sortedStats[sortedStats.length - 1] || { label: "8:00 AM", waitMinutes: 10 };
+  const lowestHour = sortedStats[sortedStats.length - 1] || {
+    label: "8:00 AM",
+    waitMinutes: 10,
+  };
 
   if (loading) {
     return (
       <div className="mx-auto max-w-6xl px-4 py-16 text-center">
         <div className="size-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-        <p className="text-xs text-muted-foreground font-medium">Analyzing historical telemetry...</p>
+        <p className="text-xs text-muted-foreground font-medium">
+          Analyzing historical telemetry...
+        </p>
       </div>
     );
   }
@@ -81,7 +89,9 @@ export default function AnalyticsDashboardPage() {
     return (
       <div className="mx-auto max-w-md px-4 py-16 text-center">
         <h2 className="text-base font-bold">No Venues Registered</h2>
-        <p className="text-xs text-muted-foreground mt-1">Register a facility to view historical queue intelligence.</p>
+        <p className="text-xs text-muted-foreground mt-1">
+          Register a facility to view historical queue intelligence.
+        </p>
       </div>
     );
   }
@@ -105,11 +115,12 @@ export default function AnalyticsDashboardPage() {
               Throughput Intelligence
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-medium tracking-tight">
             Historical Queue Patterns
           </h1>
           <p className="text-xs text-muted-foreground">
-            Machine learning aggregates of counter throughput, bottlenecks, and citizen arrival curves.
+            Machine learning aggregates of counter throughput, bottlenecks, and
+            citizen arrival curves.
           </p>
         </div>
 
@@ -132,9 +143,10 @@ export default function AnalyticsDashboardPage() {
         <Card className="border-border">
           <CardContent className="p-4">
             <span className="text-xs font-medium text-muted-foreground flex items-center gap-1">
-              <Clock className="size-3.5 text-primary" /> Fastest Throughput Window
+              <Clock className="size-3.5 text-primary" /> Fastest Throughput
+              Window
             </span>
-            <p className="text-xl font-black mt-1 text-emerald-600 dark:text-emerald-400">
+            <p className="text-xl font-medium mt-1 text-emerald-600 dark:text-emerald-400">
               {lowestHour.label} ({lowestHour.waitMinutes} min avg)
             </p>
             <p className="text-[11px] text-muted-foreground mt-0.5">
@@ -146,9 +158,10 @@ export default function AnalyticsDashboardPage() {
         <Card className="border-border">
           <CardContent className="p-4">
             <span className="text-xs font-medium text-muted-foreground flex items-center gap-1">
-              <AlertTriangle className="size-3.5 text-amber-500" /> Peak Surge Time
+              <AlertTriangle className="size-3.5 text-amber-500" /> Peak Surge
+              Time
             </span>
-            <p className="text-xl font-black mt-1 text-amber-600 dark:text-amber-400">
+            <p className="text-xl font-medium mt-1 text-amber-600 dark:text-amber-400">
               {highestHour.label} ({highestHour.waitMinutes} min avg)
             </p>
             <p className="text-[11px] text-muted-foreground mt-0.5">
@@ -162,7 +175,7 @@ export default function AnalyticsDashboardPage() {
             <span className="text-xs font-medium text-muted-foreground flex items-center gap-1">
               <Users className="size-3.5" /> Crowdsource Verification Rate
             </span>
-            <p className="text-xl font-black mt-1 text-primary">96.4%</p>
+            <p className="text-xl font-medium mt-1 text-primary">96.4%</p>
             <p className="text-[11px] text-muted-foreground mt-0.5">
               Cross-checked against counter telemetry
             </p>
@@ -177,15 +190,22 @@ export default function AnalyticsDashboardPage() {
             24-Hour Wait Time Curve ({activeVenue.name})
           </CardTitle>
           <CardDescription className="text-xs">
-            Dynamic hourly throughput curve computed from live counter observations.
+            Dynamic hourly throughput curve computed from live counter
+            observations.
           </CardDescription>
         </CardHeader>
 
         <CardContent className="p-4 pt-0">
           <div className="flex items-end gap-2 h-48 border-b border-border pb-3 pt-6">
             {hourlyStats.map((h, i) => {
-              const maxVal = Math.max(...hourlyStats.map((s) => s.waitMinutes), 50);
-              const height = Math.min(100, Math.max(12, (h.waitMinutes / maxVal) * 100));
+              const maxVal = Math.max(
+                ...hourlyStats.map((s) => s.waitMinutes),
+                50,
+              );
+              const height = Math.min(
+                100,
+                Math.max(12, (h.waitMinutes / maxVal) * 100),
+              );
 
               return (
                 <div
@@ -201,8 +221,8 @@ export default function AnalyticsDashboardPage() {
                       h.busyness === "peak"
                         ? "bg-red-500/80 group-hover:bg-red-500"
                         : h.busyness === "high"
-                        ? "bg-amber-500/80 group-hover:bg-amber-500"
-                        : "bg-primary/70 group-hover:bg-primary"
+                          ? "bg-amber-500/80 group-hover:bg-amber-500"
+                          : "bg-primary/70 group-hover:bg-primary"
                     }`}
                   />
                   <span className="text-[9px] text-muted-foreground truncate w-full text-center">
