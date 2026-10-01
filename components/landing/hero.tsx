@@ -182,20 +182,25 @@ export function Hero() {
 
                     {featuredVenue.servicePoints &&
                       featuredVenue.servicePoints.length > 0 && (
-                        <div className="flex flex-col gap-1.5 rounded-lg border border-border/80 p-2.5 text-xs">
-                          {featuredVenue.servicePoints.slice(0, 3).map((sp) => (
+                        <div className="flex flex-col gap-1.5 rounded-lg border border-border/80 p-2.5 text-xs max-h-64 overflow-y-auto">
+                          {featuredVenue.servicePoints.slice(0, 6).map((sp) => (
                             <div
                               key={sp.id || sp._id || sp.name}
                               className="flex items-center justify-between py-1 border-b border-border/40 last:border-0"
                             >
-                              <span className="font-medium text-foreground">
+                              <span className="font-medium text-foreground truncate pr-2">
                                 {sp.name}
                               </span>
-                              <span className="text-muted-foreground font-semibold flex items-center gap-1">
+                              <span className="text-muted-foreground font-semibold flex items-center gap-1 shrink-0">
                                 {sp.estimatedWaitMinutes} min
                               </span>
                             </div>
                           ))}
+                          {featuredVenue.servicePoints.length > 6 && (
+                            <p className="text-[10px] text-muted-foreground text-center pt-1 border-t border-border/30">
+                              +{featuredVenue.servicePoints.length - 6} more services
+                            </p>
+                          )}
                         </div>
                       )}
 
