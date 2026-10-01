@@ -29,7 +29,7 @@ export function QueueBadge({ waitMinutes, className }: QueueBadgeProps) {
   return (
     <div
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full bg-[#fffefc] border border-[#efeeeb] px-2.5 sm:px-3 py-1 text-xs font-normal text-[#0f3e17]  whitespace-nowrap shrink-0",
+        "inline-flex items-center gap-1.5 rounded-full bg-cream border border-border-mist px-2.5 sm:px-3 py-1 text-xs font-normal text-forest whitespace-nowrap shrink-0",
         className,
       )}
     >
@@ -47,8 +47,8 @@ export function QueueBadge({ waitMinutes, className }: QueueBadgeProps) {
           )}
         />
       </span>
-      <span className="font-medium text-[#0f3e17]">{waitMinutes} min wait</span>
-      <span className="text-[#222222]/60 text-[11px]">({status.label})</span>
+      <span className="font-medium text-forest">{waitMinutes} min wait</span>
+      <span className="text-charcoal/60 text-[11px]">({status.label})</span>
     </div>
   );
 }

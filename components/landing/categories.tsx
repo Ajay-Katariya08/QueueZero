@@ -94,20 +94,20 @@ export function Categories() {
   }, []);
 
   return (
-    <section className="py-8 sm:py-10 bg-[#fffefc]">
+    <section className="py-8 sm:py-10 bg-cream">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 sm:mb-8">
           <div>
             <span className="eyebrow">
               EVERYWHERE QUEUES FORM
             </span>
-            <h2 className="font-serif font-light text-3xl sm:text-5xl text-[#0f3e17] mt-2">
+            <h2 className="font-serif font-light text-3xl sm:text-5xl text-forest mt-2">
               Operational categories
             </h2>
           </div>
           <Link
             href="/explore"
-            className="inline-flex items-center text-sm font-medium text-[#0f3e17] hover:underline"
+            className="inline-flex items-center text-sm font-medium text-forest hover:underline"
           >
             Browse all locations →
           </Link>
@@ -126,14 +126,14 @@ export function Categories() {
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-3xl">{cat.icon}</span>
-                    <span className="text-[11px] font-normal text-[#0f3e17] bg-[#fffefc] border border-[#efeeeb] px-3 py-1 rounded-full">
+                    <span className="text-[11px] font-normal text-forest bg-cream border border-border-mist px-3 py-1 rounded-full">
                       {count > 0 ? `${count} active` : "Radar Ready"}
                     </span>
                   </div>
-                  <h3 className="font-serif font-light text-2xl text-[#0f3e17] tracking-tight mb-1">
+                  <h3 className="font-serif font-light text-2xl text-forest tracking-tight mb-1">
                     {cat.name}
                   </h3>
-                  <p className="text-xs text-[#222222]/80 leading-relaxed">
+                  <p className="text-xs text-charcoal/80 leading-relaxed">
                     {cat.defaultLabel}
                   </p>
                 </div>

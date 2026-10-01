@@ -70,8 +70,8 @@
 }
 
 body {
-  background-color: #fffefc;
-  color: #222222;
+  background-color: var(--color-cream);
+  color: var(--color-charcoal);
   font-family: -apple-system, BlinkMacSystemFont, Inter, "Segoe UI", sans-serif;
   font-weight: 400;
 }
@@ -93,7 +93,7 @@ nav a, button, [role="button"] {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #0f3e17;
+  color: var(--color-forest);
 }
 
 button:active:not(:disabled) {

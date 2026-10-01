@@ -72,44 +72,44 @@ export default function ReportPage() {
   };
 
   return (
-    <div className="mx-auto max-w-2xl px-6 py-10 sm:px-10 sm:py-14 flex flex-col gap-8 bg-[#fffefc]">
+    <div className="mx-auto max-w-2xl px-6 py-10 sm:px-10 sm:py-14 flex flex-col gap-8 bg-cream">
       <div className="text-center flex flex-col items-center gap-2">
-        <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#0f3e17] rounded-full bg-[#fffefc] border border-[#efeeeb] px-3.5 py-1">
+        <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-forest rounded-full bg-cream border border-border-mist px-3.5 py-1">
           100% ANONYMOUS CITIZEN BROADCAST
         </span>
-        <h1 className="font-serif text-3xl sm:text-5xl font-light tracking-[-0.03em] text-[#0f3e17]">
+        <h1 className="font-serif text-3xl sm:text-5xl font-light tracking-[-0.03em] text-forest">
           Report Ground Reality
         </h1>
-        <p className="text-xs sm:text-sm text-[#222222]/75 max-w-md leading-relaxed">
+        <p className="text-xs sm:text-sm text-charcoal/75 max-w-md leading-relaxed">
           Are you at a clinic, DMV, bank, or visa center right now? Your report
           updates the live radar for everyone traveling behind you.
         </p>
       </div>
 
-      <Card className="rounded-[14px] bg-[#e1f4df] border-0 shadow-none p-4">
+      <Card className="rounded-[14px] bg-keylime border-0 shadow-none p-4">
         <CardHeader className="pb-4">
-          <CardTitle className="font-serif text-2xl font-light text-[#0f3e17]">
+          <CardTitle className="font-serif text-2xl font-light text-forest">
             Observation Details
           </CardTitle>
-          <CardDescription className="text-xs text-[#222222]/70">
+          <CardDescription className="text-xs text-charcoal/70">
             No login or identification required.
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="flex flex-col gap-5 text-xs">
             <div>
-              <label className="font-normal block mb-1.5 text-[#0f3e17]">Select Place</label>
+              <label className="font-normal block mb-1.5 text-forest">Select Place</label>
               {loading ? (
-                <div className="h-11 w-full rounded-[14px] bg-[#cfe7d3] animate-pulse" />
+                <div className="h-11 w-full rounded-[14px] bg-mint animate-pulse" />
               ) : venues.length === 0 ? (
-                <div className="rounded-[14px] bg-[#fffefc] p-4 text-center text-[#222222]/70 text-xs">
+                <div className="rounded-[14px] bg-cream p-4 text-center text-charcoal/70 text-xs">
                   No registered facilities available to report yet.
                 </div>
               ) : (
                 <select
                   value={selectedSlug}
                   onChange={(e) => setSelectedSlug(e.target.value)}
-                  className="w-full h-11 rounded-[14px] border border-[#efeeeb] bg-[#fffefc] px-4 text-xs font-normal text-[#0f3e17] focus:outline-none"
+                  className="w-full h-11 rounded-[14px] border border-border-mist bg-cream px-4 text-xs font-normal text-forest focus:outline-none"
                 >
                   {venues.map((v) => (
                     <option key={v.slug} value={v.slug}>
@@ -122,8 +122,8 @@ export default function ReportPage() {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="font-normal block mb-1.5 flex items-center gap-1.5 text-[#0f3e17]">
-                  <Users className="size-3.5 text-[#0f3e17]" /> People in Line
+                <label className="font-normal block mb-1.5 flex items-center gap-1.5 text-forest">
+                  <Users className="size-3.5 text-forest" /> People in Line
                 </label>
                 <input
                   type="number"
@@ -131,14 +131,14 @@ export default function ReportPage() {
                   max="500"
                   value={reportedCount}
                   onChange={(e) => setReportedCount(Number(e.target.value))}
-                  className="w-full h-11 rounded-[14px] border border-[#efeeeb] bg-[#fffefc] px-4 font-mono text-sm text-[#0f3e17] focus:outline-none"
+                  className="w-full h-11 rounded-[14px] border border-border-mist bg-cream px-4 font-mono text-sm text-forest focus:outline-none"
                   required
                 />
               </div>
 
               <div>
-                <label className="font-normal block mb-1.5 flex items-center gap-1.5 text-[#0f3e17]">
-                  <Clock className="size-3.5 text-[#0f3e17]" /> Estimated Wait (min)
+                <label className="font-normal block mb-1.5 flex items-center gap-1.5 text-forest">
+                  <Clock className="size-3.5 text-forest" /> Estimated Wait (min)
                 </label>
                 <input
                   type="number"
@@ -146,14 +146,14 @@ export default function ReportPage() {
                   max="300"
                   value={reportedWait}
                   onChange={(e) => setReportedWait(Number(e.target.value))}
-                  className="w-full h-11 rounded-[14px] border border-[#efeeeb] bg-[#fffefc] px-4 font-mono text-sm text-[#0f3e17] focus:outline-none"
+                  className="w-full h-11 rounded-[14px] border border-border-mist bg-cream px-4 font-mono text-sm text-forest focus:outline-none"
                   required
                 />
               </div>
             </div>
 
             <div>
-              <label className="font-normal block mb-1.5 text-[#0f3e17]">
+              <label className="font-normal block mb-1.5 text-forest">
                 Contextual Observations
               </label>
               <textarea
@@ -161,7 +161,7 @@ export default function ReportPage() {
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder="e.g. Doctor is running 20 mins behind, counter 4 just opened, token system down..."
-                className="w-full rounded-[14px] border border-[#efeeeb] bg-[#fffefc] p-3 text-xs leading-relaxed text-[#222222] focus:outline-none"
+                className="w-full rounded-[14px] border border-border-mist bg-cream p-3 text-xs leading-relaxed text-charcoal focus:outline-none"
               />
             </div>
 
@@ -169,7 +169,7 @@ export default function ReportPage() {
               type="submit"
               disabled={submitting || submitted || loading || !selectedSlug}
               size="lg"
-              className="w-full gap-2 font-normal text-xs mt-2 rounded-[14px] bg-[#0f3e17] text-[#fffefc] hover:bg-[#0c2f10] border-0 h-11"
+              className="w-full gap-2 font-normal text-xs mt-2 rounded-[14px] bg-forest text-cream hover:bg-forest-shadow border-0 h-11"
             >
               {submitted ? (
                 <Check className="size-4" />

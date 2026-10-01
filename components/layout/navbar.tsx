@@ -37,16 +37,16 @@ export function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[#efeeeb] bg-[#fffefc]/90 backdrop-blur-sm">
+    <header className="sticky top-0 z-40 w-full border-b border-border-mist bg-cream/90 backdrop-blur-sm">
       <div className="relative mx-auto flex h-16 max-w-7xl items-center justify-between px-6 sm:px-10">
         <Link
           href="/"
-          className="flex items-center gap-2.5 font-medium tracking-tight text-[#0f3e17]"
+          className="flex items-center gap-2.5 font-medium tracking-tight text-forest"
         >
-          <span className="flex size-7 items-center justify-center rounded-[7px] bg-[#0f3e17] text-white">
-            <span className="size-2 rounded-full bg-[#b1dbb8]" />
+          <span className="flex size-7 items-center justify-center rounded-[7px] bg-forest text-white">
+            <span className="size-2 rounded-full bg-sage" />
           </span>
-          <span className="text-xl font-bold tracking-tight text-[#0f3e17]">
+          <span className="text-xl font-bold tracking-tight text-forest">
             Queue<span className="font-serif font-normal italic">Zero</span>
           </span>
         </Link>
@@ -60,8 +60,8 @@ export function Navbar() {
                 href={item.href}
                 className={`inline-flex items-center px-3.5 py-1.5 text-sm font-normal rounded-[7px] transition-colors ${
                   active
-                    ? "bg-[#e1f4df] text-[#0f3e17]"
-                    : "text-[#222222] hover:bg-[#e1f4df]/60 hover:text-[#0f3e17]"
+                    ? "bg-keylime text-forest"
+                    : "text-charcoal hover:bg-keylime/60 hover:text-forest"
                 }`}
               >
                 {item.label}
@@ -77,7 +77,7 @@ export function Navbar() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="rounded-[7px] text-sm font-normal text-[#222222] hover:bg-[#e1f4df]"
+                  className="rounded-[7px] text-sm font-normal text-charcoal hover:bg-keylime"
                 >
                   Sign In
                 </Button>
@@ -85,7 +85,7 @@ export function Navbar() {
               <SignUpButton mode="modal">
                 <Button
                   size="sm"
-                  className="rounded-full bg-[#0f3e17] hover:bg-[#0c2f10] text-[#fffefc] px-5 py-2 text-sm font-medium"
+                  className="rounded-full bg-forest hover:bg-forest-shadow text-cream px-5 py-2 text-sm font-medium"
                 >
                   Get Started
                 </Button>
@@ -100,7 +100,7 @@ export function Navbar() {
           <button
             type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden inline-flex size-9 items-center justify-center rounded-[7px] border border-[#efeeeb] bg-[#fffefc] text-[#222222]"
+            className="md:hidden inline-flex size-9 items-center justify-center rounded-[7px] border border-border-mist bg-cream text-charcoal"
             aria-label="Toggle navigation"
           >
             {mobileOpen ? (
@@ -113,7 +113,7 @@ export function Navbar() {
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden border-b border-[#efeeeb] bg-[#fffefc] p-6 flex flex-col gap-2">
+        <div className="md:hidden border-b border-border-mist bg-cream p-6 flex flex-col gap-2">
           {navLinks.map((item) => {
             const active = isActive(item.href);
             return (
@@ -123,8 +123,8 @@ export function Navbar() {
                 onClick={() => setMobileOpen(false)}
                 className={`flex items-center gap-2 px-4 py-2.5 text-sm font-normal rounded-[7px] transition-colors ${
                   active
-                    ? "bg-[#e1f4df] text-[#0f3e17]"
-                    : "text-[#222222] hover:bg-[#e1f4df]/60 hover:text-[#0f3e17]"
+                    ? "bg-keylime text-forest"
+                    : "text-charcoal hover:bg-keylime/60 hover:text-forest"
                 }`}
               >
                 {item.label}
@@ -132,12 +132,12 @@ export function Navbar() {
             );
           })}
           <SignedOut>
-            <div className="pt-3 border-t border-[#efeeeb] flex flex-col gap-2">
+            <div className="pt-3 border-t border-border-mist flex flex-col gap-2">
               <SignInButton mode="modal">
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="w-full rounded-[7px] text-sm font-normal text-[#222222]"
+                  className="w-full rounded-[7px] text-sm font-normal text-charcoal"
                 >
                   Sign In
                 </Button>
@@ -145,7 +145,7 @@ export function Navbar() {
               <SignUpButton mode="modal">
                 <Button
                   size="sm"
-                  className="w-full rounded-full bg-[#0f3e17] hover:bg-[#0c2f10] text-[#fffefc]"
+                  className="w-full rounded-full bg-forest hover:bg-forest-shadow text-cream"
                 >
                   Get Started
                 </Button>

@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
-        <body className="min-h-screen flex flex-col antialiased bg-[#fffefc] text-[#222222] selection:bg-[#e1f4df] selection:text-[#0f3e17]">
+        <body className="min-h-screen flex flex-col antialiased bg-cream text-charcoal selection:bg-keylime selection:text-forest">
           <ThemeProvider defaultTheme="light">
             <Navbar />
             <main className="flex-1">{children}</main>

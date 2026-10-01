@@ -14,6 +14,7 @@
     "@wrksz/themes": "^2.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cnfast": "^0.2.0",
     "framer-motion": "^12.4.3",
     "lucide-react": "^0.475.0",
     "mongoose": "^8.10.0",

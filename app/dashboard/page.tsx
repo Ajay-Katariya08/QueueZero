@@ -377,8 +377,8 @@ export default function BusinessDashboard() {
   if (!isLoaded || loadingVenues) {
     return (
       <div className="mx-auto max-w-6xl px-4 py-16 text-center">
-        <div className="size-8 border-2 border-[#0f3e17] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-        <p className="text-xs text-[#222222]/70">
+        <div className="size-8 border-2 border-forest border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+        <p className="text-xs text-charcoal/70">
           Loading operator console...
         </p>
       </div>
@@ -388,18 +388,18 @@ export default function BusinessDashboard() {
   if (!isSignedIn) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-16 flex flex-col items-center text-center gap-6">
-        <div className="size-16 rounded-[14px] bg-[#e1f4df] flex items-center justify-center text-[#0f3e17]">
+        <div className="size-16 rounded-[14px] bg-keylime flex items-center justify-center text-forest">
           <Lock className="size-8" />
         </div>
         <div>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#fffefc] px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-[#0f3e17] border border-[#efeeeb] mb-3">
-            <Lock className="size-3 text-[#0f3e17]" />
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-cream px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-forest border border-border-mist mb-3">
+            <Lock className="size-3 text-forest" />
             Authorized Personnel Only
           </span>
-          <h1 className="font-serif text-3xl sm:text-4xl font-light tracking-[-0.02em] text-[#0f3e17]">
+          <h1 className="font-serif text-3xl sm:text-4xl font-light tracking-[-0.02em] text-forest">
             Verified Facility Operator Portal
           </h1>
-          <p className="text-xs sm:text-sm text-[#222222]/75 mt-2 max-w-lg mx-auto leading-relaxed">
+          <p className="text-xs sm:text-sm text-charcoal/75 mt-2 max-w-lg mx-auto leading-relaxed">
             Public citizens can observe and report queues anonymously. Official
             counter telemetry and broadcast announcements require an
             authenticated business account verified with 15-digit GSTIN.
@@ -410,7 +410,7 @@ export default function BusinessDashboard() {
           <SignInButton mode="modal">
             <Button
               size="lg"
-              className="w-full sm:w-auto gap-2 text-sm font-normal rounded-[14px] bg-[#0f3e17] text-[#fffefc] hover:bg-[#0c2f10] border-0 h-11 px-7"
+              className="w-full sm:w-auto gap-2 text-sm font-normal rounded-[14px] bg-forest text-cream hover:bg-forest-shadow border-0 h-11 px-7"
             >
               <ShieldCheck className="size-4" />
               Sign In to Your Facility
@@ -420,7 +420,7 @@ export default function BusinessDashboard() {
             <Button
               variant="outline"
               size="lg"
-              className="w-full sm:w-auto gap-2 text-sm font-normal rounded-[14px] border border-[#efeeeb] bg-[#fffefc] text-[#0f3e17] hover:bg-[#cfe7d3] h-11 px-7"
+              className="w-full sm:w-auto gap-2 text-sm font-normal rounded-[14px] border border-border-mist bg-cream text-forest hover:bg-mint h-11 px-7"
             >
               <Building2 className="size-4" />
               Register New Business Account
@@ -435,20 +435,20 @@ export default function BusinessDashboard() {
     return (
       <div className="mx-auto max-w-3xl px-4 py-12 flex flex-col gap-6">
         {toastMessage && (
-          <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-[14px] bg-[#0f3e17] text-[#fffefc] px-4 py-2.5 text-xs font-normal border border-[#0f3e17]">
-            <CheckCircle className="size-4 shrink-0 text-[#b1dbb8]" />
+          <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-[14px] bg-forest text-cream px-4 py-2.5 text-xs font-normal border border-forest">
+            <CheckCircle className="size-4 shrink-0 text-sage" />
             <span>{toastMessage}</span>
           </div>
         )}
 
-        <div className="rounded-[14px] bg-[#e1f4df] p-8 text-center flex flex-col items-center">
-          <div className="size-14 rounded-full bg-[#cfe7d3] flex items-center justify-center text-[#0f3e17] mx-auto mb-3">
+        <div className="rounded-[14px] bg-keylime p-8 text-center flex flex-col items-center">
+          <div className="size-14 rounded-full bg-mint flex items-center justify-center text-forest mx-auto mb-3">
             <Building2 className="size-7" />
           </div>
-          <h2 className="font-serif text-2xl sm:text-3xl font-light tracking-[-0.02em] text-[#0f3e17]">
+          <h2 className="font-serif text-2xl sm:text-3xl font-light tracking-[-0.02em] text-forest">
             Welcome, {user?.firstName || "Facility Operator"}!
           </h2>
-          <p className="text-xs sm:text-sm text-[#222222]/80 max-w-md mx-auto mt-2 mb-6 leading-relaxed">
+          <p className="text-xs sm:text-sm text-charcoal/80 max-w-md mx-auto mt-2 mb-6 leading-relaxed">
             You haven&apos;t registered any facilities yet. Complete the
             15-digit GSTIN verification to publish live queue counters to
             citizens.
@@ -457,13 +457,13 @@ export default function BusinessDashboard() {
           <Button
             size="lg"
             onClick={() => setRegisterModalOpen(true)}
-            className="rounded-[14px] bg-[#0f3e17] hover:bg-[#0c2f10] text-[#fffefc] px-6 h-11 gap-2 text-xs font-normal border-0"
+            className="rounded-[14px] bg-forest hover:bg-forest-shadow text-cream px-6 h-11 gap-2 text-xs font-normal border-0"
           >
             <Building2 className="size-4" />
             Register & Publish Facility Now
           </Button>
 
-          <p className="text-[11px] text-[#222222]/60 mt-4">
+          <p className="text-[11px] text-charcoal/60 mt-4">
             Verification is instantaneous with a valid GSTIN format.
           </p>
         </div>
@@ -659,49 +659,49 @@ export default function BusinessDashboard() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10 flex flex-col gap-8 bg-[#fffefc]">
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10 flex flex-col gap-8 bg-cream">
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-[14px] bg-[#0f3e17] text-[#fffefc] px-4 py-3 text-xs font-normal border border-[#0f3e17] animate-in fade-in slide-in-from-bottom-2">
-          <CheckCircle className="size-4 shrink-0 text-[#b1dbb8]" />
+        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-[14px] bg-forest text-cream px-4 py-3 text-xs font-normal border border-forest animate-in fade-in slide-in-from-bottom-2">
+          <CheckCircle className="size-4 shrink-0 text-sage" />
           <span>{toastMessage}</span>
         </div>
       )}
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#efeeeb]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-border-mist">
         <div>
           <div className="flex flex-wrap items-center gap-2 mb-2.5">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#fffefc] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-[#0f3e17] border border-[#efeeeb]">
-              <Activity className="size-3.5 text-[#0f3e17]" />
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-cream px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-forest border border-border-mist">
+              <Activity className="size-3.5 text-forest" />
               Operator Telemetry Console
             </span>
 
             {activeVenue.isVerified && (
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#e1f4df] px-3 py-1 text-[11px] font-normal text-[#0f3e17]">
-                <ShieldCheck className="size-3.5 text-[#0f3e17]" />
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-keylime px-3 py-1 text-[11px] font-normal text-forest">
+                <ShieldCheck className="size-3.5 text-forest" />
                 GSTIN: {activeVenue.gstNumber}
               </span>
             )}
 
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#cfe7d3] px-3 py-1 text-[11px] font-normal text-[#0f3e17]">
-              <span className="size-2 rounded-full bg-[#0f3e17] animate-pulse" />
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-mint px-3 py-1 text-[11px] font-normal text-forest">
+              <span className="size-2 rounded-full bg-forest animate-pulse" />
               Live Radar Connected
             </span>
           </div>
 
           <div className="flex items-center gap-3">
-            <h1 className="font-serif text-3xl sm:text-4xl font-light tracking-[-0.02em] text-[#0f3e17]">
+            <h1 className="font-serif text-3xl sm:text-4xl font-light tracking-[-0.02em] text-forest">
               {activeVenue.name}
             </h1>
             <Link
               href={`/venue/${activeVenue.slug}`}
               target="_blank"
-              className="inline-flex items-center justify-center size-8 rounded-[14px] bg-[#fffefc] border border-[#efeeeb] text-[#0f3e17] hover:bg-[#cfe7d3] transition-colors"
+              className="inline-flex items-center justify-center size-8 rounded-[14px] bg-cream border border-border-mist text-forest hover:bg-mint transition-colors"
               title="View Public Live Page"
             >
               <ExternalLink className="size-3.5" />
             </Link>
           </div>
-          <p className="text-xs text-[#222222]/70 mt-1.5">
+          <p className="text-xs text-charcoal/70 mt-1.5">
             {activeVenue.address}, {activeVenue.city} • Official facility control room
           </p>
         </div>
@@ -711,7 +711,7 @@ export default function BusinessDashboard() {
             <select
               value={selectedSlug}
               onChange={(e) => setSelectedSlug(e.target.value)}
-              className="h-10 rounded-[14px] border border-[#efeeeb] bg-[#fffefc] px-3.5 text-xs text-[#0f3e17] focus:outline-none"
+              className="h-10 rounded-[14px] border border-border-mist bg-cream px-3.5 text-xs text-forest focus:outline-none"
             >
               {userVenues.map((v) => (
                 <option key={v.slug} value={v.slug}>
@@ -725,7 +725,7 @@ export default function BusinessDashboard() {
             size="sm"
             variant="outline"
             onClick={() => setRegisterModalOpen(true)}
-            className="rounded-[14px] bg-[#fffefc] hover:bg-[#cfe7d3] border border-[#efeeeb] text-[#0f3e17] px-4 h-10 gap-2 text-xs font-normal"
+            className="rounded-[14px] bg-cream hover:bg-mint border border-border-mist text-forest px-4 h-10 gap-2 text-xs font-normal"
           >
             <Building2 className="size-3.5" />
             Register Another Facility
@@ -735,7 +735,7 @@ export default function BusinessDashboard() {
             onClick={handlePublishChanges}
             disabled={saving}
             size="sm"
-            className="rounded-[14px] bg-[#0f3e17] hover:bg-[#0c2f10] text-[#fffefc] px-5 h-10 gap-2 text-xs font-normal border-0"
+            className="rounded-[14px] bg-forest hover:bg-forest-shadow text-cream px-5 h-10 gap-2 text-xs font-normal border-0"
           >
             {saved ? (
               <CheckCircle className="size-4" />
@@ -751,17 +751,17 @@ export default function BusinessDashboard() {
         </div>
       </div>
 
-      <div className="rounded-[14px] bg-[#e1f4df] p-6">
+      <div className="rounded-[14px] bg-keylime p-6">
         <div className="flex flex-col gap-3">
           <div className="flex items-center gap-2.5">
-            <span className="flex size-7 items-center justify-center rounded-full bg-[#cfe7d3] text-[#0f3e17]">
+            <span className="flex size-7 items-center justify-center rounded-full bg-mint text-forest">
               <Radio className="size-4" />
             </span>
             <div>
-              <h3 className="font-serif text-lg font-light text-[#0f3e17]">
+              <h3 className="font-serif text-lg font-light text-forest">
                 Live Citizen Broadcast Banner
               </h3>
-              <p className="text-[11px] text-[#222222]/70">
+              <p className="text-[11px] text-charcoal/70">
                 Displayed prominently across live radar & prediction views for this facility
               </p>
             </div>
@@ -774,13 +774,13 @@ export default function BusinessDashboard() {
                 value={alertText}
                 onChange={(e) => setAlertText(e.target.value)}
                 placeholder="e.g. Operational • Doctor running 20m late due to emergency surgery"
-                className="w-full h-11 rounded-[14px] border border-[#efeeeb] bg-[#fffefc] px-4 text-xs sm:text-sm text-[#222222] placeholder:text-[#222222]/40 focus:outline-none"
+                className="w-full h-11 rounded-[14px] border border-border-mist bg-cream px-4 text-xs sm:text-sm text-charcoal placeholder:text-charcoal/40 focus:outline-none"
               />
             </div>
             <Button
               onClick={handlePublishChanges}
               disabled={saving}
-              className="w-full sm:w-auto h-11 rounded-[14px] bg-[#0f3e17] hover:bg-[#0c2f10] text-[#fffefc] px-6 text-xs font-normal shrink-0 border-0"
+              className="w-full sm:w-auto h-11 rounded-[14px] bg-forest hover:bg-forest-shadow text-cream px-6 text-xs font-normal shrink-0 border-0"
             >
               Broadcast
             </Button>
@@ -790,10 +790,10 @@ export default function BusinessDashboard() {
 
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="font-serif text-2xl font-light tracking-[-0.02em] text-[#0f3e17]">
+          <h2 className="font-serif text-2xl font-light tracking-[-0.02em] text-forest">
             Active Service Counters
           </h2>
-          <p className="text-xs text-[#222222]/70 mt-0.5">
+          <p className="text-xs text-charcoal/70 mt-0.5">
             Manage queue counts, doctor delays, and counter operational status.
           </p>
         </div>
@@ -801,7 +801,7 @@ export default function BusinessDashboard() {
           size="sm"
           variant="outline"
           onClick={addCounter}
-          className="rounded-[14px] bg-[#fffefc] hover:bg-[#cfe7d3] border border-[#efeeeb] text-[#0f3e17] px-4 h-9 gap-1.5 text-xs font-normal"
+          className="rounded-[14px] bg-cream hover:bg-mint border border-border-mist text-forest px-4 h-9 gap-1.5 text-xs font-normal"
         >
           <PlusCircle className="size-3.5" />
           Add Counter
@@ -814,14 +814,14 @@ export default function BusinessDashboard() {
           return (
             <div
               key={spKey}
-              className="rounded-[14px] bg-[#cfe7d3] p-6 flex flex-col gap-5 text-[#0f3e17]"
+              className="rounded-[14px] bg-mint p-6 flex flex-col gap-5 text-forest"
             >
               <div className="flex items-start justify-between">
                 <div>
-                  <h4 className="font-serif text-xl font-light text-[#0f3e17]">
+                  <h4 className="font-serif text-xl font-light text-forest">
                     {sp.name}
                   </h4>
-                  <p className="text-xs text-[#222222]/70 capitalize mt-0.5">
+                  <p className="text-xs text-charcoal/70 capitalize mt-0.5">
                     Counter Type: {sp.type}
                   </p>
                 </div>
@@ -834,10 +834,10 @@ export default function BusinessDashboard() {
                     <span
                       className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-normal capitalize ${
                         sp.status === "open"
-                          ? "bg-[#fffefc] text-[#0f3e17] border border-[#efeeeb]"
+                          ? "bg-cream text-forest border border-border-mist"
                           : sp.status === "delayed"
-                            ? "bg-[#e1f4df] text-[#0f3e17] border border-[#b1dbb8]"
-                            : "bg-[#b6ced5] text-[#0f3e17]"
+                            ? "bg-keylime text-forest border border-sage"
+                            : "bg-slate-hush text-forest"
                       }`}
                     >
                       Status: {sp.status}
@@ -847,7 +847,7 @@ export default function BusinessDashboard() {
                     type="button"
                     variant="ghost"
                     size="sm"
-                    className="size-8 p-0 rounded-[14px] text-[#0f3e17]/50 hover:text-[#0f3e17] hover:bg-[#fffefc]/50"
+                    className="size-8 p-0 rounded-[14px] text-forest/50 hover:text-forest hover:bg-cream/50"
                     onClick={() => removeCounter(spKey)}
                     title="Remove Counter"
                   >
@@ -856,27 +856,27 @@ export default function BusinessDashboard() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3 rounded-[14px] bg-[#fffefc] p-4 text-xs">
+              <div className="grid grid-cols-2 gap-3 rounded-[14px] bg-cream p-4 text-xs">
                 <div>
-                  <span className="text-[11px] text-[#222222]/70 font-normal flex items-center gap-1.5">
-                    <Users className="size-3.5 text-[#0f3e17]" /> Waiting in Line
+                  <span className="text-[11px] text-charcoal/70 font-normal flex items-center gap-1.5">
+                    <Users className="size-3.5 text-forest" /> Waiting in Line
                   </span>
                   <div className="flex items-center gap-2.5 mt-2">
                     <Button
                       size="sm"
                       variant="outline"
-                      className="size-8 p-0 rounded-[14px] bg-[#fffefc] border-[#efeeeb] text-[#0f3e17] hover:bg-[#cfe7d3]"
+                      className="size-8 p-0 rounded-[14px] bg-cream border-border-mist text-forest hover:bg-mint"
                       onClick={() => updateCount(spKey, -1)}
                     >
                       <Minus className="size-3.5" />
                     </Button>
-                    <span className="text-lg font-light font-mono text-[#0f3e17] min-w-6 text-center">
+                    <span className="text-lg font-light font-mono text-forest min-w-6 text-center">
                       {sp.currentQueueCount}
                     </span>
                     <Button
                       size="sm"
                       variant="outline"
-                      className="size-8 p-0 rounded-[14px] bg-[#fffefc] border-[#efeeeb] text-[#0f3e17] hover:bg-[#cfe7d3]"
+                      className="size-8 p-0 rounded-[14px] bg-cream border-border-mist text-forest hover:bg-mint"
                       onClick={() => updateCount(spKey, 1)}
                     >
                       <Plus className="size-3.5" />
@@ -885,18 +885,18 @@ export default function BusinessDashboard() {
                 </div>
 
                 <div>
-                  <span className="text-[11px] text-[#222222]/70 font-normal flex items-center gap-1.5">
-                    <Clock className="size-3.5 text-[#0f3e17]" /> Duration Forecast
+                  <span className="text-[11px] text-charcoal/70 font-normal flex items-center gap-1.5">
+                    <Clock className="size-3.5 text-forest" /> Duration Forecast
                   </span>
-                  <p className="text-lg font-light font-mono text-[#0f3e17] mt-2">
+                  <p className="text-lg font-light font-mono text-forest mt-2">
                     {sp.estimatedWaitMinutes} min
                   </p>
                 </div>
               </div>
 
               {sp.status === "delayed" && (
-                <div className="flex items-center gap-2 text-xs bg-[#e1f4df] text-[#0f3e17] p-3 rounded-[14px] border border-[#b1dbb8]">
-                  <AlertTriangle className="size-3.5 shrink-0 text-[#0f3e17]" />
+                <div className="flex items-center gap-2 text-xs bg-keylime text-forest p-3 rounded-[14px] border border-sage">
+                  <AlertTriangle className="size-3.5 shrink-0 text-forest" />
                   <span>
                     Counter delayed: +{sp.delayMinutes || 15}m added to visitor wait times
                   </span>
@@ -908,13 +908,13 @@ export default function BusinessDashboard() {
       </div>
 
       <Dialog open={registerModalOpen} onOpenChange={setRegisterModalOpen}>
-        <DialogContent className="max-w-md rounded-[14px] border border-[#efeeeb] bg-[#fffefc] p-6">
+        <DialogContent className="max-w-md rounded-[14px] border border-border-mist bg-cream p-6">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2 font-serif text-xl font-light text-[#0f3e17]">
-              <Building2 className="size-5 text-[#0f3e17]" />
+            <DialogTitle className="flex items-center gap-2 font-serif text-xl font-light text-forest">
+              <Building2 className="size-5 text-forest" />
               Register & Publish Facility
             </DialogTitle>
-            <DialogDescription className="text-xs text-[#222222]/70">
+            <DialogDescription className="text-xs text-charcoal/70">
               Provide official business credentials including 15-character GSTIN
               to gain authorized telemetry control.
             </DialogDescription>
@@ -925,13 +925,13 @@ export default function BusinessDashboard() {
             className="flex flex-col gap-3.5 mt-3 text-xs"
           >
             {registerError && (
-              <div className="p-3 rounded-[14px] bg-[#cfe7d3] text-[#0f3e17] text-xs">
+              <div className="p-3 rounded-[14px] bg-mint text-forest text-xs">
                 {registerError}
               </div>
             )}
 
             <div>
-              <label className="font-normal block mb-1 text-xs text-[#0f3e17]">
+              <label className="font-normal block mb-1 text-xs text-forest">
                 Facility Name *
               </label>
               <input
@@ -942,13 +942,13 @@ export default function BusinessDashboard() {
                   setRegisterForm({ ...registerForm, name: e.target.value })
                 }
                 placeholder="e.g. Apex Multispecialty Clinic"
-                className="w-full h-10 rounded-[14px] border border-[#efeeeb] bg-[#fffefc] px-3.5 text-xs text-[#222222] focus:outline-none"
+                className="w-full h-10 rounded-[14px] border border-border-mist bg-cream px-3.5 text-xs text-charcoal focus:outline-none"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-2.5">
               <div>
-                <label className="font-normal block mb-1 text-xs text-[#0f3e17]">
+                <label className="font-normal block mb-1 text-xs text-forest">
                   Category *
                 </label>
                 <select
@@ -959,7 +959,7 @@ export default function BusinessDashboard() {
                       category: e.target.value as VenueItem["category"],
                     })
                   }
-                  className="w-full h-10 rounded-[14px] border border-[#efeeeb] bg-[#fffefc] px-3 text-xs text-[#222222] focus:outline-none"
+                  className="w-full h-10 rounded-[14px] border border-border-mist bg-cream px-3 text-xs text-charcoal focus:outline-none"
                 >
                   <option value="clinic">Clinic / Hospital</option>
                   <option value="bank">Bank / Financial</option>
@@ -972,7 +972,7 @@ export default function BusinessDashboard() {
               </div>
 
               <div>
-                <label className="font-normal block mb-1 text-xs text-[#0f3e17]">
+                <label className="font-normal block mb-1 text-xs text-forest">
                   City *
                 </label>
                 <input
@@ -983,13 +983,13 @@ export default function BusinessDashboard() {
                     setRegisterForm({ ...registerForm, city: e.target.value })
                   }
                   placeholder="e.g. Mumbai"
-                  className="w-full h-10 rounded-[14px] border border-[#efeeeb] bg-[#fffefc] px-3.5 text-xs text-[#222222] focus:outline-none"
+                  className="w-full h-10 rounded-[14px] border border-border-mist bg-cream px-3.5 text-xs text-charcoal focus:outline-none"
                 />
               </div>
             </div>
 
             <div>
-              <label className="font-normal block mb-1 text-xs text-[#0f3e17]">
+              <label className="font-normal block mb-1 text-xs text-forest">
                 15-Digit GST Number (GSTIN) *
               </label>
               <div className="relative">
@@ -1005,21 +1005,21 @@ export default function BusinessDashboard() {
                     })
                   }
                   placeholder="e.g. 27AAPFU0939L1ZV"
-                  className="w-full h-10 rounded-[14px] border border-[#efeeeb] bg-[#fffefc] px-3.5 font-mono uppercase text-xs text-[#222222] focus:outline-none"
+                  className="w-full h-10 rounded-[14px] border border-border-mist bg-cream px-3.5 font-mono uppercase text-xs text-charcoal focus:outline-none"
                 />
                 {GST_REGEX.test(
                   registerForm.gstNumber.trim().toUpperCase(),
                 ) && (
-                  <CheckCircle className="size-4 text-[#0f3e17] absolute right-3 top-3" />
+                  <CheckCircle className="size-4 text-forest absolute right-3 top-3" />
                 )}
               </div>
-              <span className="text-[10px] text-[#222222]/60 mt-1 block">
+              <span className="text-[10px] text-charcoal/60 mt-1 block">
                 Format: 2-digit State + 10-char PAN + 1 Entity + Z + 1 Check digit
               </span>
             </div>
 
             <div>
-              <label className="font-normal block mb-1 text-xs text-[#0f3e17]">
+              <label className="font-normal block mb-1 text-xs text-forest">
                 Business Phone / Contact
               </label>
               <input
@@ -1032,12 +1032,12 @@ export default function BusinessDashboard() {
                   })
                 }
                 placeholder="+91 98200 12345"
-                className="w-full h-10 rounded-[14px] border border-[#efeeeb] bg-[#fffefc] px-3.5 text-xs text-[#222222] focus:outline-none"
+                className="w-full h-10 rounded-[14px] border border-border-mist bg-cream px-3.5 text-xs text-charcoal focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="font-normal block mb-1 text-xs text-[#0f3e17]">
+              <label className="font-normal block mb-1 text-xs text-forest">
                 Full Street Address *
               </label>
               <input
@@ -1048,12 +1048,12 @@ export default function BusinessDashboard() {
                   setRegisterForm({ ...registerForm, address: e.target.value })
                 }
                 placeholder="e.g. 420 MG Road, Sector 5"
-                className="w-full h-10 rounded-[14px] border border-[#efeeeb] bg-[#fffefc] px-3.5 text-xs text-[#222222] focus:outline-none"
+                className="w-full h-10 rounded-[14px] border border-border-mist bg-cream px-3.5 text-xs text-charcoal focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="font-normal block mb-1 text-xs text-[#0f3e17]">
+              <label className="font-normal block mb-1 text-xs text-forest">
                 Initial Service Counters (comma-separated)
               </label>
               <input
@@ -1063,17 +1063,17 @@ export default function BusinessDashboard() {
                   setRegisterForm({ ...registerForm, counters: e.target.value })
                 }
                 placeholder="Registration, Doctor OPD, Pathology, Billing"
-                className="w-full h-10 rounded-[14px] border border-[#efeeeb] bg-[#fffefc] px-3.5 text-xs text-[#222222] focus:outline-none"
+                className="w-full h-10 rounded-[14px] border border-border-mist bg-cream px-3.5 text-xs text-charcoal focus:outline-none"
               />
             </div>
 
-            <div className="flex justify-end gap-2.5 mt-3 pt-3 border-t border-[#efeeeb]">
+            <div className="flex justify-end gap-2.5 mt-3 pt-3 border-t border-border-mist">
               <Button
                 type="button"
                 variant="outline"
                 size="sm"
                 onClick={() => setRegisterModalOpen(false)}
-                className="rounded-[14px] border border-[#efeeeb] bg-[#fffefc] hover:bg-[#cfe7d3] text-[#0f3e17] px-4 h-9 text-xs font-normal"
+                className="rounded-[14px] border border-border-mist bg-cream hover:bg-mint text-forest px-4 h-9 text-xs font-normal"
               >
                 Cancel
               </Button>
@@ -1081,7 +1081,7 @@ export default function BusinessDashboard() {
                 type="submit"
                 size="sm"
                 disabled={registerLoading}
-                className="rounded-[14px] bg-[#0f3e17] hover:bg-[#0c2f10] text-[#fffefc] px-5 h-9 text-xs font-normal gap-1.5 border-0"
+                className="rounded-[14px] bg-forest hover:bg-forest-shadow text-cream px-5 h-9 text-xs font-normal gap-1.5 border-0"
               >
                 <ShieldCheck className="size-3.5" />
                 {registerLoading ? "Verifying..." : "Verify GST & Publish"}
