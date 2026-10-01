@@ -33,7 +33,7 @@ export function Navbar() {
 
   const navLinks = [
     { href: "/explore", label: "Explore", icon: Compass },
-    { href: "/plan", label: "AI Predictor", icon: Clock },
+    { href: "/plan", label: "Predictor", icon: Clock },
     { href: "/report", label: "Report Live", icon: PlusCircle },
     { href: "/dashboard", label: "Business", icon: LayoutDashboard },
   ];

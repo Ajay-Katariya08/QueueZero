@@ -283,7 +283,7 @@ export default function VenueDetailPage({
               className="gap-1.5 text-xs font-semibold"
             >
               <Route className="size-3.5 text-primary" />
-              AI Trip Planner
+              Trip Planner
             </Button>
           </Link>
         </div>

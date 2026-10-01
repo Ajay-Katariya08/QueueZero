@@ -18,7 +18,7 @@ export function HowItWorks() {
     },
     {
       icon: Cpu,
-      title: "3. AI Journey Simulation",
+      title: "3. Journey Simulation",
       desc: "Input your target time budget. QueueZero simulates each step (check-in, consult, lab, payment) to recommend your exact departure time.",
       badge: "Predictive Intelligence",
     },

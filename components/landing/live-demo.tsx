@@ -86,7 +86,7 @@ export function LiveDemo() {
             Interactive Testbed
           </span>
           <h2 className="text-2xl sm:text-3xl font-medium tracking-tight">
-            See the AI Engine in Action
+            See the Engine in Action
           </h2>
           <p className="text-xs sm:text-sm text-muted-foreground">
             Adjust your target time budget and test wait predictions powered by
@@ -131,7 +131,10 @@ export function LiveDemo() {
                   ) : (
                     <div className="p-3 rounded-lg border border-dashed text-center text-muted-foreground">
                       <p className="text-xs">No registered facilities yet.</p>
-                      <Link href="/dashboard" className="text-primary font-semibold hover:underline block mt-1">
+                      <Link
+                        href="/dashboard"
+                        className="text-primary font-semibold hover:underline block mt-1"
+                      >
                         Register your facility →
                       </Link>
                     </div>
@@ -174,7 +177,9 @@ export function LiveDemo() {
                         placeholder="e.g. 15 people waiting"
                         className="flex-1 rounded-md border border-input bg-background px-2.5 py-1 text-xs"
                         value={observationCount}
-                        onChange={(e) => setObservationCount(Number(e.target.value))}
+                        onChange={(e) =>
+                          setObservationCount(Number(e.target.value))
+                        }
                       />
                       <Button
                         size="sm"
@@ -203,7 +208,7 @@ export function LiveDemo() {
               <CardHeader className="pb-3 border-b border-border/80 flex flex-row items-center justify-between">
                 <div>
                   <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
-                    AI Output Calculation
+                    Output Calculation
                   </span>
                   <CardTitle className="mt-0.5">
                     {currentVenue ? currentVenue.name : "Simulation Pipeline"}

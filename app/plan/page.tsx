@@ -100,7 +100,7 @@ export default function PlannerPage() {
       <div className="mx-auto max-w-5xl px-4 py-16 text-center">
         <div className="size-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-3" />
         <p className="text-xs text-muted-foreground font-medium">
-          Loading AI Trip Planner...
+          Loading Trip Planner...
         </p>
       </div>
     );
@@ -122,7 +122,7 @@ export default function PlannerPage() {
       <div className="flex flex-col gap-1 text-center sm:text-left">
         <div className="inline-flex items-center gap-1.5 self-center sm:self-start rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary">
           <Route className="size-3.5" />
-          QueueZero AI Trip Engine
+          QueueZero Trip Engine
         </div>
         <h1 className="text-2xl sm:text-4xl font-medium tracking-tight">
           Will You Finish on Time?
@@ -242,7 +242,7 @@ export default function PlannerPage() {
             <CardHeader className="pb-3 border-b border-border/80 flex flex-row items-center justify-between">
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
-                  AI Journey Forecast
+                  Journey Forecast
                 </span>
                 <CardTitle className="text-base font-extrabold mt-0.5">
                   {activeVenue.name}

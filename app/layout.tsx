@@ -8,7 +8,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "QueueZero - Know Before You Go",
   description:
-    "Real-time crowdsourced queue intelligence & AI wait-time prediction for hospitals, government offices, banks, and more.",
+    "Real-time crowdsourced queue intelligence & wait-time prediction for hospitals, government offices, banks, and more.",
   icons: {
     icon: "/icon.svg",
     shortcut: "/icon.svg",

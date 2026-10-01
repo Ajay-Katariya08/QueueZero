@@ -24,7 +24,7 @@ export function Footer() {
             href="/plan"
             className="hover:text-foreground transition-colors"
           >
-            AI Planner
+            Planner
           </Link>
           <Link
             href="/report"

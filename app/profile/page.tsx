@@ -151,28 +151,29 @@ export default function ProfilePage() {
             </div>
           ) : (
             watchedVenues.map((v, idx) => (
-            <div
-              key={v.slug || v._id || v.id || idx}
-              className="flex items-center justify-between p-3 rounded-lg border border-border/80 bg-muted/20 hover:border-primary/40 transition-colors"
-            >
-              <div>
-                <p className="font-bold text-xs">{v.name}</p>
-                <p className="text-[11px] text-muted-foreground">
-                  {v.address}, {v.city} · {v.totalWaitingCount} waiting
-                </p>
+              <div
+                key={v.slug || v._id || v.id || idx}
+                className="flex items-center justify-between p-3 rounded-lg border border-border/80 bg-muted/20 hover:border-primary/40 transition-colors"
+              >
+                <div>
+                  <p className="font-bold text-xs">{v.name}</p>
+                  <p className="text-[11px] text-muted-foreground">
+                    {v.address}, {v.city} · {v.totalWaitingCount} waiting
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-mono font-bold text-primary">
+                    {v.averageWaitMinutes}m wait
+                  </span>
+                  <Link href={`/venue/${v.slug}`}>
+                    <Button size="sm" variant="ghost" className="size-8 p-0">
+                      <ArrowRight className="size-3.5" />
+                    </Button>
+                  </Link>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-mono font-bold text-primary">
-                  {v.averageWaitMinutes}m wait
-                </span>
-                <Link href={`/venue/${v.slug}`}>
-                  <Button size="sm" variant="ghost" className="size-8 p-0">
-                    <ArrowRight className="size-3.5" />
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          ))}
+            ))
+          )}
         </CardContent>
       </Card>
     </div>

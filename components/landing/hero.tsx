@@ -85,7 +85,7 @@ export function Hero() {
 
             <p className="text-base text-muted-foreground max-w-xl mx-auto lg:mx-0">
               Businesses publish operational health. Anonymous visitors
-              broadcast live conditions. Our AI accurately models multi-step
+              broadcast live conditions. Our accurately models multi-step
               journeys so you never hit a 45-minute queue again.
             </p>
 
@@ -104,7 +104,7 @@ export function Hero() {
                   className="gap-2 font-medium"
                 >
                   <Clock className="size-4" />
-                  Try AI Predictor
+                  Try Predictor
                 </Button>
               </Link>
             </div>
