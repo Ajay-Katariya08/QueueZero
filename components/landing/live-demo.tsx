@@ -5,13 +5,11 @@ import Link from "next/link";
 import { type VenueItem } from "@/lib/venue-types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import {
   Send,
   Check,
   ShieldAlert,
   SlidersHorizontal,
-  Compass,
 } from "lucide-react";
 
 export function LiveDemo() {
@@ -79,37 +77,36 @@ export function LiveDemo() {
   };
 
   return (
-    <section className="py-10 sm:py-12 border-b border-border/60 bg-muted/20">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="flex flex-col items-center text-center gap-2 max-w-xl mx-auto mb-8">
-          <span className="text-xs font-bold uppercase tracking-wider text-primary">
-            Interactive Testbed
+    <section className="py-8 sm:py-10 bg-[#fffefc]">
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
+        <div className="flex flex-col items-center text-center gap-2 max-w-2xl mx-auto mb-8 sm:mb-10">
+          <span className="eyebrow">
+            INTERACTIVE RADAR
           </span>
-          <h2 className="text-2xl sm:text-3xl font-medium tracking-tight">
-            See the Engine in Action
+          <h2 className="font-serif font-light text-3xl sm:text-5xl text-[#0f3e17] leading-tight">
+            See the calculation engine in action
           </h2>
-          <p className="text-xs sm:text-sm text-muted-foreground">
-            Adjust your target time budget and test wait predictions powered by
-            live backend telemetry.
+          <p className="text-sm sm:text-base text-[#222222]/80 leading-relaxed font-normal">
+            Adjust your target time budget and test wait predictions powered by live backend telemetry.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          <div className="lg:col-span-5 flex flex-col gap-4">
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-bold flex items-center gap-2">
-                  <SlidersHorizontal className="size-4 text-primary" />
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div className="lg:col-span-5 flex flex-col gap-6">
+            <div className="rounded-[14px] bg-[#e1f4df] shadow-none border-0 p-6">
+              <div className="pb-4 mb-4 border-b border-[#0f3e17]/10 flex items-center gap-2">
+                <SlidersHorizontal className="size-4 text-[#0f3e17]" />
+                <h3 className="font-serif font-light text-xl text-[#0f3e17]">
                   Trip Parameters
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-col gap-4 text-xs">
+                </h3>
+              </div>
+              <div className="flex flex-col gap-5 text-xs">
                 <div>
-                  <label className="font-semibold block mb-1 text-muted-foreground">
+                  <label className="font-medium block mb-2 text-[#0f3e17]">
                     Select Facility
                   </label>
                   {venues.length > 0 ? (
-                    <div className="flex flex-col gap-1.5 max-h-40 overflow-y-auto">
+                    <div className="flex flex-col gap-1.5 max-h-48 overflow-y-auto">
                       {venues.map((v) => (
                         <button
                           key={v.slug}
@@ -118,10 +115,10 @@ export function LiveDemo() {
                             setSelectedSlug(v.slug);
                             setObservationCount(v.totalWaitingCount || 10);
                           }}
-                          className={`py-1.5 px-2.5 rounded-md font-medium text-xs border text-left truncate transition-colors ${
+                          className={`py-2 px-3.5 rounded-[14px] font-normal text-xs text-left truncate transition-colors ${
                             selectedSlug === v.slug
-                              ? "bg-primary text-primary-foreground border-primary"
-                              : "bg-background border-border hover:bg-muted"
+                              ? "bg-[#0f3e17] text-[#fffefc]"
+                              : "bg-[#fffefc] text-[#0f3e17] hover:bg-[#cfe7d3]"
                           }`}
                         >
                           {v.name}
@@ -129,11 +126,11 @@ export function LiveDemo() {
                       ))}
                     </div>
                   ) : (
-                    <div className="p-3 rounded-lg border border-dashed text-center text-muted-foreground">
+                    <div className="p-4 rounded-[14px] bg-[#fffefc] text-center text-[#222222]/70">
                       <p className="text-xs">No registered facilities yet.</p>
                       <Link
                         href="/dashboard"
-                        className="text-primary font-semibold hover:underline block mt-1"
+                        className="text-[#0f3e17] font-medium hover:underline block mt-1.5"
                       >
                         Register your facility →
                       </Link>
@@ -142,11 +139,11 @@ export function LiveDemo() {
                 </div>
 
                 <div>
-                  <div className="flex justify-between items-center mb-1">
-                    <label className="font-semibold text-muted-foreground">
+                  <div className="flex justify-between items-center mb-1.5">
+                    <label className="font-medium text-[#0f3e17]">
                       “I must finish within:”
                     </label>
-                    <span className="font-medium text-sm text-primary">
+                    <span className="font-serif text-lg font-light text-[#0f3e17]">
                       {budgetMinutes} minutes
                     </span>
                   </div>
@@ -157,9 +154,9 @@ export function LiveDemo() {
                     step="5"
                     value={budgetMinutes}
                     onChange={(e) => setBudgetMinutes(Number(e.target.value))}
-                    className="w-full accent-primary h-1.5 bg-muted rounded-lg cursor-pointer"
+                    className="w-full accent-[#0f3e17] h-2 bg-[#fffefc] rounded-lg cursor-pointer"
                   />
-                  <div className="flex justify-between text-[10px] text-muted-foreground mt-1">
+                  <div className="flex justify-between text-[11px] text-[#222222]/60 mt-1.5">
                     <span>15m (Rush)</span>
                     <span>60m (Standard)</span>
                     <span>180m (Flexible)</span>
@@ -167,15 +164,15 @@ export function LiveDemo() {
                 </div>
 
                 {currentVenue && (
-                  <div className="pt-2 border-t border-border">
-                    <label className="font-semibold block mb-1.5 text-muted-foreground">
+                  <div className="pt-4 border-t border-[#0f3e17]/10">
+                    <label className="font-medium block mb-2 text-[#0f3e17]">
                       Anonymous Quick Observation
                     </label>
                     <div className="flex gap-2">
                       <input
                         type="number"
                         placeholder="e.g. 15 people waiting"
-                        className="flex-1 rounded-md border border-input bg-background px-2.5 py-1 text-xs"
+                        className="flex-1 rounded-[14px] bg-[#fffefc] border border-[#efeeeb] px-4 py-2 text-xs text-[#222222] focus:outline-none"
                         value={observationCount}
                         onChange={(e) =>
                           setObservationCount(Number(e.target.value))
@@ -184,105 +181,95 @@ export function LiveDemo() {
                       <Button
                         size="sm"
                         onClick={handleReportObservation}
-                        className="gap-1 text-xs"
+                        className="rounded-[14px] bg-[#0f3e17] text-[#fffefc] hover:bg-[#0c2f10] border-0 px-5 text-xs font-medium"
                       >
                         {reported ? (
-                          <Check className="size-3.5" />
+                          <Check className="size-3.5 mr-1" />
                         ) : (
-                          <Send className="size-3.5" />
+                          <Send className="size-3.5 mr-1" />
                         )}
                         {reported ? "Broadcasted" : "Submit"}
                       </Button>
                     </div>
-                    <span className="text-[10px] text-muted-foreground mt-1 block">
-                      Broadcasted to all users viewing this venue in real-time.
-                    </span>
                   </div>
                 )}
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
 
           <div className="lg:col-span-7">
-            <Card className="border-primary/30 shadow-md">
-              <CardHeader className="pb-3 border-b border-border/80 flex flex-row items-center justify-between">
+            <div className="rounded-[14px] bg-[#b6ced5] shadow-none border-0 p-6 text-[#222222]">
+              <div className="pb-4 border-b border-[#fffefc]/30 flex flex-row items-center justify-between">
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
-                    Output Calculation
+                  <span className="eyebrow text-[#0f3e17]/70">
+                    OUTPUT CALCULATION
                   </span>
-                  <CardTitle className="mt-0.5">
+                  <h3 className="font-serif font-light text-2xl mt-1 text-[#0f3e17]">
                     {currentVenue ? currentVenue.name : "Simulation Pipeline"}
-                  </CardTitle>
+                  </h3>
                 </div>
-                <Badge
-                  variant={
-                    risk === "Low"
-                      ? "success"
-                      : risk === "Medium"
-                        ? "warning"
-                        : "destructive"
-                  }
-                  className="font-bold text-xs"
-                >
-                  Risk: {risk}
-                </Badge>
-              </CardHeader>
-              <CardContent className="p-5 flex flex-col gap-4">
-                <div className="flex flex-col gap-2">
-                  <span className="text-xs font-semibold text-muted-foreground">
-                    Calculated Sequence Duration:
+                <span className="px-3.5 py-1 text-xs font-normal rounded-full bg-[#fffefc] text-[#0f3e17] border border-[#efeeeb]">
+                  Risk Level: {risk}
+                </span>
+              </div>
+              <div className="pt-6 flex flex-col gap-6">
+                <div className="flex flex-col gap-3">
+                  <span className="text-xs font-medium text-[#0f3e17] uppercase tracking-wider">
+                    Calculated Sequence Duration
                   </span>
-                  <div className="space-y-1.5 font-mono text-xs">
+                  <div className="space-y-2 text-xs">
                     {steps.map((s, i) => (
                       <div
                         key={i}
-                        className="flex items-center justify-between p-2 rounded-md bg-muted/40"
+                        className="flex items-center justify-between p-3.5 rounded-[14px] bg-[#fffefc]"
                       >
-                        <span className="text-foreground font-sans font-medium">
+                        <span className="text-[#0f3e17] font-normal">
                           {s.label}
                         </span>
-                        <span className="font-bold">{s.minutes} min</span>
+                        <span className="font-medium text-[#0f3e17] font-mono">
+                          {s.minutes} min
+                        </span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between p-3 rounded-lg bg-card border border-border">
+                <div className="flex items-center justify-between p-4 rounded-[14px] bg-[#fffefc]">
                   <div>
-                    <span className="text-xs text-muted-foreground block">
+                    <span className="text-xs text-[#222222]/70 block font-normal">
                       Total Expected Duration
                     </span>
-                    <span className="text-2xl font-medium text-primary">
+                    <span className="font-serif text-3xl font-light text-[#0f3e17]">
                       {totalPredicted} min
                     </span>
                   </div>
                   <div className="text-right">
-                    <span className="text-xs text-muted-foreground block">
+                    <span className="text-xs text-[#222222]/70 block font-normal">
                       Your Budget
                     </span>
-                    <span className="text-sm font-bold text-foreground">
+                    <span className="text-sm font-medium text-[#0f3e17]">
                       {budgetMinutes} min (
                       {budgetMinutes - totalPredicted >= 0
-                        ? `+${budgetMinutes - totalPredicted}m safety`
+                        ? `+${budgetMinutes - totalPredicted}m buffer`
                         : `${totalPredicted - budgetMinutes}m overdue`}
                       )
                     </span>
                   </div>
                 </div>
 
-                <div className="rounded-md bg-muted/50 p-3 text-xs flex items-start gap-2">
-                  <ShieldAlert className="size-4 text-primary shrink-0 mt-0.5" />
-                  <p className="text-muted-foreground">
-                    <strong className="text-foreground">Recommendation:</strong>{" "}
+                <div className="rounded-[14px] bg-[#e1f4df] p-4 text-xs flex items-start gap-3">
+                  <ShieldAlert className="size-5 text-[#0f3e17] shrink-0 mt-0.5" />
+                  <p className="text-[#222222]/80 leading-relaxed">
+                    <strong className="text-[#0f3e17]">Recommendation:</strong>{" "}
                     {risk === "High"
-                      ? `Expected wait is ${totalPredicted} min, exceeding your ${budgetMinutes} min limit. Consider visiting during off-peak throughput windows.`
+                      ? `Expected wait is ${totalPredicted} min, exceeding your ${budgetMinutes} min limit. Consider arriving at an off-peak window.`
                       : risk === "Medium"
-                        ? `Expected wait is ${totalPredicted} min against ${budgetMinutes} min budget. Manageable with slight buffer.`
+                        ? `Expected wait is ${totalPredicted} min against your ${budgetMinutes} min budget. Manageable with slight buffer.`
                         : `Clear operational runway. Your trip is well within limits (${totalPredicted} min vs ${budgetMinutes} min budget).`}
                   </p>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
         </div>
       </div>

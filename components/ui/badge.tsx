@@ -3,21 +3,24 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 export const badgeVariants = cva(
-  "inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  "inline-flex items-center rounded-full px-3.5 py-1 text-xs font-normal transition-colors focus:outline-none shadow-none",
   {
     variants: {
       variant: {
         default:
-          "border-transparent bg-primary text-white text-primary-foreground shadow hover:bg-primary/80",
+          "bg-[#fffefc] text-[#0f3e17] border border-[#efeeeb]",
         secondary:
-          "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
+          "bg-[#cfe7d3] text-[#0f3e17] border-0",
         destructive:
-          "border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80",
-        outline: "text-foreground",
+          "bg-[#fbeaea] text-[#9e2a2b] border-0",
+        outline:
+          "border border-[#0f3e17]/20 text-[#0f3e17] bg-transparent",
         success:
-          "border border-emerald-500/25 bg-emerald-500/10 text-emerald-800 dark:border-emerald-500/30 dark:bg-emerald-500/15 dark:text-emerald-300",
+          "bg-[#e1f4df] text-[#0f3e17] border-0",
         warning:
-          "border border-amber-500/25 bg-amber-500/10 text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/15 dark:text-amber-300",
+          "bg-[#b1dbb8] text-[#0f3e17] border-0",
+        slate:
+          "bg-[#b6ced5] text-[#0f3e17] border-0",
       },
     },
     defaultVariants: {

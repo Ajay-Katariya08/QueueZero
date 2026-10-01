@@ -120,37 +120,24 @@ export default function VenueDetailPage({
         };
 
         setReportsList((prev) => [createdReport, ...prev]);
-        setVenue((prev) =>
-          prev
-            ? {
-                ...prev,
-                totalWaitingCount: Math.round(
-                  ((prev.totalWaitingCount || 0) + Number(reportCount)) / 2,
-                ),
-                averageWaitMinutes: Math.round(
-                  ((prev.averageWaitMinutes || 0) + Number(reportWait)) / 2,
-                ),
-              }
-            : null,
-        );
+        setSubmitted(true);
+        setTimeout(() => {
+          setSubmitted(false);
+          setDialogOpen(false);
+          setReportNotes("");
+        }, 1500);
       }
     } catch {
     } finally {
       setSubmitting(false);
-      setSubmitted(true);
-      setTimeout(() => {
-        setSubmitted(false);
-        setDialogOpen(false);
-        setReportNotes("");
-      }, 1500);
     }
   };
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-6xl px-4 py-16 text-center">
-        <div className="size-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-        <p className="text-xs text-muted-foreground font-medium">
+      <div className="mx-auto max-w-7xl px-6 py-20 text-center bg-[#fffefc]">
+        <div className="size-8 border-2 border-[#0f3e17] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+        <p className="text-xs text-[#222222]/70">
           Connecting to facility live radar...
         </p>
       </div>
@@ -159,90 +146,91 @@ export default function VenueDetailPage({
 
   if (!venue) {
     return (
-      <div className="mx-auto max-w-md px-4 py-16 text-center">
-        <h2 className="text-lg font-bold">Facility Not Found</h2>
-        <p className="text-xs text-muted-foreground mt-1 mb-4">
-          This venue may have been removed or is not yet registered.
-        </p>
-        <Link href="/explore">
-          <Button size="sm" className="gap-1.5 text-xs">
-            <ArrowLeft className="size-3.5" /> Back to Radar
-          </Button>
-        </Link>
+      <div className="mx-auto max-w-md px-6 py-20 text-center bg-[#fffefc]">
+        <div className="rounded-[14px] bg-[#e1f4df] p-8">
+          <h2 className="font-serif text-2xl font-light text-[#0f3e17]">Facility Not Found</h2>
+          <p className="text-xs text-[#222222]/70 mt-2 mb-5">
+            This venue may have been removed or is not yet registered.
+          </p>
+          <Link href="/explore">
+            <Button size="sm" className="rounded-[14px] bg-[#0f3e17] text-[#fffefc] hover:bg-[#0c2f10] gap-1.5 text-xs font-normal border-0">
+              <ArrowLeft className="size-3.5" /> Back to Radar
+            </Button>
+          </Link>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8 flex flex-col gap-6">
-      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-border/70">
+    <div className="mx-auto max-w-7xl px-6 py-10 sm:px-10 sm:py-12 flex flex-col gap-8 bg-[#fffefc]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex flex-wrap items-center gap-2 mb-1">
-            <span className="text-xs uppercase font-bold text-primary tracking-wider">
+          <div className="flex flex-wrap items-center gap-2 mb-2.5">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#0f3e17] bg-[#fffefc] border border-[#efeeeb] px-3 py-1 rounded-full">
               {venue.category}
             </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-semibold text-emerald-800 dark:border-emerald-500/30 dark:bg-emerald-500/15 dark:text-emerald-300">
-              <Radio className="size-2.5 animate-pulse text-emerald-600 dark:text-emerald-400" />
-              Live Socket.IO Stream
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#cfe7d3] px-3 py-1 text-[11px] font-normal text-[#0f3e17]">
+              <Radio className="size-3 text-[#0f3e17]" />
+              Live Stream
             </span>
             {venue.isVerified && (
-              <span className="inline-flex items-center gap-1 rounded-full border border-primary/25 bg-primary/10 px-2.5 py-0.5 text-[10px] font-semibold text-primary">
-                <ShieldCheck className="size-3" />
+              <span className="inline-flex items-center gap-1 rounded-full bg-[#e1f4df] px-3 py-1 text-[11px] font-normal text-[#0f3e17]">
+                <ShieldCheck className="size-3 text-[#0f3e17]" />
                 GST Verified {venue.gstNumber ? `(${venue.gstNumber})` : ""}
               </span>
             )}
           </div>
-          <h1 className="text-2xl sm:text-4xl font-medium tracking-tight">
+          <h1 className="font-serif text-3xl sm:text-5xl font-light tracking-[-0.03em] text-[#0f3e17]">
             {venue.name}
           </h1>
-          <p className="text-xs sm:text-sm text-muted-foreground flex items-center gap-1 mt-1">
-            <MapPin className="size-3.5" />
+          <p className="text-xs sm:text-sm text-[#222222]/70 flex items-center gap-1.5 mt-1.5">
+            <MapPin className="size-3.5 text-[#0f3e17]" />
             {venue.address}, {venue.city}
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-            <DialogTrigger className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md text-xs font-semibold h-8 px-3 bg-primary text-white shadow-xs hover:bg-primary/90 transition-colors cursor-pointer">
-              <PlusCircle className="size-3.5" />
+            <DialogTrigger className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-[14px] text-xs font-normal h-11 px-5 bg-[#0f3e17] text-[#fffefc] hover:bg-[#0c2f10] transition-colors cursor-pointer border-0">
+              <PlusCircle className="size-4" />
               Report Observation
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="rounded-[14px] bg-[#fffefc] border border-[#efeeeb] p-6">
               <DialogHeader>
-                <DialogTitle>Anonymous Live Queue Observation</DialogTitle>
-                <DialogDescription className="text-xs">
-                  Help others know before they go. Your report updates the live
-                  radar instantly.
+                <DialogTitle className="font-serif text-2xl font-light text-[#0f3e17]">Anonymous Live Queue Observation</DialogTitle>
+                <DialogDescription className="text-xs text-[#222222]/70">
+                  Help others know before they go. Your report updates the live radar instantly.
                 </DialogDescription>
               </DialogHeader>
 
               <div className="flex flex-col gap-4 py-2 text-xs">
                 <div>
-                  <label className="font-semibold block mb-1">
+                  <label className="font-normal block mb-1 text-[#0f3e17]">
                     How many people waiting in your line?
                   </label>
                   <input
                     type="number"
                     value={reportCount}
                     onChange={(e) => setReportCount(Number(e.target.value))}
-                    className="w-full h-9 rounded-md border border-input bg-background px-3 text-xs"
+                    className="w-full h-10 rounded-[14px] border border-[#efeeeb] bg-[#fffefc] px-4 text-xs text-[#222222] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="font-semibold block mb-1">
+                  <label className="font-normal block mb-1 text-[#0f3e17]">
                     Estimated wait from your observation (minutes):
                   </label>
                   <input
                     type="number"
                     value={reportWait}
                     onChange={(e) => setReportWait(Number(e.target.value))}
-                    className="w-full h-9 rounded-md border border-input bg-background px-3 text-xs"
+                    className="w-full h-10 rounded-[14px] border border-[#efeeeb] bg-[#fffefc] px-4 text-xs text-[#222222] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="font-semibold block mb-1">
+                  <label className="font-normal block mb-1 text-[#0f3e17]">
                     Optional notes (e.g. Doctor arrived late, counter 2 closed):
                   </label>
                   <textarea
@@ -250,7 +238,7 @@ export default function VenueDetailPage({
                     value={reportNotes}
                     onChange={(e) => setReportNotes(e.target.value)}
                     placeholder="Describe current ground conditions..."
-                    className="w-full rounded-md border border-input bg-background p-2 text-xs"
+                    className="w-full rounded-[14px] border border-[#efeeeb] bg-[#fffefc] p-3 text-xs text-[#222222] focus:outline-none"
                   />
                 </div>
               </div>
@@ -259,7 +247,7 @@ export default function VenueDetailPage({
                 <Button
                   onClick={handleReportSubmit}
                   disabled={submitting || submitted}
-                  className="w-full gap-2 text-xs font-semibold"
+                  className="w-full gap-2 text-xs font-normal rounded-[14px] bg-[#0f3e17] text-[#fffefc] hover:bg-[#0c2f10] border-0 h-11"
                 >
                   {submitted ? (
                     <Check className="size-4" />
@@ -279,47 +267,47 @@ export default function VenueDetailPage({
           <Link href={`/plan?venue=${venue.slug}`}>
             <Button
               variant="outline"
-              size="sm"
-              className="gap-1.5 text-xs font-semibold"
+              size="default"
+              className="gap-1.5 text-xs font-normal rounded-[14px] border border-[#efeeeb] bg-[#fffefc] text-[#0f3e17] hover:bg-[#cfe7d3] h-11 px-5"
             >
-              <Route className="size-3.5 text-primary" />
+              <Route className="size-3.5" />
               Trip Planner
             </Button>
           </Link>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <Card className="border-border">
-          <CardContent className="p-4 flex items-center justify-between">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <Card className="rounded-[14px] bg-[#e1f4df] border-0 shadow-none p-2">
+          <CardContent className="p-6 flex items-center justify-between">
             <div>
-              <span className="text-xs text-muted-foreground font-medium flex items-center gap-1">
-                <Users className="size-3.5" /> Total Waiting Now
+              <span className="text-xs text-[#0f3e17] font-normal flex items-center gap-1.5">
+                <Users className="size-4" /> Total Waiting Now
               </span>
-              <p className="text-2xl font-medium mt-0.5">
+              <p className="font-serif text-4xl font-light mt-1 text-[#0f3e17]">
                 {latestUpdate
                   ? latestUpdate.newQueueCount
                   : venue.totalWaitingCount}{" "}
-                <span className="text-xs font-normal text-muted-foreground">
+                <span className="text-xs font-sans text-[#222222]/70">
                   citizens
                 </span>
               </p>
             </div>
-            <span className="size-3 rounded-full bg-emerald-500 animate-ping" />
+            <span className="size-3 rounded-full bg-[#0f3e17] animate-pulse" />
           </CardContent>
         </Card>
 
-        <Card className="border-border">
-          <CardContent className="p-4 flex items-center justify-between">
+        <Card className="rounded-[14px] bg-[#cfe7d3] border-0 shadow-none p-2">
+          <CardContent className="p-6 flex items-center justify-between">
             <div>
-              <span className="text-xs text-muted-foreground font-medium flex items-center gap-1">
-                <Clock className="size-3.5" /> Average Visit Wait
+              <span className="text-xs text-[#0f3e17] font-normal flex items-center gap-1.5">
+                <Clock className="size-4" /> Average Visit Wait
               </span>
-              <p className="text-2xl font-medium mt-0.5 text-amber-600 dark:text-amber-400">
+              <p className="font-serif text-4xl font-light mt-1 text-[#0f3e17]">
                 {latestUpdate
                   ? latestUpdate.newEstimatedMinutes
                   : venue.averageWaitMinutes}{" "}
-                <span className="text-xs font-normal text-muted-foreground">
+                <span className="text-xs font-sans text-[#222222]/70">
                   min
                 </span>
               </p>
@@ -328,15 +316,15 @@ export default function VenueDetailPage({
           </CardContent>
         </Card>
 
-        <Card className="border-border">
-          <CardContent className="p-4">
-            <span className="text-xs text-muted-foreground font-medium flex items-center gap-1">
-              <AlertTriangle className="size-3.5 text-amber-500" /> Active Alert
+        <Card className="rounded-[14px] bg-[#b6ced5] border-0 shadow-none p-2">
+          <CardContent className="p-6">
+            <span className="text-xs text-[#0f3e17] font-normal flex items-center gap-1.5">
+              <AlertTriangle className="size-4 text-[#0f3e17]" /> Active Alert
             </span>
-            <p className="text-xs font-bold text-amber-600 dark:text-amber-400 mt-1 truncate">
+            <p className="font-serif text-lg font-light text-[#0f3e17] mt-1 truncate">
               {venue.statusText || "All counters operating normally"}
             </p>
-            <p className="text-[10px] text-muted-foreground mt-0.5">
+            <p className="text-[11px] text-[#222222]/70 mt-1">
               {venue.bestVisitingTime || "Best window: 8:30 AM – 10:30 AM"}
             </p>
           </CardContent>
@@ -344,25 +332,25 @@ export default function VenueDetailPage({
       </div>
 
       <div>
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="text-lg font-bold">Individual Service Point Health</h2>
-          <span className="text-xs text-muted-foreground">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="font-serif text-2xl font-light text-[#0f3e17]">Individual Service Point Health</h2>
+          <span className="text-xs text-[#222222]/70">
             Updated in real-time
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {(venue.servicePoints || []).map(
             (sp: ServicePointItem, idx: number) => (
               <Card
                 key={sp._id || sp.id || sp.name || idx}
-                className="border-border/80"
+                className="rounded-[14px] bg-[#e1f4df] border-0 shadow-none p-2"
               >
-                <CardContent className="p-4 flex flex-col gap-2">
+                <CardContent className="p-5 flex flex-col gap-3">
                   <div className="flex items-start justify-between">
                     <div>
-                      <h3 className="font-bold text-sm">{sp.name}</h3>
-                      <span className="text-[11px] text-muted-foreground capitalize">
+                      <h3 className="font-serif text-lg font-light text-[#0f3e17]">{sp.name}</h3>
+                      <span className="text-[11px] text-[#222222]/70 capitalize">
                         Type: {sp.type}
                       </span>
                     </div>
@@ -372,9 +360,9 @@ export default function VenueDetailPage({
                           ? "success"
                           : sp.status === "delayed"
                             ? "warning"
-                            : "destructive"
+                            : "slate"
                       }
-                      className="capitalize text-[10px]"
+                      className="capitalize text-xs font-normal"
                     >
                       {sp.status === "delayed"
                         ? `Delayed +${sp.delayMinutes}m`
@@ -382,20 +370,20 @@ export default function VenueDetailPage({
                     </Badge>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2 rounded-lg bg-muted/40 p-2 text-xs">
+                  <div className="grid grid-cols-2 gap-3 rounded-[14px] bg-[#fffefc] p-3.5 text-xs">
                     <div>
-                      <span className="text-muted-foreground text-[10px] block">
+                      <span className="text-[#222222]/70 text-[10px] block font-normal">
                         Queue Length
                       </span>
-                      <strong className="text-sm font-medium">
+                      <strong className="text-base font-light font-mono text-[#0f3e17]">
                         {sp.currentQueueCount} people
                       </strong>
                     </div>
                     <div>
-                      <span className="text-muted-foreground text-[10px] block">
+                      <span className="text-[#222222]/70 text-[10px] block font-normal">
                         Expected Wait
                       </span>
-                      <strong className="text-sm font-medium text-primary">
+                      <strong className="text-base font-light font-mono text-[#0f3e17]">
                         {sp.estimatedWaitMinutes} min
                       </strong>
                     </div>
@@ -409,20 +397,20 @@ export default function VenueDetailPage({
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-7">
-          <Card>
+          <Card className="rounded-[14px] bg-[#cfe7d3] border-0 shadow-none p-2">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-bold flex items-center gap-1.5">
-                  <TrendingDown className="size-4 text-primary" />
+                <CardTitle className="font-serif text-lg font-light flex items-center gap-2 text-[#0f3e17]">
+                  <TrendingDown className="size-4 text-[#0f3e17]" />
                   Historical Hourly Wait Heatmap
                 </CardTitle>
-                <span className="text-[10px] font-semibold text-muted-foreground">
+                <span className="text-xs text-[#222222]/70">
                   Dynamic throughput curve
                 </span>
               </div>
             </CardHeader>
-            <CardContent className="p-4 pt-0">
-              <div className="flex items-end gap-1.5 h-36 pt-4 border-b border-border pb-2">
+            <CardContent className="p-5 pt-0">
+              <div className="flex items-end gap-2 h-40 pt-6 border-b border-[#b1dbb8]/40 pb-2">
                 {stats.map((stat, i) => {
                   const heightPercent = Math.min(
                     100,
@@ -434,38 +422,37 @@ export default function VenueDetailPage({
                   return (
                     <div
                       key={i}
-                      className="flex-1 flex flex-col items-center gap-1 h-full justify-end group relative"
+                      className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group relative"
                     >
-                      <span className="text-[9px] font-bold opacity-0 group-hover:opacity-100 transition-opacity absolute -top-5">
+                      <span className="text-[10px] font-mono opacity-0 group-hover:opacity-100 transition-opacity absolute -top-5 text-[#0f3e17]">
                         {stat.waitMinutes}m
                       </span>
                       <div
                         style={{ height: `${heightPercent}%` }}
-                        className={`w-full rounded-t-sm transition-all ${
+                        className={`w-full rounded-t-[6px] transition-all ${
                           isPeak
-                            ? "bg-red-500/80 group-hover:bg-red-500"
+                            ? "bg-[#0f3e17]"
                             : isLow
-                              ? "bg-emerald-500/80 group-hover:bg-emerald-500"
-                              : "bg-primary/70 group-hover:bg-primary"
+                              ? "bg-[#fffefc]"
+                              : "bg-[#b1dbb8]"
                         }`}
                       />
-                      <span className="text-[9px] text-muted-foreground truncate w-full text-center">
+                      <span className="text-[10px] text-[#222222]/70 truncate w-full text-center">
                         {stat.label.split(" ")[0]}
                       </span>
                     </div>
                   );
                 })}
               </div>
-              <div className="flex items-center justify-between text-[11px] text-muted-foreground pt-2">
-                <span className="flex items-center gap-1">
-                  <span className="size-2 rounded-xs bg-emerald-500" /> Low Rush
-                  (Best time)
+              <div className="flex items-center justify-between text-xs text-[#222222]/70 pt-3">
+                <span className="flex items-center gap-1.5">
+                  <span className="size-2 rounded-full bg-[#fffefc] border border-[#efeeeb]" /> Low Rush
                 </span>
-                <span className="flex items-center gap-1">
-                  <span className="size-2 rounded-xs bg-primary" /> Moderate
+                <span className="flex items-center gap-1.5">
+                  <span className="size-2 rounded-full bg-[#b1dbb8]" /> Moderate
                 </span>
-                <span className="flex items-center gap-1">
-                  <span className="size-2 rounded-xs bg-red-500" /> Peak Surge
+                <span className="flex items-center gap-1.5">
+                  <span className="size-2 rounded-full bg-[#0f3e17]" /> Peak Surge
                 </span>
               </div>
             </CardContent>
@@ -473,43 +460,42 @@ export default function VenueDetailPage({
         </div>
 
         <div className="lg:col-span-5">
-          <Card>
+          <Card className="rounded-[14px] bg-[#e1f4df] border-0 shadow-none p-2">
             <CardHeader className="pb-3 flex flex-row items-center justify-between">
-              <CardTitle className="text-sm font-bold flex items-center gap-1.5">
-                <Users className="size-4 text-primary" />
+              <CardTitle className="font-serif text-lg font-light flex items-center gap-2 text-[#0f3e17]">
+                <Users className="size-4 text-[#0f3e17]" />
                 Crowd Observations
               </CardTitle>
-              <Badge variant="outline" className="text-[10px]">
+              <Badge variant="default" className="text-xs font-normal">
                 {reportsList.length} submitted
               </Badge>
             </CardHeader>
-            <CardContent className="p-4 pt-0 flex flex-col gap-2 max-h-56 overflow-y-auto">
+            <CardContent className="p-5 pt-0 flex flex-col gap-2.5 max-h-64 overflow-y-auto">
               {reportsList.length === 0 ? (
-                <div className="py-8 text-center text-xs text-muted-foreground">
-                  No citizen observations submitted recently. Be the first to
-                  report!
+                <div className="py-8 text-center text-xs text-[#222222]/70">
+                  No citizen observations submitted recently. Be the first to report!
                 </div>
               ) : (
                 reportsList.map((rep, idx) => (
                   <div
                     key={rep._id || rep.id || idx}
-                    className="rounded-lg border border-border/80 bg-muted/20 p-2.5 text-xs flex flex-col gap-1"
+                    className="rounded-[14px] bg-[#fffefc] p-3 text-xs flex flex-col gap-1 text-[#0f3e17]"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-semibold text-foreground">
+                      <span className="font-normal text-[#0f3e17]">
                         {rep.servicePointName}
                       </span>
-                      <span className="text-[10px] text-muted-foreground">
+                      <span className="text-[10px] text-[#222222]/60">
                         {rep.timeAgo}
                       </span>
                     </div>
-                    <p className="text-muted-foreground text-[11px] leading-relaxed">
+                    <p className="text-[#222222]/80 text-xs leading-relaxed">
                       “{rep.notes}”
                     </p>
-                    <div className="flex gap-2 text-[10px] font-semibold text-foreground/80 mt-0.5">
+                    <div className="flex gap-2 text-[11px] text-[#222222]/70 mt-0.5">
                       <span>Saw: {rep.reportedCount} waiting</span>
                       <span>·</span>
-                      <span className="text-primary">
+                      <span className="text-[#0f3e17]">
                         Est: {rep.reportedWaitMinutes}m
                       </span>
                     </div>

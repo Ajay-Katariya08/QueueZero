@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { type VenueItem, type ServicePointItem } from "@/lib/venue-types";
+import { type VenueItem } from "@/lib/venue-types";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,7 +13,6 @@ import {
 import { Badge } from "@/components/ui/badge";
 import {
   Route,
-  Clock,
   CheckCircle,
   Bell,
   MapPin,
@@ -97,9 +96,9 @@ export default function PlannerPage() {
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-5xl px-4 py-16 text-center">
-        <div className="size-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-        <p className="text-xs text-muted-foreground font-medium">
+      <div className="mx-auto max-w-5xl px-6 py-20 text-center bg-[#fffefc]">
+        <div className="size-8 border-2 border-[#0f3e17] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+        <p className="text-xs text-[#222222]/70">
           Loading Trip Planner...
         </p>
       </div>
@@ -108,44 +107,44 @@ export default function PlannerPage() {
 
   if (!activeVenue) {
     return (
-      <div className="mx-auto max-w-md px-4 py-16 text-center">
-        <h2 className="text-base font-bold">No Venues Found</h2>
-        <p className="text-xs text-muted-foreground mt-1">
-          Please register a facility first.
-        </p>
+      <div className="mx-auto max-w-md px-6 py-20 text-center bg-[#fffefc]">
+        <div className="rounded-[14px] bg-[#e1f4df] p-8">
+          <h2 className="font-serif text-2xl font-light text-[#0f3e17]">No Venues Found</h2>
+          <p className="text-xs text-[#222222]/70 mt-2">
+            Please register a facility first.
+          </p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8 flex flex-col gap-6">
-      <div className="flex flex-col gap-1 text-center sm:text-left">
-        <div className="inline-flex items-center gap-1.5 self-center sm:self-start rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary">
-          <Route className="size-3.5" />
-          QueueZero Trip Engine
-        </div>
-        <h1 className="text-2xl sm:text-4xl font-medium tracking-tight">
+    <div className="mx-auto max-w-7xl px-6 py-10 sm:px-10 sm:py-12 flex flex-col gap-8 bg-[#fffefc]">
+      <div className="flex flex-col gap-2 text-center sm:text-left">
+        <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#0f3e17]">
+          QUEUEZERO TRIP ENGINE
+        </span>
+        <h1 className="font-serif text-3xl sm:text-5xl font-light tracking-[-0.03em] text-[#0f3e17]">
           Will You Finish on Time?
         </h1>
-        <p className="text-xs sm:text-sm text-muted-foreground">
-          Simulate multi-service bottlenecks and compute your safe departure
-          window before traveling.
+        <p className="text-xs sm:text-sm text-[#222222]/75 leading-relaxed">
+          Simulate multi-service bottlenecks and compute your safe departure window before traveling.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        <div className="lg:col-span-5 flex flex-col gap-4">
-          <Card>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="lg:col-span-5 flex flex-col gap-6">
+          <Card className="rounded-[14px] bg-[#e1f4df] border-0 shadow-none p-2">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-bold">
+              <CardTitle className="font-serif text-lg font-light text-[#0f3e17]">
                 1. Select Destination
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-4 pt-0 flex flex-col gap-2">
+            <CardContent className="p-4 pt-0 flex flex-col gap-2.5">
               <select
                 value={selectedSlug}
                 onChange={(e) => setSelectedSlug(e.target.value)}
-                className="w-full h-9 rounded-md border border-input bg-background px-3 text-xs font-medium"
+                className="w-full h-11 rounded-[14px] border border-[#efeeeb] bg-[#fffefc] px-4 text-xs font-normal text-[#0f3e17] focus-visible:outline-none"
               >
                 {venues.map((v) => (
                   <option key={v.slug} value={v.slug}>
@@ -153,19 +152,19 @@ export default function PlannerPage() {
                   </option>
                 ))}
               </select>
-              <p className="text-[11px] text-muted-foreground flex items-center gap-1">
-                <MapPin className="size-3" /> {activeVenue.address},{" "}
+              <p className="text-xs text-[#222222]/70 flex items-center gap-1.5 pl-1">
+                <MapPin className="size-3.5 text-[#0f3e17]" /> {activeVenue.address},{" "}
                 {activeVenue.city}
               </p>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="rounded-[14px] bg-[#e1f4df] border-0 shadow-none p-2">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-bold">
+              <CardTitle className="font-serif text-lg font-light text-[#0f3e17]">
                 2. Services You Need to Complete
               </CardTitle>
-              <CardDescription className="text-xs">
+              <CardDescription className="text-xs text-[#222222]/70">
                 Pick all counters you plan to visit during this trip.
               </CardDescription>
             </CardHeader>
@@ -178,26 +177,26 @@ export default function PlannerPage() {
                     key={spKey}
                     type="button"
                     onClick={() => toggleService(spKey)}
-                    className={`flex items-center justify-between p-2.5 rounded-lg border text-xs text-left transition-all ${
+                    className={`flex items-center justify-between p-3.5 rounded-[14px] text-xs font-normal transition-all text-left ${
                       isChecked
-                        ? "border-primary bg-primary/5 font-semibold text-foreground"
-                        : "border-border bg-card text-muted-foreground hover:bg-muted"
+                        ? "bg-[#0f3e17] text-[#fffefc]"
+                        : "bg-[#fffefc] text-[#222222] hover:bg-[#cfe7d3]"
                     }`}
                   >
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2.5">
                       <span
-                        className={`size-4 rounded-md border flex items-center justify-center text-[10px] ${
+                        className={`size-4 rounded-full border flex items-center justify-center ${
                           isChecked
-                            ? "bg-primary text-primary-foreground border-primary"
-                            : "border-muted-foreground"
+                            ? "border-[#fffefc] bg-[#fffefc] text-[#0f3e17]"
+                            : "border-[#efeeeb] bg-[#fffefc]"
                         }`}
                       >
-                        {isChecked && "✓"}
+                        {isChecked && <CheckCircle className="size-3" />}
                       </span>
                       <span>{sp.name}</span>
                     </div>
-                    <span className="font-mono text-[11px]">
-                      ~{sp.estimatedWaitMinutes}m
+                    <span className="font-mono text-xs font-light">
+                      {sp.estimatedWaitMinutes}m
                     </span>
                   </button>
                 );
@@ -205,18 +204,21 @@ export default function PlannerPage() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="rounded-[14px] bg-[#e1f4df] border-0 shadow-none p-2">
             <CardHeader className="pb-3">
-              <div className="flex justify-between items-center">
-                <CardTitle className="text-sm font-bold">
-                  3. Your Max Time Budget
+              <div className="flex items-center justify-between">
+                <CardTitle className="font-serif text-lg font-light text-[#0f3e17]">
+                  3. Your Maximum Time Budget
                 </CardTitle>
-                <span className="text-base font-medium text-primary font-mono">
+                <span className="font-serif text-lg font-light text-[#0f3e17]">
                   {targetBudget} min
                 </span>
               </div>
+              <CardDescription className="text-xs text-[#222222]/70">
+                When must you leave the premises to stay on schedule?
+              </CardDescription>
             </CardHeader>
-            <CardContent className="p-4 pt-0 flex flex-col gap-2">
+            <CardContent className="p-4 pt-0">
               <input
                 type="range"
                 min="20"
@@ -224,9 +226,9 @@ export default function PlannerPage() {
                 step="5"
                 value={targetBudget}
                 onChange={(e) => setTargetBudget(Number(e.target.value))}
-                className="w-full accent-primary h-1.5 bg-muted rounded-lg cursor-pointer"
+                className="w-full accent-[#0f3e17] h-2 bg-[#fffefc] rounded-lg cursor-pointer"
               />
-              <div className="flex justify-between text-[10px] text-muted-foreground">
+              <div className="flex justify-between text-[11px] text-[#222222]/70 mt-2 font-normal">
                 <span>20m</span>
                 <span>60m</span>
                 <span>90m</span>
@@ -237,64 +239,56 @@ export default function PlannerPage() {
           </Card>
         </div>
 
-        <div className="lg:col-span-7 flex flex-col gap-4">
-          <Card className="border-primary/40 shadow-lg">
-            <CardHeader className="pb-3 border-b border-border/80 flex flex-row items-center justify-between">
+        <div className="lg:col-span-7 flex flex-col gap-6">
+          <Card className="rounded-[14px] bg-[#b6ced5] border-0 shadow-none p-4">
+            <CardHeader className="pb-4 border-b border-[#fffefc]/30 flex flex-row items-center justify-between">
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
-                  Journey Forecast
+                <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#0f3e17]">
+                  JOURNEY FORECAST
                 </span>
-                <CardTitle className="text-base font-extrabold mt-0.5">
+                <CardTitle className="font-serif text-2xl font-light mt-1 text-[#0f3e17]">
                   {activeVenue.name}
                 </CardTitle>
               </div>
-              <Badge
-                variant={
-                  risk === "Low"
-                    ? "success"
-                    : risk === "Medium"
-                      ? "warning"
-                      : "destructive"
-                }
-                className="font-bold text-xs"
+              <span
+                className="px-3.5 py-1 text-xs font-normal rounded-full bg-[#fffefc] text-[#0f3e17] border border-[#efeeeb]"
               >
                 Risk Level: {risk}
-              </Badge>
+              </span>
             </CardHeader>
 
-            <CardContent className="p-5 flex flex-col gap-4">
-              <div className="flex flex-col gap-2">
-                <span className="text-xs font-semibold text-muted-foreground">
-                  Step-by-Step Breakdown:
+            <CardContent className="p-6 flex flex-col gap-6">
+              <div className="flex flex-col gap-3">
+                <span className="text-[11px] font-semibold text-[#0f3e17] uppercase tracking-[0.08em]">
+                  STEP-BY-STEP BREAKDOWN
                 </span>
-                <div className="flex flex-col gap-2 font-mono text-xs">
+                <div className="flex flex-col gap-2 text-xs">
                   {steps.length === 0 ? (
-                    <div className="p-4 text-center border border-dashed rounded-lg text-xs text-muted-foreground font-sans">
-                      No services selected. Pick at least one counter from the
-                      left to calculate your trip.
+                    <div className="p-6 text-center rounded-[14px] bg-[#fffefc] text-xs text-[#222222]/70">
+                      No services selected. Pick at least one counter from the left to calculate your trip.
                     </div>
                   ) : (
                     steps.map((s, idx) => (
                       <div
                         key={idx}
-                        className="flex items-center justify-between p-2.5 rounded-lg border border-border/70 bg-card font-sans"
+                        className="flex items-center justify-between p-3.5 rounded-[14px] bg-[#fffefc] text-[#0f3e17]"
                       >
-                        <div className="flex items-center gap-2">
-                          <span className="flex size-5 items-center justify-center rounded-full bg-primary/10 text-primary text-[10px] font-bold">
+                        <div className="flex items-center gap-3">
+                          <span className="flex size-6 items-center justify-center rounded-full bg-[#0f3e17] text-[#fffefc] text-[11px] font-normal">
                             {idx + 1}
                           </span>
                           <div>
-                            <p className="font-semibold text-xs leading-none">
+                            <p className="font-normal text-xs text-[#0f3e17]">
                               {s.name}
                             </p>
                             {s.delay > 0 && (
-                              <span className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold">
+                              <span className="text-[10px] text-[#0f3e17]/80">
                                 Delayed +{s.delay}m
                               </span>
                             )}
                           </div>
                         </div>
-                        <span className="font-mono font-bold text-xs">
+                        <span className="font-mono text-xs font-light text-[#0f3e17]">
                           {s.minutes} min
                         </span>
                       </div>
@@ -303,69 +297,63 @@ export default function PlannerPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3 p-3 rounded-xl bg-muted/40 border border-border">
+              <div className="grid grid-cols-2 gap-4 p-5 rounded-[14px] bg-[#fffefc] text-[#0f3e17]">
                 <div>
-                  <span className="text-[11px] text-muted-foreground block font-medium">
+                  <span className="text-xs text-[#222222]/70 block font-normal">
                     Calculated Expected Total
                   </span>
-                  <p className="text-2xl font-medium text-primary font-mono">
+                  <p className="font-serif text-3xl font-light text-[#0f3e17] font-mono mt-1">
                     {totalExpected}{" "}
-                    <span className="text-xs font-normal text-muted-foreground">
+                    <span className="text-xs font-sans text-[#222222]/70">
                       min
                     </span>
                   </p>
                 </div>
                 <div className="text-right">
-                  <span className="text-[11px] text-muted-foreground block font-medium">
+                  <span className="text-xs text-[#222222]/70 block font-normal">
                     Target Time Budget
                   </span>
-                  <p className="text-xl font-bold font-mono">
-                    {targetBudget} min
+                  <p className="font-serif text-3xl font-light text-[#0f3e17] font-mono mt-1">
+                    {targetBudget}{" "}
+                    <span className="text-xs font-sans text-[#222222]/70">
+                      min
+                    </span>
                   </p>
-                  <span
-                    className={`text-[11px] font-semibold ${
-                      margin >= 0
-                        ? "text-emerald-600 dark:text-emerald-400"
-                        : "text-red-500"
-                    }`}
-                  >
-                    {margin >= 0
-                      ? `+${margin} min safe buffer`
-                      : `${Math.abs(margin)} min over budget`}
-                  </span>
                 </div>
               </div>
 
-              <div className="rounded-xl border border-primary/20 bg-primary/5 p-3.5 text-xs flex flex-col gap-1.5">
-                <div className="flex items-center gap-1.5 font-bold text-foreground">
-                  <Clock className="size-4 text-primary" />
-                  Recommended Arrival Strategy:
+              <div className="p-4 rounded-[14px] bg-[#cfe7d3] text-xs flex items-start gap-3">
+                <ShieldCheck className="size-5 text-[#0f3e17] shrink-0 mt-0.5" />
+                <div className="leading-relaxed">
+                  <strong className="text-[#0f3e17] font-normal block mb-0.5">
+                    {risk === "High"
+                      ? "Warning: Budget Exceeded"
+                      : risk === "Medium"
+                        ? "Moderate Tightness"
+                        : "Optimal Window"}
+                  </strong>
+                  <p className="text-[#222222]/80">
+                    {risk === "High"
+                      ? `Expected visit time of ${totalExpected}m exceeds your ${targetBudget}m budget by ${totalExpected - targetBudget} minutes.`
+                      : risk === "Medium"
+                        ? `Expected visit time of ${totalExpected}m leaves a narrow ${margin}m safety margin. Arrive promptly.`
+                        : `Comfortable safety runway: expected ${totalExpected}m total against ${targetBudget}m budget (${margin}m buffer).`}
+                  </p>
                 </div>
-                <p className="text-muted-foreground text-[11px] leading-relaxed">
-                  Based on live telemetry, optimal arrival is during morning
-                  hours. Departing now has an expected completion time within
-                  your {targetBudget}m window with{" "}
-                  {risk === "Low" ? "94%" : risk === "Medium" ? "78%" : "35%"}{" "}
-                  confidence.
-                </p>
               </div>
 
-              <Button
-                onClick={() => {
-                  setSavedReminder(true);
-                  setTimeout(() => setSavedReminder(false), 3000);
-                }}
-                className="w-full gap-2 text-xs font-semibold"
-              >
-                {savedReminder ? (
-                  <CheckCircle className="size-4" />
-                ) : (
-                  <Bell className="size-4" />
-                )}
-                {savedReminder
-                  ? "Departure Reminder Scheduled!"
-                  : "Set Departure Alert & Watch Queue"}
-              </Button>
+              <div className="flex gap-3">
+                <Button
+                  onClick={() => {
+                    setSavedReminder(true);
+                    setTimeout(() => setSavedReminder(false), 3000);
+                  }}
+                  className="w-full rounded-[14px] bg-[#0f3e17] text-[#fffefc] hover:bg-[#0c2f10] border-0 h-11 text-xs font-normal"
+                >
+                  <Bell className="size-4 mr-1.5" />
+                  {savedReminder ? "Departure Reminder Saved!" : "Notify When Queue Surges"}
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </div>

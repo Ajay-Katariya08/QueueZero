@@ -1,58 +1,37 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
-
 @layer base {
   :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.35 0.15 160);
-    --primary-foreground: oklch(0.99 0 0);
-    --secondary: oklch(0.96 0.01 160);
-    --secondary-foreground: oklch(0.2 0.05 160);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.52 0 0);
-    --accent: oklch(0.95 0.02 160);
-    --accent-foreground: oklch(0.2 0.05 160);
-    --destructive: oklch(0.577 0.245 27.325);
-    --destructive-foreground: oklch(0.985 0 0);
-    --border: oklch(0.91 0 0);
-    --input: oklch(0.91 0 0);
-    --ring: oklch(0.45 0.15 160);
-    --radius: 0.625rem;
+    --background: #fffefc;
+    --foreground: #222222;
+    --card: #e1f4df;
+    --card-foreground: #0f3e17;
+    --popover: #fffefc;
+    --popover-foreground: #222222;
+    --primary: #0f3e17;
+    --primary-foreground: #fffefc;
+    --secondary: #cfe7d3;
+    --secondary-foreground: #0f3e17;
+    --muted: #e1f4df;
+    --muted-foreground: #4a554a;
+    --accent: #b1dbb8;
+    --accent-foreground: #0f3e17;
+    --destructive: #9e2a2b;
+    --destructive-foreground: #fffefc;
+    --border: #efeeeb;
+    --input: #efeeeb;
+    --ring: #0f3e17;
+    --radius: 14px;
+    --radius-button: 14px;
     --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
     --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
-  }
-
-  .dark,
-  [data-theme="dark"] {
-    --background: oklch(0.12 0.01 240);
-    --foreground: oklch(0.98 0 0);
-    --card: oklch(0.16 0.01 240);
-    --card-foreground: oklch(0.98 0 0);
-    --popover: oklch(0.16 0.01 240);
-    --popover-foreground: oklch(0.98 0 0);
-    --primary: oklch(0.65 0.17 160);
-    --primary-foreground: oklch(0.99 0 0);
-    --secondary: oklch(0.22 0.02 160);
-    --secondary-foreground: oklch(0.95 0 0);
-    --muted: oklch(0.2 0.01 240);
-    --muted-foreground: oklch(0.68 0 0);
-    --accent: oklch(0.22 0.02 160);
-    --accent-foreground: oklch(0.95 0 0);
-    --destructive: oklch(0.45 0.2 25);
-    --destructive-foreground: oklch(0.985 0 0);
-    --border: oklch(0.24 0.01 240);
-    --input: oklch(0.24 0.01 240);
-    --ring: oklch(0.65 0.17 160);
   }
 }
 
 @theme inline {
+  --font-serif: -apple-system, BlinkMacSystemFont, var(--font-sans), Inter, "Segoe UI", sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, var(--font-sans), Inter, "Segoe UI", sans-serif;
+  --font-primary: -apple-system, BlinkMacSystemFont, var(--font-sans), Inter, "Segoe UI", sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -72,19 +51,52 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-forest: #0f3e17;
+  --color-forest-shadow: #0c2f10;
+  --color-sage: #b1dbb8;
+  --color-keylime: #e1f4df;
+  --color-mint: #cfe7d3;
+  --color-slate-hush: #b6ced5;
+  --color-cream: #fffefc;
+  --color-charcoal: #222222;
+  --color-border-mist: #efeeeb;
+
+  --radius-nav: 7px;
+  --radius-card: 14px;
+  --radius-btn: 14px;
+  --radius-badge: 999px;
+  --radius-full: 9999px;
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-feature-settings: "rlig" 1, "calt" 1;
+  background-color: #fffefc;
+  color: #222222;
+  font-family: -apple-system, BlinkMacSystemFont, var(--font-sans), Inter, "Segoe UI", sans-serif;
+  font-weight: 400;
+}
+
+h1, h2, h3, .font-serif, .display-serif {
+  font-family: -apple-system, BlinkMacSystemFont, var(--font-sans), Inter, "Segoe UI", sans-serif;
+  font-weight: 600 !important;
+  letter-spacing: -0.03em;
+}
+
+nav a, button, [role="button"] {
+  font-family: -apple-system, BlinkMacSystemFont, var(--font-sans), Inter, "Segoe UI", sans-serif;
+  font-weight: 500;
+}
+
+.eyebrow {
+  font-family: -apple-system, BlinkMacSystemFont, var(--font-sans), Inter, "Segoe UI", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #0f3e17;
 }
 
 button:active:not(:disabled) {
-  transform: scale(0.97);
-  transition: transform 160ms var(--ease-out);
+  transform: scale(0.98);
+  transition: transform 140ms var(--ease-out);
 }

@@ -3,23 +3,13 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { type VenueItem } from "@/lib/venue-types";
-import {
-  Building2,
-  Landmark,
-  FileText,
-  Wrench,
-  Scissors,
-  UtensilsCrossed,
-  GraduationCap,
-  ShieldCheck,
-} from "lucide-react";
 
 type CategoryDef = {
   name: string;
   slug: string;
   icon: string;
-  lucide: any;
   defaultLabel: string;
+  pastelBg: string;
 };
 
 const CATEGORIES: CategoryDef[] = [
@@ -27,57 +17,57 @@ const CATEGORIES: CategoryDef[] = [
     name: "Hospitals & Clinics",
     slug: "clinic",
     icon: "🏥",
-    lucide: Building2,
-    defaultLabel: "Healthcare & Labs",
+    defaultLabel: "Emergency, consults & diagnostics",
+    pastelBg: "#e1f4df",
   },
   {
-    name: "Passport & Visa Centers",
+    name: "Passport & Visas",
     slug: "passport",
     icon: "🛂",
-    lucide: ShieldCheck,
-    defaultLabel: "Consular Services",
+    defaultLabel: "Biometrics & document interviews",
+    pastelBg: "#cfe7d3",
   },
   {
     name: "Government & DMV",
     slug: "government",
     icon: "🏛️",
-    lucide: FileText,
-    defaultLabel: "Public Administration",
+    defaultLabel: "Civic registry & permits",
+    pastelBg: "#b6ced5",
   },
   {
-    name: "Banks & Forex",
+    name: "Banks & Financial",
     slug: "bank",
     icon: "🏦",
-    lucide: Landmark,
-    defaultLabel: "Financial Counters",
+    defaultLabel: "Teller windows & loan desks",
+    pastelBg: "#b1dbb8",
   },
   {
-    name: "Device Repair Centers",
+    name: "Device Repair",
     slug: "repair",
     icon: "🔧",
-    lucide: Wrench,
-    defaultLabel: "Hardware Services",
+    defaultLabel: "Hardware check-ins & diagnostics",
+    pastelBg: "#e1f4df",
   },
   {
-    name: "Salons & Grooming",
+    name: "Salons & Care",
     slug: "salon",
     icon: "✂️",
-    lucide: Scissors,
-    defaultLabel: "Personal Care",
+    defaultLabel: "Stylists & wellness queues",
+    pastelBg: "#cfe7d3",
   },
   {
-    name: "Dining & Walk-ins",
+    name: "Dining & Cafes",
     slug: "restaurant",
     icon: "🍽️",
-    lucide: UtensilsCrossed,
-    defaultLabel: "Walk-in Seating",
+    defaultLabel: "Walk-in table queues",
+    pastelBg: "#b1dbb8",
   },
   {
     name: "University Admin",
     slug: "university",
     icon: "🎓",
-    lucide: GraduationCap,
-    defaultLabel: "Campus Registrar",
+    defaultLabel: "Admissions & financial clearance",
+    pastelBg: "#b6ced5",
   },
 ];
 
@@ -99,50 +89,54 @@ export function Categories() {
         }
       } catch {}
     }
+
     loadCategoryCounts();
   }, []);
 
   return (
-    <section className="py-10 sm:py-12 border-b border-border/60">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6">
+    <section className="py-8 sm:py-10 bg-[#fffefc]">
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 sm:mb-8">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-primary">
-              Everywhere Queues Form
+            <span className="eyebrow">
+              EVERYWHERE QUEUES FORM
             </span>
-            <h2 className="text-2xl sm:text-3xl font-medium tracking-tight">
-              Operational Categories
+            <h2 className="font-serif font-light text-3xl sm:text-5xl text-[#0f3e17] mt-2">
+              Operational categories
             </h2>
           </div>
           <Link
             href="/explore"
-            className="text-xs font-semibold text-primary hover:underline inline-flex items-center gap-1"
+            className="inline-flex items-center text-sm font-medium text-[#0f3e17] hover:underline"
           >
             Browse all locations →
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {CATEGORIES.map((cat) => {
             const count = counts[cat.slug] || 0;
             return (
               <Link
                 key={cat.slug}
                 href={`/explore?category=${cat.slug}`}
-                className="flex flex-col p-3.5 rounded-xl border border-border/80 bg-card hover:border-primary/40 hover:bg-muted/40 transition-all text-left group"
+                style={{ backgroundColor: cat.pastelBg }}
+                className="flex flex-col justify-between p-7 rounded-[14px] transition-transform hover:-translate-y-0.5 shadow-none border-0 group"
               >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-2xl">{cat.icon}</span>
-                  <span className="text-[10px] font-semibold text-emerald-950 dark:text-emerald-200 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 px-1.5 py-0.5 rounded">
-                    {count > 0 ? `${count} live` : "Radar Ready"}
-                  </span>
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-3xl">{cat.icon}</span>
+                    <span className="text-[11px] font-normal text-[#0f3e17] bg-[#fffefc] border border-[#efeeeb] px-3 py-1 rounded-full">
+                      {count > 0 ? `${count} active` : "Radar Ready"}
+                    </span>
+                  </div>
+                  <h3 className="font-serif font-light text-2xl text-[#0f3e17] tracking-tight mb-1">
+                    {cat.name}
+                  </h3>
+                  <p className="text-xs text-[#222222]/80 leading-relaxed">
+                    {cat.defaultLabel}
+                  </p>
                 </div>
-                <h3 className="text-xs sm:text-sm font-bold text-foreground group-hover:text-primary transition-colors">
-                  {cat.name}
-                </h3>
-                <p className="text-[11px] text-muted-foreground mt-0.5">
-                  {cat.defaultLabel}
-                </p>
               </Link>
             );
           })}

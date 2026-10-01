@@ -79,28 +79,29 @@ export default function ExplorePage() {
   });
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8 flex flex-col gap-6">
+    <div className="mx-auto max-w-7xl px-6 py-10 sm:px-10 sm:py-12 flex flex-col gap-8 bg-[#fffefc]">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-medium tracking-tight flex items-center gap-2">
-            <Compass className="size-6 text-primary" />
-            Live Operational Radar
+          <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#0f3e17]">
+            LIVE OPERATIONAL RADAR
+          </span>
+          <h1 className="font-serif text-3xl sm:text-5xl font-light tracking-[-0.03em] text-[#0f3e17] mt-1">
+            Real-Time Queue Telemetry
           </h1>
-          <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">
-            Real-time waiting times and crowd telemetry from verified
-            facilities.
+          <p className="text-xs sm:text-sm text-[#222222]/75 mt-1.5 leading-relaxed">
+            Direct telemetry and citizen crowd observations from verified facilities.
           </p>
         </div>
 
         <div className="flex items-center gap-2">
-          <div className="inline-flex rounded-lg border border-border bg-muted p-0.5">
+          <div className="inline-flex rounded-[14px] border border-[#efeeeb] bg-[#fffefc] p-1">
             <button
               type="button"
               onClick={() => setViewMode("list")}
-              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-medium transition-colors ${
+              className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-[12px] text-xs font-normal transition-colors ${
                 viewMode === "list"
-                  ? "bg-background text-foreground shadow-xs"
-                  : "text-muted-foreground hover:text-foreground"
+                  ? "bg-[#0f3e17] text-[#fffefc]"
+                  : "text-[#222222]/80 hover:text-[#0f3e17]"
               }`}
             >
               <List className="size-3.5" />
@@ -109,10 +110,10 @@ export default function ExplorePage() {
             <button
               type="button"
               onClick={() => setViewMode("map")}
-              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-medium transition-colors ${
+              className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-[12px] text-xs font-normal transition-colors ${
                 viewMode === "map"
-                  ? "bg-background text-foreground shadow-xs"
-                  : "text-muted-foreground hover:text-foreground"
+                  ? "bg-[#0f3e17] text-[#fffefc]"
+                  : "text-[#222222]/80 hover:text-[#0f3e17]"
               }`}
             >
               <MapIcon className="size-3.5" />
@@ -124,12 +125,12 @@ export default function ExplorePage() {
 
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-2.5 size-4 text-muted-foreground" />
+          <Search className="absolute left-4 top-3.5 size-4 text-[#222222]/50" />
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search hospitals, clinics, DMVs, banks..."
-            className="pl-9 text-xs sm:text-sm"
+            className="pl-11 h-11 rounded-[14px] border border-[#efeeeb] bg-[#fffefc] text-xs sm:text-sm text-[#222222] focus-visible:ring-1 focus-visible:ring-[#0f3e17]"
           />
         </div>
 
@@ -137,7 +138,7 @@ export default function ExplorePage() {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as "wait" | "waiting")}
-            className="h-9 rounded-md border border-input bg-background px-3 text-xs text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+            className="h-11 rounded-[14px] border border-[#efeeeb] bg-[#fffefc] px-4 text-xs font-normal text-[#0f3e17] focus-visible:outline-none"
           >
             <option value="wait">Sort: Shortest Wait</option>
             <option value="waiting">Sort: Most Crowded</option>
@@ -151,10 +152,10 @@ export default function ExplorePage() {
             key={c.value}
             type="button"
             onClick={() => setSelectedCat(c.value)}
-            className={`whitespace-nowrap px-3 py-1.5 rounded-full text-xs font-semibold border transition-all ${
+            className={`whitespace-nowrap px-4 py-2 rounded-full text-xs font-normal transition-all border ${
               selectedCat === c.value
-                ? "bg-primary text-primary-foreground border-primary"
-                : "bg-background border-border text-muted-foreground hover:text-foreground hover:bg-muted"
+                ? "bg-[#0f3e17] text-[#fffefc] border-[#0f3e17]"
+                : "bg-[#fffefc] text-[#222222]/80 border-[#efeeeb] hover:bg-[#cfe7d3] hover:text-[#0f3e17]"
             }`}
           >
             {c.label}
@@ -163,43 +164,41 @@ export default function ExplorePage() {
       </div>
 
       {loading ? (
-        <div className="py-16 text-center">
-          <div className="size-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-          <p className="text-xs text-muted-foreground font-medium">
+        <div className="py-20 text-center">
+          <div className="size-8 border-2 border-[#0f3e17] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+          <p className="text-xs text-[#222222]/70">
             Scanning live radars...
           </p>
         </div>
       ) : sorted.length === 0 ? (
-        <div className="py-16 text-center rounded-xl border border-dashed border-border p-8">
-          <Compass className="size-8 text-muted-foreground mx-auto mb-2 opacity-50" />
-          <h3 className="text-sm font-bold">No Facilities Found</h3>
-          <p className="text-xs text-muted-foreground mt-1">
+        <div className="py-20 text-center rounded-[14px] bg-[#e1f4df] p-10">
+          <Compass className="size-10 text-[#0f3e17] mx-auto mb-3 opacity-40" />
+          <h3 className="font-serif text-xl font-light text-[#0f3e17]">No Facilities Found</h3>
+          <p className="text-xs text-[#222222]/70 mt-1 max-w-sm mx-auto">
             Try adjusting your category filter or search keywords.
           </p>
         </div>
       ) : viewMode === "map" ? (
-        <div className="relative h-[480px] w-full rounded-xl border border-border bg-muted/40 overflow-hidden flex flex-col items-center justify-center p-6 text-center">
-          <div className="absolute inset-0 bg-[radial-gradient(#888_1px,transparent_1px)] [background-size:16px_16px] opacity-25" />
+        <div className="relative h-[480px] w-full rounded-[14px] bg-[#b6ced5] overflow-hidden flex flex-col items-center justify-center p-8 text-center">
           <div className="relative z-10 flex flex-col items-center gap-3 max-w-md">
-            <span className="flex size-12 items-center justify-center rounded-full bg-primary/20 text-primary animate-pulse">
-              <MapPin className="size-6" />
+            <span className="flex size-14 items-center justify-center rounded-full bg-[#fffefc] text-[#0f3e17]">
+              <MapPin className="size-7 text-[#0f3e17]" />
             </span>
-            <h3 className="text-base font-bold">
+            <h3 className="font-serif text-2xl font-light text-[#0f3e17]">
               Interactive Geolocation Radar
             </h3>
-            <p className="text-xs text-muted-foreground">
-              Showing {sorted.length} verified facilities. Real-time telemetry
-              broadcasting active.
+            <p className="text-xs text-[#222222]/80">
+              Showing {sorted.length} verified facilities. Real-time telemetry broadcasting active.
             </p>
-            <div className="grid grid-cols-2 gap-2 w-full mt-2">
+            <div className="grid grid-cols-2 gap-3 w-full mt-4">
               {sorted.slice(0, 4).map((v) => (
                 <Link
                   key={v.slug || v._id || v.id}
                   href={`/venue/${v.slug}`}
-                  className="p-2.5 rounded-lg border border-border bg-card/90 text-left hover:border-primary transition-colors text-xs"
+                  className="p-3.5 rounded-[14px] bg-[#fffefc] text-left hover:bg-[#cfe7d3] transition-colors text-xs"
                 >
-                  <p className="font-bold truncate">{v.name}</p>
-                  <p className="text-[11px] text-muted-foreground">
+                  <p className="font-normal text-[#0f3e17] truncate">{v.name}</p>
+                  <p className="text-[11px] text-[#222222]/70">
                     {v.averageWaitMinutes}m wait · {v.city}
                   </p>
                 </Link>
@@ -208,64 +207,64 @@ export default function ExplorePage() {
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {sorted.map((venue) => (
             <Card
               key={venue.slug || venue._id || venue.id}
-              className="group hover:border-primary/40 hover:shadow-md transition-all flex flex-col justify-between"
+              className="rounded-[14px] bg-[#e1f4df] border-0 shadow-none flex flex-col justify-between p-2"
             >
-              <CardContent className="p-4 flex flex-col gap-3">
-                <div className="flex items-start justify-between gap-2">
+              <CardContent className="p-6 flex flex-col gap-4">
+                <div className="flex items-start justify-between gap-3">
                   <div>
                     <div className="flex items-center gap-2">
-                      <h2 className="text-base font-bold text-foreground group-hover:text-primary transition-colors">
+                      <h2 className="font-serif text-xl sm:text-2xl font-light text-[#0f3e17]">
                         {venue.name}
                       </h2>
                       {venue.isVerified && (
                         <Badge
-                          variant="outline"
-                          className="text-[10px] py-0 px-1.5 font-semibold text-emerald-950 dark:text-emerald-200 border-emerald-300 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/60"
+                          variant="secondary"
+                          className="text-[10px] py-0.5 px-2.5 font-normal bg-[#fffefc] text-[#0f3e17] border border-[#efeeeb] rounded-full"
                         >
-                          <ShieldCheck className="size-3 mr-0.5 inline" />
+                          <ShieldCheck className="size-3 mr-1 inline" />
                           GST Verified
                         </Badge>
                       )}
                     </div>
-                    <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
-                      <MapPin className="size-3" />
+                    <p className="text-xs text-[#222222]/70 flex items-center gap-1.5 mt-1">
+                      <MapPin className="size-3.5 text-[#0f3e17]" />
                       {venue.address}, {venue.city}
                     </p>
                   </div>
                   <QueueBadge waitMinutes={venue.averageWaitMinutes} />
                 </div>
 
-                <div className="grid grid-cols-2 gap-2 rounded-lg bg-muted/50 p-2.5 text-xs">
+                <div className="grid grid-cols-2 gap-3 rounded-[14px] bg-[#fffefc] p-4 text-xs">
                   <div>
-                    <span className="text-[10px] text-muted-foreground font-semibold flex items-center gap-1">
-                      <Users className="size-3" /> Waiting Count
+                    <span className="text-[11px] text-[#222222]/70 font-normal flex items-center gap-1">
+                      <Users className="size-3 text-[#0f3e17]" /> Waiting Count
                     </span>
-                    <p className="text-sm font-bold font-mono mt-0.5">
+                    <p className="text-lg font-light font-mono mt-1 text-[#0f3e17]">
                       {venue.totalWaitingCount} people
                     </p>
                   </div>
                   <div>
-                    <span className="text-[10px] text-muted-foreground font-semibold flex items-center gap-1">
-                      <Clock className="size-3" /> Average Wait
+                    <span className="text-[11px] text-[#222222]/70 font-normal flex items-center gap-1">
+                      <Clock className="size-3 text-[#0f3e17]" /> Average Wait
                     </span>
-                    <p className="text-sm font-bold font-mono text-primary mt-0.5">
+                    <p className="text-lg font-light font-mono text-[#0f3e17] mt-1">
                       {venue.averageWaitMinutes} min
                     </p>
                   </div>
                 </div>
 
                 {venue.statusText && (
-                  <p className="text-xs text-amber-700 dark:text-amber-300 font-medium">
-                    ⚡ {venue.statusText}
+                  <p className="text-xs text-[#0f3e17] font-normal bg-[#cfe7d3] px-3.5 py-2 rounded-[14px]">
+                    {venue.statusText}
                   </p>
                 )}
 
-                <div className="flex items-center justify-between pt-2 border-t border-border">
-                  <span className="text-[11px] text-muted-foreground">
+                <div className="flex items-center justify-between pt-3 border-t border-[#b1dbb8]/40">
+                  <span className="text-xs text-[#222222]/70">
                     {venue.servicePoints?.length || 0} active counters
                   </span>
 
@@ -274,7 +273,7 @@ export default function ExplorePage() {
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="h-7 text-xs px-2 text-primary"
+                        className="rounded-[14px] text-xs px-3 text-[#0f3e17] hover:bg-[#cfe7d3]"
                       >
                         Plan Visit
                       </Button>
@@ -282,7 +281,7 @@ export default function ExplorePage() {
                     <Link href={`/venue/${venue.slug}`}>
                       <Button
                         size="sm"
-                        className="h-7 text-xs px-2.5 gap-1 font-semibold"
+                        className="rounded-[14px] bg-[#0f3e17] text-[#fffefc] hover:bg-[#0c2f10] text-xs px-4 gap-1 font-normal border-0 flex items-center"
                       >
                         View Live <ArrowRight className="size-3" />
                       </Button>

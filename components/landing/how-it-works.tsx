@@ -7,68 +7,77 @@ export function HowItWorks() {
     {
       icon: Radio,
       title: "1. Operational Feeds",
-      desc: "Hospitals, DMVs, and banks broadcast counter status, doctor delays, and token numbers directly in real time.",
+      desc: "Hospitals, DMVs, and banks broadcast counter status, delays, and token numbers directly in real time.",
       badge: "Real-time Telemetry",
+      panelBg: "bg-[#e1f4df]",
     },
     {
       icon: Users,
       title: "2. Anonymous Crowdsourcing",
       desc: "Anyone physically present can report queue length with one tap. No login required. Algorithms cross-verify inputs.",
       badge: "Zero Friction",
+      panelBg: "bg-[#cfe7d3]",
     },
     {
       icon: Cpu,
       title: "3. Journey Simulation",
       desc: "Input your target time budget. QueueZero simulates each step (check-in, consult, lab, payment) to recommend your exact departure time.",
       badge: "Predictive Intelligence",
+      panelBg: "bg-[#b1dbb8]",
     },
   ];
 
   return (
-    <section className="py-10 sm:py-12 border-b border-border/60 bg-muted/20">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="flex flex-col items-center text-center gap-2 max-w-xl mx-auto mb-8">
-          <span className="text-xs font-bold uppercase tracking-wider text-primary">
-            How QueueZero Works
+    <section className="py-8 sm:py-10 bg-[#fffefc]">
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
+        <div className="flex flex-col items-center text-center gap-2 max-w-2xl mx-auto mb-8 sm:mb-10">
+          <span className="eyebrow">
+            HOW QUEUEZERO OPERATES
           </span>
-          <h2 className="text-2xl sm:text-3xl font-medium tracking-tight">
-            Triangulated Reality, Not Stale Schedules
+          <h2 className="font-serif font-light text-3xl sm:text-5xl text-[#0f3e17] leading-tight">
+            Triangulated reality, not stale schedules
           </h2>
-          <p className="text-xs sm:text-sm text-muted-foreground">
-            A traditional appointment tells you when you were supposed to be
-            seen. QueueZero tells you what is actually happening right now.
+          <p className="text-sm sm:text-base text-[#222222]/80 leading-relaxed font-normal">
+            A traditional appointment tells you when you were supposed to be seen. QueueZero informs you of real-time queue health with quiet clinical precision.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {steps.map((step, idx) => {
             const Icon = step.icon;
             return (
               <div
                 key={idx}
-                className="group relative rounded-xl border border-border/80 bg-card p-5 transition-all hover:border-primary/50 hover:shadow-xs"
+                className={`rounded-[14px] ${step.panelBg} p-8 shadow-none border-0 flex flex-col justify-between`}
               >
-                <div className="flex items-center justify-between mb-3">
-                  <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                    <Icon className="size-4" />
-                  </span>
-                  <span className="text-[10px] font-semibold text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
-                    {step.badge}
-                  </span>
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="flex size-10 items-center justify-center rounded-[10px] bg-[#fffefc] text-[#0f3e17]">
+                      <Icon className="size-5 text-[#0f3e17]" />
+                    </span>
+                    <span className="text-xs font-normal px-3 py-1 rounded-full bg-[#fffefc] text-[#0f3e17] border border-[#efeeeb]">
+                      {step.badge}
+                    </span>
+                  </div>
+                  <h3 className="font-serif font-light text-2xl text-[#0f3e17] mb-2.5">
+                    {step.title}
+                  </h3>
+                  <p className="text-sm text-[#222222]/80 leading-relaxed font-normal">
+                    {step.desc}
+                  </p>
                 </div>
-                <h3 className="text-base font-bold mb-1.5">{step.title}</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  {step.desc}
-                </p>
               </div>
             );
           })}
         </div>
 
-        <div className="mt-6 flex justify-center">
+        <div className="mt-12 flex justify-center">
           <Link href="/plan">
-            <Button variant="outline" size="sm" className="gap-1.5 text-xs">
-              Calculate Your Visit Time <ArrowUpRight className="size-3.5" />
+            <Button
+              size="lg"
+              className="gap-2 rounded-[14px] bg-[#0f3e17] text-[#fffefc] hover:bg-[#0c2f10] px-8 py-3.5 text-sm font-medium"
+            >
+              Calculate Your Visit Time <ArrowUpRight className="size-4" />
             </Button>
           </Link>
         </div>
