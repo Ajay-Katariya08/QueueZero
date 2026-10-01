@@ -6,7 +6,6 @@ import { type VenueItem } from "@/lib/venue-types";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { QueueBadge } from "@/components/shared/queue-badge";
 import {
   Search,
@@ -89,7 +88,8 @@ export default function ExplorePage() {
             Real-Time Queue Telemetry
           </h1>
           <p className="text-xs sm:text-sm text-[#222222]/75 mt-1.5 leading-relaxed">
-            Direct telemetry and citizen crowd observations from verified facilities.
+            Direct telemetry and citizen crowd observations from verified
+            facilities.
           </p>
         </div>
 
@@ -166,14 +166,14 @@ export default function ExplorePage() {
       {loading ? (
         <div className="py-20 text-center">
           <div className="size-8 border-2 border-[#0f3e17] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-          <p className="text-xs text-[#222222]/70">
-            Scanning live radars...
-          </p>
+          <p className="text-xs text-[#222222]/70">Scanning live radars...</p>
         </div>
       ) : sorted.length === 0 ? (
         <div className="py-20 text-center rounded-[14px] bg-[#e1f4df] p-10">
           <Compass className="size-10 text-[#0f3e17] mx-auto mb-3 opacity-40" />
-          <h3 className="font-serif text-xl font-light text-[#0f3e17]">No Facilities Found</h3>
+          <h3 className="font-serif text-xl font-light text-[#0f3e17]">
+            No Facilities Found
+          </h3>
           <p className="text-xs text-[#222222]/70 mt-1 max-w-sm mx-auto">
             Try adjusting your category filter or search keywords.
           </p>
@@ -188,7 +188,8 @@ export default function ExplorePage() {
               Interactive Geolocation Radar
             </h3>
             <p className="text-xs text-[#222222]/80">
-              Showing {sorted.length} verified facilities. Real-time telemetry broadcasting active.
+              Showing {sorted.length} verified facilities. Real-time telemetry
+              broadcasting active.
             </p>
             <div className="grid grid-cols-2 gap-3 w-full mt-4">
               {sorted.slice(0, 4).map((v) => (
@@ -197,7 +198,9 @@ export default function ExplorePage() {
                   href={`/venue/${v.slug}`}
                   className="p-3.5 rounded-[14px] bg-[#fffefc] text-left hover:bg-[#cfe7d3] transition-colors text-xs"
                 >
-                  <p className="font-normal text-[#0f3e17] truncate">{v.name}</p>
+                  <p className="font-normal text-[#0f3e17] truncate">
+                    {v.name}
+                  </p>
                   <p className="text-[11px] text-[#222222]/70">
                     {v.averageWaitMinutes}m wait · {v.city}
                   </p>
@@ -214,28 +217,43 @@ export default function ExplorePage() {
               className="rounded-[14px] bg-[#e1f4df] border-0 shadow-none flex flex-col justify-between p-2"
             >
               <CardContent className="p-6 flex flex-col gap-4">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h2 className="font-serif text-xl sm:text-2xl font-light text-[#0f3e17]">
-                        {venue.name}
-                      </h2>
-                      {venue.isVerified && (
-                        <Badge
-                          variant="secondary"
-                          className="text-[10px] py-0.5 px-2.5 font-normal bg-[#fffefc] text-[#0f3e17] border border-[#efeeeb] rounded-full"
-                        >
-                          <ShieldCheck className="size-3 mr-1 inline" />
-                          GST Verified
-                        </Badge>
-                      )}
+                <div className="flex flex-col gap-2.5">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <h2 className="font-serif text-xl sm:text-2xl font-light text-[#0f3e17] leading-tight">
+                          {venue.name}
+                        </h2>
+                        {venue.isVerified && (
+                          <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-[#fffefc] border border-[#efeeeb] px-2.5 py-0.5 text-[11px] font-medium text-[#0f3e17]  whitespace-nowrap shrink-0">
+                            <ShieldCheck className="size-3.5 text-[#0f3e17] shrink-0" />
+                            GST Verified
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="flex sm:hidden items-center gap-2 mt-2 flex-wrap">
+                        {venue.isVerified && (
+                          <span className="inline-flex items-center gap-1 rounded-full bg-[#fffefc] border border-[#efeeeb] px-2.5 py-0.5 text-[11px] font-medium text-[#0f3e17]  whitespace-nowrap shrink-0">
+                            <ShieldCheck className="size-3.5 text-[#0f3e17] shrink-0" />
+                            GST Verified
+                          </span>
+                        )}
+                        <QueueBadge waitMinutes={venue.averageWaitMinutes} />
+                      </div>
+
+                      <p className="text-xs text-[#222222]/70 flex items-center gap-1.5 mt-2 sm:mt-1.5">
+                        <MapPin className="size-3.5 text-[#0f3e17] shrink-0" />
+                        <span className="truncate">
+                          {venue.address}, {venue.city}
+                        </span>
+                      </p>
                     </div>
-                    <p className="text-xs text-[#222222]/70 flex items-center gap-1.5 mt-1">
-                      <MapPin className="size-3.5 text-[#0f3e17]" />
-                      {venue.address}, {venue.city}
-                    </p>
+
+                    <div className="hidden sm:block shrink-0">
+                      <QueueBadge waitMinutes={venue.averageWaitMinutes} />
+                    </div>
                   </div>
-                  <QueueBadge waitMinutes={venue.averageWaitMinutes} />
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 rounded-[14px] bg-[#fffefc] p-4 text-xs">

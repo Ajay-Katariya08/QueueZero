@@ -175,7 +175,7 @@ export default function VenueDetailPage({
               Live Stream
             </span>
             {venue.isVerified && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-[#e1f4df] px-3 py-1 text-[11px] font-normal text-[#0f3e17]">
+              <span className="inline-flex items-center gap-1 rounded-full bg-[#e1f4df] px-3 py-1 text-[11px] font-normal text-[#0f3e17] whitespace-nowrap shrink-0">
                 <ShieldCheck className="size-3 text-[#0f3e17]" />
                 GST Verified {venue.gstNumber ? `(${venue.gstNumber})` : ""}
               </span>
