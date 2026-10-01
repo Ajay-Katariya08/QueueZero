@@ -141,7 +141,16 @@ export default function ProfilePage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="p-4 pt-0 flex flex-col gap-2">
-          {watchedVenues.map((v, idx) => (
+          {watchedVenues.length === 0 ? (
+            <div className="py-6 text-center text-xs text-muted-foreground">
+              No facilities on your radar yet.{" "}
+              <Link href="/explore" className="text-primary font-semibold hover:underline">
+                Explore live venues
+              </Link>
+              .
+            </div>
+          ) : (
+            watchedVenues.map((v, idx) => (
             <div
               key={v.slug || v._id || v.id || idx}
               className="flex items-center justify-between p-3 rounded-lg border border-border/80 bg-muted/20 hover:border-primary/40 transition-colors"

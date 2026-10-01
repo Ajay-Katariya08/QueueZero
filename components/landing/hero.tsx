@@ -1,21 +1,64 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { type VenueItem } from "@/lib/venue-types";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import {
-  Activity,
   ArrowRight,
   Clock,
   Compass,
-  AlertTriangle,
   CheckCircle2,
   Users,
+  Building2,
+  Radio,
 } from "lucide-react";
 import { motion } from "framer-motion";
 
 export function Hero() {
+  const [featuredVenue, setFeaturedVenue] = useState<VenueItem | null>(null);
+
+  useEffect(() => {
+    async function loadFeatured() {
+      try {
+        const res = await fetch("/api/venues");
+        if (res.ok) {
+          const json = await res.json();
+          const items: VenueItem[] = json.data || [];
+          if (items.length > 0) {
+            setFeaturedVenue(items[0]);
+          }
+        }
+      } catch {}
+    }
+
+    loadFeatured();
+  }, []);
+
+  const getCategoryIcon = (category?: string) => {
+    switch (category) {
+      case "clinic":
+      case "hospital":
+        return "🏥";
+      case "passport":
+        return "🛂";
+      case "bank":
+        return "🏦";
+      case "government":
+        return "🏛️";
+      case "repair":
+        return "🔧";
+      case "salon":
+        return "✂️";
+      case "restaurant":
+        return "🍽️";
+      default:
+        return "📍";
+    }
+  };
+
   return (
     <section className="relative overflow-hidden py-10 sm:py-14 border-b border-border/60">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,oklch(0.35_0.15_160/0.08),transparent_60%)]" />
@@ -88,111 +131,142 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
             >
-              <Card className="border-border/80 shadow-lg bg-card/95 backdrop-blur-xs">
-                <div className="p-4 border-b border-border/80 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="text-lg">🏥</span>
-                    <div>
-                      <h2 className="text-sm font-bold leading-none">
-                        Metro Health PolyClinic
-                      </h2>
-                      <span className="text-[11px] text-muted-foreground">
-                        Live Telemetry
+              {featuredVenue ? (
+                <Card className="border-border/80 shadow-lg bg-card/95 backdrop-blur-xs">
+                  <div className="p-4 border-b border-border/80 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg">
+                        {getCategoryIcon(featuredVenue.category)}
                       </span>
-                    </div>
-                  </div>
-                  <Badge variant="warning" className="gap-1 text-[11px]">
-                    <span className="size-1.5 rounded-full bg-amber-500 animate-pulse" />
-                    Doctor 18m Late
-                  </Badge>
-                </div>
-
-                <CardContent className="p-4 flex flex-col gap-3">
-                  <div className="grid grid-cols-2 gap-2">
-                    <div className="rounded-lg bg-muted/60 p-2.5">
-                      <span className="text-[10px] font-semibold text-muted-foreground flex items-center gap-1">
-                        <Users className="size-3" /> Waiting Now
-                      </span>
-                      <p className="text-xl font-medium mt-0.5">
-                        32{" "}
-                        <span className="text-xs font-normal text-muted-foreground">
-                          people
+                      <div>
+                        <h2 className="text-sm font-bold leading-none">
+                          {featuredVenue.name}
+                        </h2>
+                        <span className="text-[11px] text-muted-foreground">
+                          {featuredVenue.city} • Live Telemetry
                         </span>
-                      </p>
+                      </div>
                     </div>
-
-                    <div className="rounded-lg bg-muted/60 p-2.5">
-                      <span className="text-[10px] font-semibold text-muted-foreground flex items-center gap-1">
-                        <Clock className="size-3" /> Est. Total Wait
-                      </span>
-                      <p className="text-xl font-medium mt-0.5 text-amber-600 dark:text-amber-400">
-                        47{" "}
-                        <span className="text-xs font-normal text-muted-foreground">
-                          min
-                        </span>
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col gap-1.5 rounded-lg border border-border/80 p-2.5 text-xs">
-                    <div className="flex items-center justify-between pb-1.5 border-b border-border/40">
-                      <span className="font-medium text-foreground">
-                        Registration Desk
-                      </span>
-                      <span className="text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1">
-                        <span className="size-1.5 rounded-full bg-emerald-500" />
-                        Open (8 min)
-                      </span>
-                    </div>
-
-                    <div className="flex items-center justify-between py-1 border-b border-border/40">
-                      <span className="font-medium text-foreground">
-                        Doctor Consultation
-                      </span>
-                      <span className="text-amber-600 dark:text-amber-400 font-semibold flex items-center gap-1">
-                        <AlertTriangle className="size-3" />
-                        Running 18 min late
-                      </span>
-                    </div>
-
-                    <div className="flex items-center justify-between pt-1">
-                      <span className="font-medium text-foreground">
-                        Pathology / Blood Test
-                      </span>
-                      <span className="text-muted-foreground font-semibold">
-                        ~12 min wait
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="rounded-lg bg-primary/10 border border-primary/20 p-2.5 text-xs flex items-center justify-between">
-                    <div>
-                      <span className="font-semibold text-foreground">
-                        AI Visit Prediction
-                      </span>
-                      <p className="text-[11px] text-muted-foreground">
-                        Need all done in 90 min? Expected: 58 min
-                      </p>
-                    </div>
-                    <Badge
-                      variant="secondary"
-                      className="font-bold text-[10px]"
-                    >
-                      Risk: Medium
+                    <Badge variant="outline" className="gap-1 text-[11px]">
+                      <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      Live Feed
                     </Badge>
                   </div>
 
-                  <Link href="/venue/metro-health-clinic" className="w-full">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="w-full text-xs"
+                  <CardContent className="p-4 flex flex-col gap-3">
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="rounded-lg bg-muted/60 p-2.5">
+                        <span className="text-[10px] font-semibold text-muted-foreground flex items-center gap-1">
+                          <Users className="size-3" /> Waiting Now
+                        </span>
+                        <p className="text-xl font-medium mt-0.5">
+                          {featuredVenue.totalWaitingCount}{" "}
+                          <span className="text-xs font-normal text-muted-foreground">
+                            people
+                          </span>
+                        </p>
+                      </div>
+
+                      <div className="rounded-lg bg-muted/60 p-2.5">
+                        <span className="text-[10px] font-semibold text-muted-foreground flex items-center gap-1">
+                          <Clock className="size-3" /> Est. Total Wait
+                        </span>
+                        <p className="text-xl font-medium mt-0.5 text-primary">
+                          {featuredVenue.averageWaitMinutes}{" "}
+                          <span className="text-xs font-normal text-muted-foreground">
+                            min
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+
+                    {featuredVenue.servicePoints &&
+                      featuredVenue.servicePoints.length > 0 && (
+                        <div className="flex flex-col gap-1.5 rounded-lg border border-border/80 p-2.5 text-xs">
+                          {featuredVenue.servicePoints.slice(0, 3).map((sp) => (
+                            <div
+                              key={sp.id || sp._id || sp.name}
+                              className="flex items-center justify-between py-1 border-b border-border/40 last:border-0"
+                            >
+                              <span className="font-medium text-foreground">
+                                {sp.name}
+                              </span>
+                              <span className="text-muted-foreground font-semibold flex items-center gap-1">
+                                {sp.estimatedWaitMinutes} min
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                    <Link
+                      href={`/venue/${featuredVenue.slug}`}
+                      className="w-full"
                     >
-                      View Full Clinic Dashboard
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full text-xs"
+                      >
+                        View Live Facility Dashboard
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
+              ) : (
+                <Card className="border-border/80 shadow-lg bg-card/95 backdrop-blur-xs">
+                  <div className="p-4 border-b border-border/80 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="flex size-7 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                        <Radio className="size-4 animate-pulse" />
+                      </span>
+                      <div>
+                        <h2 className="text-sm font-bold leading-none">
+                          Live Queue Radar
+                        </h2>
+                        <span className="text-[11px] text-muted-foreground">
+                          Direct Facility Monitoring
+                        </span>
+                      </div>
+                    </div>
+                    <Badge variant="outline" className="text-[10px]">
+                      Operational
+                    </Badge>
+                  </div>
+
+                  <CardContent className="p-5 flex flex-col gap-4 text-center">
+                    <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mx-auto">
+                      <Building2 className="size-6" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold">
+                        Facility Telemetry Station
+                      </h3>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Register your clinic, office, or branch to broadcast
+                        wait times directly to citizens.
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col gap-2 pt-2">
+                      <Link href="/dashboard" className="w-full">
+                        <Button size="sm" className="w-full text-xs">
+                          Register Facility
+                        </Button>
+                      </Link>
+                      <Link href="/explore" className="w-full">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="w-full text-xs"
+                        >
+                          Explore Live Radar
+                        </Button>
+                      </Link>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
             </motion.div>
           </div>
         </div>

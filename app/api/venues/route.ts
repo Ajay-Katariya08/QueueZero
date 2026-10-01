@@ -3,7 +3,7 @@ import { auth } from "@clerk/nextjs/server";
 import { connectMongo } from "@/lib/mongodb";
 import { Venue } from "@/models/venue";
 import { ServicePoint } from "@/models/service-point";
-import { ensureSeededVenues, getFallbackVenues } from "@/lib/seed-venues";
+import { cleanupDummyVenues, DUMMY_SLUGS } from "@/lib/seed-venues";
 
 const GST_REGEX = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
 
@@ -21,9 +21,11 @@ export async function GET(request: Request) {
 
   try {
     await connectMongo();
-    await ensureSeededVenues();
+    await cleanupDummyVenues();
 
-    const filter: Record<string, unknown> = {};
+    const filter: Record<string, unknown> = {
+      slug: { $nin: DUMMY_SLUGS },
+    };
 
     if (ownerId) {
       filter.ownerId = ownerId;
@@ -46,41 +48,31 @@ export async function GET(request: Request) {
       .sort({ createdAt: -1 })
       .lean();
 
-    if (venues && (venues.length > 0 || ownerId)) {
-      const sanitized = JSON.parse(
-        JSON.stringify(
-          venues.map((v: any) => ({
-            ...v,
-            id: String(v._id),
-            servicePoints: Array.isArray(v.servicePoints)
-              ? v.servicePoints.filter(Boolean).map((sp: any) => ({
-                  ...sp,
-                  id: String(sp._id || sp.id),
-                }))
-              : [],
-          }))
-        )
-      );
-      return NextResponse.json({
-        success: true,
-        data: sanitized,
-        source: "database",
-      });
-    }
-  } catch {}
+    const sanitized = JSON.parse(
+      JSON.stringify(
+        venues.map((v: any) => ({
+          ...v,
+          id: String(v._id),
+          servicePoints: Array.isArray(v.servicePoints)
+            ? v.servicePoints.filter(Boolean).map((sp: any) => ({
+                ...sp,
+                id: String(sp._id || sp.id),
+              }))
+            : [],
+        }))
+      )
+    );
 
-  try {
-    const fallback = getFallbackVenues(category, query);
     return NextResponse.json({
       success: true,
-      data: fallback,
-      source: "fallback",
+      data: sanitized,
+      source: "database",
     });
   } catch {
     return NextResponse.json({
       success: true,
       data: [],
-      source: "fallback",
+      source: "database",
     });
   }
 }
@@ -99,6 +91,7 @@ export async function POST(request: Request) {
       counters,
       latitude,
       longitude,
+      ownerId: bodyOwnerId,
     } = body;
 
     if (!name || !category || !address || !city) {
@@ -117,6 +110,8 @@ export async function POST(request: Request) {
     }
 
     await connectMongo();
+
+    const effectiveOwnerId = userId || bodyOwnerId || undefined;
 
     const baseSlug = name
       .toLowerCase()
@@ -145,7 +140,7 @@ export async function POST(request: Request) {
       phone: businessPhone,
       businessPhone,
       gstNumber: normalizedGst || undefined,
-      ownerId: userId || undefined,
+      ownerId: effectiveOwnerId,
       isVerified: Boolean(normalizedGst),
       isPublished: true,
       totalWaitingCount: 0,

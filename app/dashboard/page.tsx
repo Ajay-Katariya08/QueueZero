@@ -89,20 +89,26 @@ export default function BusinessDashboard() {
         if (res.ok) {
           const json = await res.json();
           const rawVenues: VenueItem[] = json.data || [];
-          const venues: VenueItem[] = rawVenues.map((v) => ({
-            ...v,
-            id: v._id || v.id,
-            servicePoints: (v.servicePoints || []).map((sp, i) => ({
-              ...sp,
-              id: String(sp._id || sp.id || `sp-${i}`),
-              _id: String(sp._id || sp.id || `sp-${i}`),
-            })),
-          }));
+          const venues: VenueItem[] = rawVenues
+            .filter((v) => v.ownerId === user.id)
+            .map((v) => ({
+              ...v,
+              id: v._id || v.id,
+              servicePoints: (v.servicePoints || []).map((sp, i) => ({
+                ...sp,
+                id: String(sp._id || sp.id || `sp-${i}`),
+                _id: String(sp._id || sp.id || `sp-${i}`),
+              })),
+            }));
           setUserVenues(venues);
           if (venues.length > 0) {
             setSelectedSlug(venues[0].slug);
             setServicePoints(venues[0].servicePoints || []);
             setAlertText(venues[0].statusText || "");
+          } else {
+            setSelectedSlug("");
+            setServicePoints([]);
+            setAlertText("");
           }
         }
       } catch {
@@ -269,6 +275,7 @@ export default function BusinessDashboard() {
           gstNumber: gstClean,
           businessPhone: registerForm.businessPhone,
           counters: countersArray,
+          ownerId: user?.id,
         }),
       });
 

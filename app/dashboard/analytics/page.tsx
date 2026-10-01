@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
 import { type VenueItem, type HourlyStatItem } from "@/lib/venue-types";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,6 +21,7 @@ import {
 } from "lucide-react";
 
 export default function AnalyticsDashboardPage() {
+  const { user, isLoaded, isSignedIn } = useUser();
   const [venues, setVenues] = useState<VenueItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedSlug, setSelectedSlug] = useState("");
@@ -27,12 +29,19 @@ export default function AnalyticsDashboardPage() {
 
   useEffect(() => {
     async function loadVenues() {
+      if (!isSignedIn || !user) {
+        setLoading(false);
+        return;
+      }
+
       try {
         setLoading(true);
-        const res = await fetch("/api/venues");
+        const res = await fetch(`/api/venues?ownerId=${user.id}`);
         if (res.ok) {
           const json = await res.json();
-          const items: VenueItem[] = json.data || [];
+          const items: VenueItem[] = (json.data || []).filter(
+            (v: VenueItem) => v.ownerId === user.id
+          );
           setVenues(items);
           if (items.length > 0) {
             setSelectedSlug(items[0].slug);
@@ -43,8 +52,11 @@ export default function AnalyticsDashboardPage() {
         setLoading(false);
       }
     }
-    loadVenues();
-  }, []);
+
+    if (isLoaded) {
+      loadVenues();
+    }
+  }, [user, isLoaded, isSignedIn]);
 
   useEffect(() => {
     async function loadStats() {
